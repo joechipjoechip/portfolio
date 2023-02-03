@@ -4,19 +4,21 @@ export const useUserStore = defineStore('storedUser',
 	{
 
 		state: () => ({
-			name: "Paul"
+			name: "Paul",
+			currentStep: "bio"
 		}),
 
 		actions: {
-			changeName( newName ){
+			setName( newName ){
 				this.name = newName
+			},
+
+			setCurrentStep( newStep ){
+				this.currentStep = newStep
 			}
 		},
 
-		// persist: true
-		persist: {
-			storage: persistedState.localStorage,
-		},
+		persist: true
 
 	}
 
