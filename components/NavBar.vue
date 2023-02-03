@@ -20,7 +20,6 @@ function handleButtonClick( destination ){
 		ici la navbar
 		<button 
 			@click="handleButtonClick('bio')"
-			v-motion-pop-bottom
 		>
 			go to bio
 		</button>

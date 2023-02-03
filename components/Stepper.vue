@@ -18,9 +18,7 @@ const store = useUserStore()
 		<!-- </Transition> -->
 
 		<!-- <Transition name="animation-step"> -->
-			<div 
-				v-if="store.currentStep === 'experience'"
-			>
+			<div v-if="store.currentStep === 'experience'">
 
 				<StepExperience />
 

@@ -18,7 +18,8 @@ export const useUserStore = defineStore('storedUser',
 			}
 		},
 
-		persist: true
+		// @TODO : restablish at true later
+		persist: false
 
 	}
 
