@@ -1,12 +1,10 @@
 <template>
 	<div class="layout-default-wrapper">
 
-		<NavBar />
-
-		<!-- <AppHeader /> -->
-
-		<slot />
 		
+		<!-- <AppHeader /> -->
+		
+		<slot />
 		<!-- <AppFooter /> -->
 
 		<!-- et globalement, tout ce qui va venir se supersposer à l'ensemble -->
@@ -23,6 +21,8 @@
 	position: relative;
 	overflow-x: hidden;
 }
+
+
 
 
 

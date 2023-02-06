@@ -1,5 +1,4 @@
 <script setup>
-
 </script>
 
 <template>
@@ -9,10 +8,12 @@
 </template>
 
 <style lang="scss" scoped>
+
 .bio {
     &-wrapper {
         border: solid 5px rebeccapurple;
         height: 70vh;
     }
 }
+
 </style>

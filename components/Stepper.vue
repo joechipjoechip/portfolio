@@ -1,35 +1,39 @@
 <script setup>
 
+
 import { useUserStore } from "@/stores/user"
 const store = useUserStore()
 
 const goodSteps = [
-    {
-        name: "Bio",
+	{
+		name: "Bio",
         component: resolveComponent('Bio')
     },
     {
-        name: "Experience",
+		name: "Experience",
         component: resolveComponent('Experience')
     },
     {
-        name: "Formation",
+		name: "Formation",
         component: resolveComponent('Formation')
     }
 ]
-
 store.setStepsCount(goodSteps.length)
+
+
+
 
 
 </script>
 
 <template>
-	<div class="stepper-wrapper">
+	<div class="stepper-wrapper" ref="stepperWrapper">
 
 		<component 
 			v-for="(step, index) in goodSteps" :key="index"
+			ref="stepTab"
 			:is="step.component"
-			class="component"
+			class="step-component"
 			:class="{
 				isActive: index === store.currentStepIndex,
 				isPrevious: index === store.currentStepIndex - 1,
@@ -53,7 +57,7 @@ store.setStepsCount(goodSteps.length)
 	}
 }
 
-.component {
+.step-component {
 	width: 100%;
 	position: absolute;
 	top: 0;
