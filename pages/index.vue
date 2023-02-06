@@ -1,13 +1,16 @@
 
 <script setup>
 
+import { useUserStore } from "@/stores/user"
+
 import { useUserInteractions } from "@/composables/userInteractions"
 import { useGetEventPosition } from "@/composables/getEventPosition"
 
+const store = useUserStore()
 useUserInteractions()
 
-// logic : detect mouse and pointer actions
-const { $on } = useNuxtApp()
+// logic : detect mouse/pointer swipe actions
+const { $on, $emit } = useNuxtApp()
 
 $on("main-touch-start", onStart)
 $on("main-touch-move", onMove)
@@ -18,7 +21,7 @@ const isDown = ref(false)
 const positionOrigin = reactive({ x: 0, y: 0 })
 const positionMoving = reactive({ x: 0, y: 0 })
 const direction = ref(null)
-const threshold = 150
+const threshold = 400
 
 function onStart( event ){
 
@@ -53,6 +56,8 @@ function onEnd( event ){
 	positionOrigin.y = 0
 
 	direction.value = null
+	
+	$emit("update-step-positions-end")
 
 }
 
@@ -61,15 +66,24 @@ function computePositionDiff(){
 
 	if( diff === 0 ){ return }
 
-	if( diff > 0 ){
-		direction.value = "left"
+	direction.value = diff < 0 ? "left" : "right"
+	
+	if( Math.abs(diff) > threshold ){
+
+		if( direction.value === "left" ){
+			store.setCurrentStepIndexDecrement()
+		} else {
+			store.setCurrentStepIndexIncrement()
+		}
+
+		onEnd()
+
 	} else {
-		direction.value = "right"
+
+		$emit("update-step-positions", diff)
+
 	}
 
-	if( Math.abs(diff) > threshold ){
-		console.log("direction.value : ", direction.value);
-	}
 }
 
 

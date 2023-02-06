@@ -11,8 +11,7 @@
 
 .bio {
     &-wrapper {
-        border: solid 5px rebeccapurple;
-        height: 70vh;
+        
     }
 }
 

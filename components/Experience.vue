@@ -11,8 +11,7 @@
 <style lang="scss" scoped>
 .experience {
     &-wrapper {
-        border: solid 5px limegreen;
-        height: 70vh;
+        // height: 70vh;
         
     }
 }
