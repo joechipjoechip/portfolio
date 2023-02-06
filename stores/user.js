@@ -5,7 +5,8 @@ export const useUserStore = defineStore('storedUser',
 
 		state: () => ({
 			name: "Paul",
-			currentStep: "bio"
+			currentStepIndex: 1,
+			stepsCount: 0
 		}),
 
 		actions: {
@@ -13,8 +14,20 @@ export const useUserStore = defineStore('storedUser',
 				this.name = newName
 			},
 
-			setCurrentStep( newStep ){
-				this.currentStep = newStep
+			setCurrentStepIndexIncrement(){
+				if( this.currentStepIndex < this.stepsCount - 1 ){
+					this.currentStepIndex++
+				}
+			},
+
+			setCurrentStepIndexDecrement(){
+				if( this.currentStepIndex > 0 ){
+					this.currentStepIndex--
+				}
+			},
+
+			setStepsCount( size ){
+				this.stepsCount = size
 			}
 		},
 

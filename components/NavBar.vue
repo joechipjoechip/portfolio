@@ -18,12 +18,15 @@ function handleButtonClick( destination ){
 <template>
 	<div>
 		ici la navbar
-		<button 
-			@click="handleButtonClick('bio')"
-		>
-			go to bio
+		<button @click="store.setCurrentStepIndexDecrement()">
+			go -
 		</button>
-		<button @click="handleButtonClick('experience')">go to experience</button>
+		
+		<button @click="store.setCurrentStepIndexIncrement()">
+			go +
+		</button>
+
+
 	</div>
 </template>
 
