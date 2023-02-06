@@ -18,9 +18,7 @@ import { useMotion } from '@vueuse/motion'
 			xperience
 		</p> -->
 
-		<p v-motion
-			
-		>
+		<p class="title" v-motion v-motion-pop-bottom>
 			step experience
 		</p>
 
@@ -34,6 +32,9 @@ import { useMotion } from '@vueuse/motion'
 </template>
 
 <style lang="scss" scoped>
+.title {
+	display: inline-block;
+}
 .wsh {
 	display: inline-block;
 	// border: solid 5px red;

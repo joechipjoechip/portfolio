@@ -29,18 +29,22 @@ export default defineNuxtConfig(
 			}
 		},		
 		
-		motions: {
+		motion: {
 			directives: {
-			'pop-bottom': {
+				'pop-bottom': {
 					initial: {
-						scale: 0,
+						scale: 1,
 						opacity: 0,
-						y: 100
+						y: 20
 					},
-					visible: {
+					enter: {
 						scale: 1,
 						opacity: 1,
-						y: 0
+						y: 0,
+
+						transition: {
+							duration: 1000
+						}
 					},
 				}
 			}
