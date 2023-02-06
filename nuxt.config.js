@@ -3,12 +3,7 @@ export default defineNuxtConfig(
 	{
 		ssr: false,
 
-		// buildModules: [
-		// 	'nuxt-use-motion'
-		// ],
-
 		modules: [
-			// '@vueuse/nuxt',
 			'@vueuse/motion/nuxt',
 			'@pinia/nuxt',
 			'@pinia-plugin-persistedstate/nuxt'
