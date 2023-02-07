@@ -12,18 +12,18 @@ useUserInteractions()
 // logic : detect mouse/pointer swipe actions
 const { $on, $emit } = useNuxtApp()
 
-$on("main-touch-start", onStart)
-$on("main-touch-move", onMove)
-$on("main-touch-end", onEnd)
+$on("main-touch-start", onMainTouchStart)
+$on("main-touch-move", onMainTouchMove)
+$on("main-touch-end", onMainTouchEnd)
 
 
 const isDown = ref(false)
 const positionOrigin = reactive({ x: 0, y: 0 })
 const positionMoving = reactive({ x: 0, y: 0 })
 const direction = ref(null)
-const threshold = 400
+const threshold = 0.45
 
-function onStart( event ){
+function onMainTouchStart( event ){
 
 	const { x, y } = useGetEventPosition(event)
 
@@ -32,9 +32,24 @@ function onStart( event ){
 
 	isDown.value = true
 
+	$emit("update-step-positions-start", event)
+
 }
 
-function onMove( event ){
+function onMainTouchEnd( event ){
+
+	isDown.value = false
+
+	positionOrigin.x = 0
+	positionOrigin.y = 0
+
+	direction.value = null
+
+	$emit("update-step-positions-end")
+
+}
+
+function onMainTouchMove( event ){
 
 	if( isDown.value ){
 
@@ -48,40 +63,30 @@ function onMove( event ){
 	}
 }
 
-function onEnd( event ){
 
-	isDown.value = false
-
-	positionOrigin.x = 0
-	positionOrigin.y = 0
-
-	direction.value = null
-	
-	$emit("update-step-positions-end")
-
-}
 
 function computePositionDiff(){
-	const diff = positionOrigin.x - positionMoving.x
+	const diffX = positionOrigin.x - positionMoving.x
+	const diffY = positionOrigin.y - positionMoving.y
 
-	if( diff === 0 ){ return }
+	if( diffX === 0 ){ return }
 
-	direction.value = diff < 0 ? "left" : "right"
+	direction.value = diffX < 0 ? "left" : "right"
 	
-	if( Math.abs(diff) > threshold ){
+	if( Math.abs(diffX / window.innerWidth) < threshold ){
 
+		$emit("update-step-positions", { diffX, diffY })
+
+	} else {
+		
 		if( direction.value === "left" ){
 			store.setCurrentStepIndexDecrement()
 		} else {
 			store.setCurrentStepIndexIncrement()
 		}
 
-		onEnd()
-
-	} else {
-
-		$emit("update-step-positions", diff)
-
+		onMainTouchEnd()
+		
 	}
 
 }

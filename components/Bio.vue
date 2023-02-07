@@ -2,9 +2,14 @@
 </script>
 
 <template>
-    <div class="bio-wrapper">
-        hey ici le component bio
-    </div>
+    <NuxtLayout name="step-layout">
+
+        <div class="bio-wrapper">
+            hey ici le component bio
+            <slot />
+        </div>
+
+    </NuxtLayout>
 </template>
 
 <style lang="scss" scoped>

@@ -3,9 +3,14 @@
 </script>
 
 <template>
-    <div class="formation-wrapper">
-        hey ici le component formation
-    </div>
+    <NuxtLayout name="step-layout">
+
+        <div class="formation-wrapper">
+            hey ici le component formation
+            <slot />
+        </div>
+        
+    </NuxtLayout>
 </template>
 
 <style lang="scss" scoped>

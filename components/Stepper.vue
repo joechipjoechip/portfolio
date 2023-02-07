@@ -1,10 +1,12 @@
 <script setup>
 
-
 import { useUserStore } from "@/stores/user"
+
 const store = useUserStore()
 
-const { $on } = useNuxtApp()
+
+
+const stepperWrapper = ref(null)
 
 const goodSteps = [
 	{
@@ -20,8 +22,63 @@ const goodSteps = [
         component: resolveComponent('Formation')
     }
 ]
+
 store.setStepsCount(goodSteps.length)
 
+
+
+// - - - - TOUCH LOGIC - - - -
+const isCurrentlyManipulatedIndex = ref(0)
+const dynamicLeft = ref("0px")
+
+const { $on } = useNuxtApp()
+
+$on("update-step-positions", onTouchMove)
+$on("update-step-positions-start", onTouchStart)
+$on("update-step-positions-end", onTouchEnd)
+
+function onTouchStart( event ){
+
+	decayX.value *= 0.9
+
+	decayY.value = -5
+
+	isCurrentlyManipulatedIndex.value = parseInt(event.target.dataset.index)
+
+	// @TODO : mainntenant que j'ai cet index : 
+	// allons y pour des sweet anims discrêtes pour améliorer le look&feel
+	// selon quel élément est attrapé (isNext isPrevious tac tac)
+	
+}
+
+function onTouchEnd(){
+	
+	isCurrentlyManipulatedIndex.value = false
+
+	decayX.value = 110
+
+	decayY.value = 0
+	
+	dynamicLeft.value = "0px"
+
+}
+
+function onTouchMove( diffsObj ){
+
+	dynamicLeft.value = `${diffsObj.diffX * -1}px`
+
+	decayY.value = diffsObj.diffY / -10
+
+}
+
+// - - - - - - - - - - - - -
+
+
+
+
+
+
+// - - - CLASS LOGIC - - - -
 let componentState = reactive({
 	isActive: false,
 	isPrevious: false,
@@ -30,28 +87,8 @@ let componentState = reactive({
 	isOutNext: false,
 })
 
-
-const dynamicLeft = ref("0px")
-$on("update-step-positions", onPositionUpdateRequest)
-$on("update-step-positions-end", onPositionUpdateRequestEnd)
-
-const stepTab = ref([])
-
-function onPositionUpdateRequest( diff ){
-
-	// console.log("dans stepper : diff : ", diff
-
-	dynamicLeft.value = `${diff * -1}px`
-
-}
-
-function onPositionUpdateRequestEnd(){
-
-	dynamicLeft.value = "0px"
-
-}
-
 function defineDynamicClasses(index){
+
 	componentState = reactive({
 		isActive: index === store.currentStepIndex,
 		isPrevious: index === store.currentStepIndex - 1,
@@ -62,6 +99,19 @@ function defineDynamicClasses(index){
 
 	return componentState
 }
+// - - - - - - - - - - - -
+
+
+// - - - - DYNAMIC STYLE LOGIC - - - -
+const decayX = ref(110)
+const decayXPositiveString = computed(() => `${decayX.value}%`)
+const decayXNegativeString = computed(() => `${-decayX.value}%`)
+
+const decayY = ref(0)
+const decayYStringPrimary = computed(() => `${decayY.value / 3}%`)
+const decayYStringSecondary = computed(() => `${decayY.value}%`)
+
+const scaleRatio = ref(0.95)
 
 
 
@@ -74,7 +124,6 @@ function defineDynamicClasses(index){
 
 		<component 
 			v-for="(step, index) in goodSteps" :key="index"
-			ref="stepTab"
 			:is="step.component"
 			class="step-component"
 			:data-index="index"
@@ -85,7 +134,9 @@ function defineDynamicClasses(index){
 			:style="{ 
 				left: dynamicLeft
 			}"
-		/>
+		>
+			<p>{{ isCurrentlyManipulatedIndex }}</p>
+		</component>
 
 	</div>
 </template>
@@ -94,7 +145,7 @@ function defineDynamicClasses(index){
 .stepper {
 	&-wrapper {
 		position: relative;
-		border: solid 2px red;
+		// border: solid 2px red;
 		width: 80%;
 		max-width: 800px;
 		margin: 0 auto;
@@ -107,31 +158,32 @@ function defineDynamicClasses(index){
 		width: 100%;
 		position: absolute;
 		top: 0;
-		transform: translateX(0) scale(1);
+		transform: translateX(0) translateY(0) scale(1);
 		height: 170vh;
 
 		transition: 
-			opacity 0.8s,
-			transform 1s,
-			left 0.3s;
+			opacity 0.9s,
+			transform 1.2s,
+			left 0.2s;
 	
 		&.isActive {
 			z-index: 100;
 			position: relative;
+			transform: translateX(0) translateY(v-bind(decayYStringPrimary)) scale(1);
 		}
 	
 		&.isPrevious,
 		&.isNext {
-			opacity: 0.45;
+			opacity: 0.4;
 			z-index: 50;
 		}
 	
 		&.isPrevious {
-			transform: translateX(-110%) scale(0.9);
+			transform: translateX(v-bind(decayXNegativeString)) translateY(v-bind(decayYStringSecondary)) scale(v-bind(scaleRatio));
 		}
 	
 		&.isNext {
-			transform: translateX(110%) scale(0.9);
+			transform: translateX(v-bind(decayXPositiveString)) translateY(v-bind(decayYStringSecondary)) scale(v-bind(scaleRatio));
 		}
 	
 		&.isOutPrevious,

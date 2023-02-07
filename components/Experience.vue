@@ -3,9 +3,14 @@
 </script>
 
 <template>
-    <div class="experience-wrapper">
-        hey ici le component experience
-    </div>
+    <NuxtLayout name="step-layout">
+
+        <div class="experience-wrapper">
+            hey ici le component experience
+            <slot />
+        </div>
+        
+    </NuxtLayout>
 </template>
 
 <style lang="scss" scoped>
