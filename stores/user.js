@@ -14,6 +14,12 @@ export const useUserStore = defineStore('storedUser',
 				this.name = newName
 			},
 
+			setCurrentStepIndex(newIndex){
+				if( newIndex <= this.stepsCount - 1 ){
+					this.currentStepIndex = newIndex
+				}
+			},
+
 			setCurrentStepIndexIncrement(){
 				if( this.currentStepIndex < this.stepsCount - 1 ){
 					this.currentStepIndex++

@@ -108,8 +108,9 @@ const decayXPositiveString = computed(() => `${decayX.value}%`)
 const decayXNegativeString = computed(() => `${-decayX.value}%`)
 
 const decayY = ref(0)
-const decayYStringPrimary = computed(() => `${decayY.value / 3}%`)
-const decayYStringSecondary = computed(() => `${decayY.value}%`)
+const decayYMax = 10
+const decayYStringPrimary = computed(() => `${Math.min(decayY.value, decayYMax) / 3}%`)
+const decayYStringSecondary = computed(() => `${Math.min(decayY.value, decayYMax)}%`)
 
 const scaleRatio = ref(0.95)
 
@@ -136,6 +137,7 @@ const scaleRatio = ref(0.95)
 			}"
 		>
 			<p>{{ isCurrentlyManipulatedIndex }}</p>
+			
 		</component>
 
 	</div>
@@ -165,7 +167,7 @@ const scaleRatio = ref(0.95)
 
 		transition: 
 			opacity 1.2s,
-			transform 0.8s,
+			transform 0.9s,
 			left 0.6s;
 	
 		&.isActive {
@@ -195,11 +197,11 @@ const scaleRatio = ref(0.95)
 		}
 	
 		&.isOutPrevious {
-			transform: translateX(-120%) scale(0.7);
+			transform: translateX(-70%) scale(0.75);
 		}
 	
 		&.isOutNext {
-			transform: translateX(120%) scale(0.7);
+			transform: translateX(70%) scale(0.75);
 		}
 
 	}
