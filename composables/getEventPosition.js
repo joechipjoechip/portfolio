@@ -6,8 +6,8 @@ export function useGetEventPosition( event ){
         x = event.touches[0].clientX
         y = event.touches[0].clientY
     } else {
-        x = event.offsetX
-        y = event.offsetY
+        x = event.x
+        y = event.y
     }
 
     return { x, y }
