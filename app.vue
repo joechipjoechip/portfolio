@@ -10,6 +10,11 @@
 
 <style lang="scss">
 
+body {
+	margin: 0;
+	padding: 0;
+}
+
 .page-enter-active,
 .page-leave-active {
 	transition: all 1s;

@@ -4,15 +4,21 @@
 
 <template>
     <div class="step-layout">
-        <slot />
+        <div class="step-layout-inner">
+            <slot />
+        </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .step-layout {
-    border: dashed 35px red;
 
     border-radius: 60px;
-    padding: 2rem;
+    height: 170vh;
+    // padding-top: 4rem;
+
+    &-inner {
+        padding: 2rem;
+    }
 }
 </style>

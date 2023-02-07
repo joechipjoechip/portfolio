@@ -100,8 +100,6 @@ function computePositionDiff(){
 <template>
 	<div class="index-wrapper" ref="indexWrapper">
 
-		<p>index</p>
-
 		<Stepper />
 
 		<NavBar/>
@@ -113,7 +111,6 @@ function computePositionDiff(){
 .index {
 	&-wrapper {
 		position: relative;
-		border: solid 5px orange;
 	}
 }
 

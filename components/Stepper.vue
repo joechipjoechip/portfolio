@@ -145,10 +145,11 @@ const scaleRatio = ref(0.95)
 .stepper {
 	&-wrapper {
 		position: relative;
-		// border: solid 2px red;
-		width: 80%;
+		width: 70%;
 		max-width: 800px;
 		margin: 0 auto;
+		border-radius: 60px;
+		// border: solid 2px red;
 	}
 }
 
@@ -156,15 +157,16 @@ const scaleRatio = ref(0.95)
 
 	&-component {
 		width: 100%;
+		overflow: hidden;
 		position: absolute;
 		top: 0;
 		transform: translateX(0) translateY(0) scale(1);
-		height: 170vh;
+		
 
 		transition: 
-			opacity 0.9s,
-			transform 1.2s,
-			left 0.2s;
+			opacity 1.2s,
+			transform 0.8s,
+			left 0.6s;
 	
 		&.isActive {
 			z-index: 100;
