@@ -3,15 +3,15 @@
 </script>
 
 <template>
-    <div class="step-layout">
-        <div class="step-layout-inner">
+    <div class="layout-step">
+        <div class="layout-step-inner">
             <slot />
         </div>
     </div>
 </template>
 
 <style lang="scss">
-.step-layout {
+.layout-step {
 
     border-radius: 30px;
     height: 170vh;

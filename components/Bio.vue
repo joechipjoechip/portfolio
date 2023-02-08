@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <NuxtLayout name="step-layout">
+    <NuxtLayout name="layout-step">
 
         <div class="bio-wrapper">
             hey ici le component bio

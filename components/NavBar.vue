@@ -12,7 +12,7 @@ const store = useUserStore()
 	<div class="navbar-wrapper">
 
 		<IconsUiChevronLeft 
-			color="#000000" 
+			color="#00FF00" 
 			@click="store.setCurrentStepIndexDecrement()"
 		/>
 
@@ -32,48 +32,38 @@ const store = useUserStore()
 
 <style lang="scss" scoped>
 
-$navbarWidth: 250px;
-$navbarHeight: 80px;
+	$navbarWidth: 550px;
 
-$iconWidth: 40px;
+	$iconWidth: 40px;
 
-.navbar {
-	&-wrapper {
-		z-index: 250;
-		position: fixed;
-		bottom: 45px;
-		width: $navbarWidth;
-		height: $navbarHeight;
-		padding: 15px;
-		
-		border-radius: 10px;
-		backdrop-filter: blur(5px);
-		box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
-		transform: translateX(calc(50vw - ($navbarWidth / 2)));
-
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
-		svg {
-			height: $iconWidth;
-			width: $iconWidth;
-
-			background-color: rgba(255,255,255,0.15);
+	.navbar {
+		&-wrapper {
+			z-index: 250;
+			position: fixed;
+			bottom: 45px;
+			width: $navbarWidth;
+			padding: 15px;
+			
+			border-radius: 10px;
+			backdrop-filter: blur(5px);
 			box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
-			border-radius: 5px;
-			margin: 0 5px;
-			padding: 10px;
+			transform: translateX(calc(50vw - ($navbarWidth / 2)));
 
-			&:first-of-type {
-				margin-left: 0;
+			background-color: rgba(255,255,255,0.1);
+
+			display: flex;
+			justify-content: space-between;
+
+			.layout-svg-navbar {
+
+				::v-deep svg {
+					width: $iconWidth;
+					height: $iconWidth;
+				}
 			}
 
-			&:last-of-type {
-				margin-right: 0;
-			}
 		}
+
 	}
-}
 
 </style>

@@ -211,7 +211,7 @@ const scaleRatio = ref(0.95)
 	}
 
 	&-experience {
-		background-color: rebeccapurple;
+		background-color: rgb(33, 5, 62);
 	}
 
 	&-formation {

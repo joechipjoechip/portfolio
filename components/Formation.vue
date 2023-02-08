@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <NuxtLayout name="step-layout">
+    <NuxtLayout name="layout-step">
 
         <div class="formation-wrapper">
             hey ici le component formation
