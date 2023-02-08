@@ -61,31 +61,31 @@ function onMainTouchMove( event ){
 	>
 
 		<IconsUiChevronLeft 
-			color="#00FF00"
+			color="darkTurquoise"
 			title="previous"
 			@click="store.setCurrentStepIndexDecrement()"
 		/>
 
-		<IconsGameIconsCrackedDisc 
-			color="yellow"
+		<IconsGameIconsDividedSquare
+			color="orange"
 			title="bio"
 			@click="store.setCurrentStepIndex(2)"
 		/>
 
 		<IconsGameIconsStripedSun
-			color="orange"
+			color="darkTurquoise"
 			title="formation"
 			@click="store.setCurrentStepIndex(2)"
 		/>
 
 		<IconsGameIconsMoebiusTrefoil
-			color="pink"
+			color="limegreen"
 			title="experience"
 			@click="store.setCurrentStepIndex(2)"
 		/>
 
 		<IconsUiChevronRight 
-			color="rebeccapurple"
+			color="mediumVioletRed"
 			title="next"
 			@click="store.setCurrentStepIndexIncrement()"
 		/>
@@ -112,7 +112,7 @@ function onMainTouchMove( event ){
 			justify-content: space-between;
 			
 			padding: 1rem;
-			letter-spacing: 2px;
+			// letter-spacing: 2px;
 			
 			border-radius: $iconBorderRadius;
 			backdrop-filter: blur(5px);

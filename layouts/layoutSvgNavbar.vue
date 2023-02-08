@@ -80,7 +80,7 @@ function onMouseLeave(){
                         transform: translateY(-10px) scale(1.1);
                         box-shadow: inset -2px 2px 1px rgba(255,255,255,0.1),
                                     inset 0 0 14px rgba(0,0,0,0.6),
-                                    0 10px 140px v-bind(color);
+                                    0 -20px 130px v-bind(color);
                     }
 
                     &-inner {
@@ -96,7 +96,7 @@ function onMouseLeave(){
                     &-title {
                         opacity: 1;
                         filter: blur(0);
-                        transform: translateX(-50%) translateY(-240%);
+                        transform: translateX(-50%) translateY(5.2rem);
                     }
                 }
 
@@ -157,16 +157,20 @@ function onMouseLeave(){
             display: block;
             position: absolute;
             left: 50%;
-            transform: translateX(-50%) translateY(-400%);
+            transform: translateX(-50%) translateY(1400%);
 
             text-transform: capitalize;
-            font-size: 1.4rem;
+            font-size: 1.1rem;
+            // font-style: italic;
+            font-weight: light;
             // text-shadow: 0 -8px 40px v-bind(color);
 
             filter: blur(20px);
             opacity: 0;
 
-            transition: all $transitionDurationLong cubic-bezier(0,.93,.38,.98);
+            transition: opacity $transitionDurationLong,
+                        transform $transitionDuration cubic-bezier(0,.93,.38,.98),
+                        filter $transitionDurationLong cubic-bezier(0,.93,.38,.98);
         }
         
     }

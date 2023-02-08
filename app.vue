@@ -10,13 +10,15 @@
 
 <style lang="scss">
 
-@import "@/assets/fonts/playfair/fontfaces.css";
+@import "@/assets/fonts/playfair/stylesheet.css";
+@import "@/assets/fonts/pt/stylesheet.css";
 
 body {
 	margin: 0;
 	padding: 0;
 
-	font-family: "Playfair Display";
+	// font-family: "Playfair Display";
+	font-family: "PT Sans";
 }
 
 .page-enter-active,
