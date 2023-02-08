@@ -17,12 +17,12 @@ const store = useUserStore()
 		/>
 
 		<IconsBodyBalance 
-			color="#FF0000" 
+			color="yellow" 
 			@click="store.setCurrentStepIndex(2)"
 		/>
 
 		<IconsUiChevronRight 
-			color="#000000" 
+			color="rebeccapurple" 
 			@click="store.setCurrentStepIndexIncrement()"
 		/>
 
@@ -32,9 +32,10 @@ const store = useUserStore()
 
 <style lang="scss" scoped>
 
-	$navbarWidth: 550px;
+	$navbarWidth: 350px;
 
 	$iconWidth: 40px;
+	$iconBorderRadius: 18px;
 
 	.navbar {
 		&-wrapper {
@@ -44,19 +45,21 @@ const store = useUserStore()
 			width: $navbarWidth;
 			padding: 15px;
 			
-			border-radius: 10px;
+			border-radius: $iconBorderRadius;
 			backdrop-filter: blur(5px);
 			box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
 			transform: translateX(calc(50vw - ($navbarWidth / 2)));
 
-			background-color: rgba(255,255,255,0.1);
+			background-color: rgba(0,0,0,0.4);
 
 			display: flex;
 			justify-content: space-between;
 
 			.layout-svg-navbar {
 
-				::v-deep svg {
+				border-radius: $iconBorderRadius;
+
+				:deep(svg) {
 					width: $iconWidth;
 					height: $iconWidth;
 				}
