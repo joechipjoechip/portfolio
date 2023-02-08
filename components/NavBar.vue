@@ -6,8 +6,9 @@ import { useGetEventPosition } from "@/composables/getEventPosition";
 
 const store = useUserStore()
 
-const { $on } = useNuxtApp()
 
+// - - - Navbar follow cursor when it's near - - - 
+const { $on } = useNuxtApp()
 $on("main-touch-move", onMainTouchMove)
 
 const decayX = ref(0)
@@ -18,7 +19,7 @@ function onMainTouchMove( event ){
 
 	const { x, y } = useGetEventPosition(event)
 
-	const cursorIsBottom = (y / window.innerHeight) > 0.8
+	const cursorIsBottom = (y / window.innerHeight) > 0.75
 	const cursorIsCenter = (x / window.innerWidth) > 0.1 && (x / window.innerWidth) < 0.9
 	const cursorIsNearNavbar = cursorIsBottom && cursorIsCenter
 
@@ -26,7 +27,7 @@ function onMainTouchMove( event ){
 
 		decayX.value = ((x / window.innerWidth) - 0.5 )* 200
 
-		decayY.value = (y / window.innerHeight - 0.8) * -200
+		decayY.value = (y / window.innerHeight - 0.75) * -200
 
 	} else {
 
@@ -36,9 +37,8 @@ function onMainTouchMove( event ){
 
 	}
 
-	console.log("decayY", decayY.value)
-
 }
+// - - - - - - - - - - - - - - - - - - -
 
 
 </script>

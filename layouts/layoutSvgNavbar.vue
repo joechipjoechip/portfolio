@@ -34,6 +34,7 @@ defineProps({
 
     $transitionDuration: 0.3s;
     $transitionDurationShort: 0.18s;
+    $transitionDurationLong: 0.7s;
 
     .layout-svg-navbar {
 
@@ -47,7 +48,7 @@ defineProps({
                     &-container {
                         transform: translateY(-10px) scale(1.1);
                         box-shadow: inset -2px 2px 1px rgba(255,255,255,0.1),
-                                    inset 1px -1px 1px v-bind(color),
+                                    inset 0 0 38px v-bind(color),
                                     0 10px 100px v-bind(color);
                     }
 
@@ -65,7 +66,6 @@ defineProps({
                         opacity: 1;
                         filter: blur(0);
                         transform: translateX(-50%) translateY(-180%);
-                        text-shadow: 0 -4px 50px v-bind(color);
                     }
                 }
 
@@ -80,11 +80,11 @@ defineProps({
             border-radius: 15px;
             background-color: rgba(255,255,255,0.09);
             box-shadow: inset 0 2px 1px rgba(255,255,255,0.1),
-                        inset 0 -2px 1px rgba(0,0,0,0.2),
+                        inset -1px 1px 18px rgba(0,0,0,0.4),
                         1px -1px 1px transparent;
     
             transform: translateY(0) scale(1);
-            transition: box-shadow $transitionDurationShort, 
+            transition: box-shadow $transitionDurationLong, 
                         transform $transitionDurationShort cubic-bezier(0,1.61,1,1.67);
 
         }
@@ -129,11 +129,12 @@ defineProps({
 
             text-transform: capitalize;
             font-size: 1.4rem;
+            text-shadow: 0 -4px 50px v-bind(color);
 
             filter: blur(20px);
             opacity: 0;
 
-            transition: all $transitionDuration;
+            transition: all $transitionDurationLong cubic-bezier(0,.93,.38,.98);
         }
         
     }
