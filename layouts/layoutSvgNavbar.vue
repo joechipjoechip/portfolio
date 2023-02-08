@@ -1,4 +1,5 @@
 <script setup>
+
 defineProps({
     color: {
         type: String,
@@ -10,10 +11,31 @@ defineProps({
     }
 })
 
+
+// - - - HOVER LOGIC - - 
+
+const isHovered = ref(false)
+
+function onMouseEnter(){
+    isHovered.value = true
+}
+
+function onMouseLeave(){
+    isHovered.value = false
+}
+// - - - - - - - - - - - -
+
 </script>
 
 <template>
-    <div class="layout-svg-navbar-wrapper">
+    <div 
+        class="layout-svg-navbar-wrapper"
+        @mouseenter="onMouseEnter"
+        @mouseleave="onMouseLeave"
+        :class="{
+            'isGreyed': !isHovered
+        }"
+    >
 
         <div class="layout-svg-navbar-title">{{ title }}</div>
 
@@ -41,6 +63,15 @@ defineProps({
         &-wrapper {
             position: relative;
 
+            filter: grayscale(0);
+
+            transition: filter $transitionDurationLong;
+            
+            &.isGreyed {
+                
+                filter: grayscale(100);
+            }
+
             &:hover {
 
                 .layout-svg-navbar {
@@ -49,7 +80,7 @@ defineProps({
                         transform: translateY(-10px) scale(1.1);
                         box-shadow: inset -2px 2px 1px rgba(255,255,255,0.1),
                                     inset 0 0 14px rgba(0,0,0,0.6),
-                                    0 10px 100px v-bind(color);
+                                    0 10px 140px v-bind(color);
                     }
 
                     &-inner {
@@ -130,7 +161,7 @@ defineProps({
 
             text-transform: capitalize;
             font-size: 1.4rem;
-            text-shadow: 0 -8px 40px v-bind(color);
+            // text-shadow: 0 -8px 40px v-bind(color);
 
             filter: blur(20px);
             opacity: 0;

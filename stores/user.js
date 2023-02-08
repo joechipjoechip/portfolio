@@ -6,7 +6,10 @@ export const useUserStore = defineStore('storedUser',
 		state: () => ({
 			name: "Paul",
 			currentStepIndex: 1,
-			stepsCount: 0
+			stepsCount: 0,
+			navigation: {
+				navbarPosition: { x:0, y:0 }
+			}
 		}),
 
 		actions: {
@@ -34,6 +37,12 @@ export const useUserStore = defineStore('storedUser',
 
 			setStepsCount( size ){
 				this.stepsCount = size
+			},
+
+
+			// NAVIGATION
+			setNavigationNavbarPosition( obj ){
+				this.navigation.navbarPosition = obj
 			}
 		},
 

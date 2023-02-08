@@ -25,15 +25,23 @@ function onMainTouchMove( event ){
 
 	if( cursorIsNearNavbar ){
 
-		decayX.value = ((x / window.innerWidth) - 0.5 )* 200
+		const computedX = ((x / window.innerWidth) - 0.5 )* 250
 
-		decayY.value = (y / window.innerHeight - 0.75) * -200
+		const computedY = (y / window.innerHeight - 0.75) * -250
+
+		decayX.value = computedX
+
+		decayY.value = computedY
+
+		store.setNavigationNavbarPosition({ x: computedX, y: computedY })
 
 	} else {
 
 		decayX.value = 0
 
 		decayY.value = 0
+
+		store.setNavigationNavbarPosition({x: 0,y: 0})
 
 	}
 
@@ -95,7 +103,7 @@ function onMainTouchMove( event ){
 		&-wrapper {
 			z-index: 250;
 			position: fixed;
-			
+
 			bottom: 25px;
 			left: 50%;
 			transform: translateX(-50%);
