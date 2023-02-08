@@ -103,6 +103,7 @@ function onMainTouchMove( event ){
 			justify-content: space-between;
 			
 			padding: 1rem;
+			letter-spacing: 2px;
 			
 			border-radius: $iconBorderRadius;
 			backdrop-filter: blur(5px);
@@ -112,13 +113,13 @@ function onMainTouchMove( event ){
 			background-color: rgba(0,0,0,0.4);
 
 			transition: padding .3s,
-						transform .1s;
+						transform .3s;
 
 			&:hover {
 				padding: 2rem;
 
 				:deep(.layout-svg-navbar-wrapper){
-					margin: 0 1.5rem;
+					margin: 0 1rem;
 				}
 
 				:deep(.layout-svg-navbar-container) {
@@ -133,7 +134,7 @@ function onMainTouchMove( event ){
 
 			:deep(.layout-svg-navbar-wrapper) {
 
-				margin: 0 0.75rem;
+				margin: 0 0.25rem;
 
 				transition: margin .3s;
 

@@ -10,9 +10,13 @@
 
 <style lang="scss">
 
+@import "@/assets/fonts/playfair/fontfaces.css";
+
 body {
 	margin: 0;
 	padding: 0;
+
+	font-family: "Playfair Display";
 }
 
 .page-enter-active,

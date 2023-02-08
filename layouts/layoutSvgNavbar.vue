@@ -65,7 +65,7 @@ defineProps({
                     &-title {
                         opacity: 1;
                         filter: blur(0);
-                        transform: translateX(-50%) translateY(-180%);
+                        transform: translateX(-50%) translateY(-240%);
                     }
                 }
 
@@ -121,15 +121,16 @@ defineProps({
         }
 
         &-title {
+            pointer-events: none;
             color:v-bind(color);
             display: block;
             position: absolute;
             left: 50%;
-            transform: translateX(-50%) translateY(0);
+            transform: translateX(-50%) translateY(-400%);
 
             text-transform: capitalize;
             font-size: 1.4rem;
-            text-shadow: 0 -4px 50px v-bind(color);
+            text-shadow: 0 -8px 40px v-bind(color);
 
             filter: blur(20px);
             opacity: 0;
