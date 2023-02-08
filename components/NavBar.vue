@@ -69,6 +69,7 @@ function onMainTouchMove( event ){
 		<IconsGameIconsDividedSquare
 			color="orange"
 			title="bio"
+			:isCircular="true"
 			@click="store.setCurrentStepIndex(2)"
 		/>
 
@@ -81,6 +82,7 @@ function onMainTouchMove( event ){
 		<IconsGameIconsMoebiusTrefoil
 			color="limegreen"
 			title="experience"
+			:isCircular="true"
 			@click="store.setCurrentStepIndex(2)"
 		/>
 

@@ -8,20 +8,45 @@ defineProps({
     title: {
         type: String,
         required: true
+    },
+    isCircular: {
+        type: Boolean,
+        default: false
     }
 })
 
 
 // - - - HOVER LOGIC - - 
-
 const isHovered = ref(false)
+const randomDeg = ref("0deg")
+const multiples = [90,180,270,360,450,1440]
 
 function onMouseEnter(){
     isHovered.value = true
+
+    handleCircular()
 }
 
 function onMouseLeave(){
     isHovered.value = false
+    
+    handleCircular()
+}
+
+function handleCircular(){
+
+    if( isHovered.value ){
+
+        randomDeg.value = `${
+            multiples[ Math.floor(Math.random() * (multiples.length - 1)) ]
+        }deg`
+
+    } else {
+
+        randomDeg.value = "0deg"
+
+    }
+
 }
 // - - - - - - - - - - - -
 
@@ -41,7 +66,10 @@ function onMouseLeave(){
 
         <div class="layout-svg-navbar-container">
 
-            <div class="layout-svg-navbar-inner">
+            <div 
+                class="layout-svg-navbar-inner"
+                :class="{ 'isCircular': isCircular }"
+            >
 
                 <slot />
 
@@ -84,6 +112,15 @@ function onMouseLeave(){
                     }
 
                     &-inner {
+
+                        &.isCircular {
+
+                            svg {
+                                transform: rotate(v-bind(randomDeg));
+                            }
+
+                        }
+
 
                         &::after {
                             width: 100%;
@@ -131,9 +168,11 @@ function onMouseLeave(){
             margin: 0;
 
             svg {
+                transform: rotate(0deg);
                 filter: drop-shadow(0 0 6px v-bind(color));
 
-                transition: width $transitionDuration;
+                transition: width $transitionDuration,
+                            transform $transitionDuration;
             }
 
             &::after {
