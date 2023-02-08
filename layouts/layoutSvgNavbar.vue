@@ -48,7 +48,7 @@ defineProps({
                     &-container {
                         transform: translateY(-10px) scale(1.1);
                         box-shadow: inset -2px 2px 1px rgba(255,255,255,0.1),
-                                    inset 0 0 38px v-bind(color),
+                                    inset 0 0 14px rgba(0,0,0,0.6),
                                     0 10px 100px v-bind(color);
                     }
 

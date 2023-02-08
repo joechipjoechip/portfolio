@@ -64,7 +64,7 @@ function onMainTouchMove( event ){
 			@click="store.setCurrentStepIndex(2)"
 		/>
 
-		<IconsGameIconsDoubleDiaphragm 
+		<IconsGameIconsStripedSun
 			color="orange"
 			title="formation"
 			@click="store.setCurrentStepIndex(2)"
@@ -95,6 +95,7 @@ function onMainTouchMove( event ){
 		&-wrapper {
 			z-index: 250;
 			position: fixed;
+			
 			bottom: 25px;
 			left: 50%;
 			transform: translateX(-50%);
@@ -125,8 +126,8 @@ function onMainTouchMove( event ){
 				:deep(.layout-svg-navbar-container) {
 
 					svg {
-						width: 40px;
-						height: 40px;
+						width: 50px;
+						height: 50px;
 					}
 
 				}
