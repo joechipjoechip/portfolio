@@ -93,6 +93,7 @@ let componentStatus = reactive({
 function defineDynamicStatus(index){
 
 	componentStatus = reactive({
+		name: goodSteps[index].name,
 		isActive: index === store.currentStepIndex,
 		isPrevious: index === store.currentStepIndex - 1,
 		isNext: index === store.currentStepIndex + 1,
@@ -130,14 +131,19 @@ const scaleRatio = ref(0.95)
 		<component 
 			v-for="(step, index) in goodSteps" :key="index"
 			:is="step.component"
-			class="step-component"
-			@click="onStepClick(index)"
-			:data-index="index"
-			:status="defineDynamicStatus(index)"
+			
+			class="step-item"
 			:class="[
 				`step-${step.name.toLowerCase()}`,
 				defineDynamicStatus(index)
 			]"
+
+			@click="onStepClick(index)"
+			@mouseup.prevent
+
+			:data-index="index"
+			:status="defineDynamicStatus(index)"
+
 			:style="{ 
 				left: dynamicLeft
 			}"
@@ -165,7 +171,7 @@ const scaleRatio = ref(0.95)
 
 .step {
 
-	&-component {
+	&-item {
 		width: 100%;
 		overflow: hidden;
 		position: absolute;

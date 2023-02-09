@@ -11,14 +11,24 @@ const props = defineProps({
 
 <template>
     <div class="layout-step">
-        <div class="layout-step-inner">
+        <div 
+            class="layout-step-inner"
+            :class="{
+                'isActive': props.status.isActive,
+                'isPrevious': props.status.isPrevious,
+                'isNext': props.status.isNext,
+                'isOutPrevious': props.status.isOutPrevious,
+                'isOutNext': props.status.isOutNext,
+                'isCurrentlyManipulated': props.status.isCurrentlyManipulated
+            }"
+        >
             <pre>{{ props.status }}</pre>
             <slot />
         </div>
     </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .layout-step {
 
     border-radius: 30px;

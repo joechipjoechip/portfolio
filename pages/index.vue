@@ -21,7 +21,7 @@ const isDown = ref(false)
 const positionOrigin = reactive({ x: 0, y: 0 })
 const positionMoving = reactive({ x: 0, y: 0 })
 const direction = ref(null)
-const threshold = 0.45
+const threshold = 0.35
 
 function onMainTouchStart( event ){
 
