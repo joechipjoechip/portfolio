@@ -26,11 +26,22 @@ const goodSteps = [
 store.setStepsCount(goodSteps.length)
 
 
-function onStepClick( index ){
+// - - BASIC CLICK LOGIC - - -
+function onMouseDown( index ){
+
 	if( store.currentStepIndex !== index ){
 		store.setCurrentStepIndex(index)
 	}
 }
+
+function onMouseUp( event, index ){
+
+	if( store.currentStepIndex !== index ){
+		event.preventDefault()
+	}
+
+}
+// - - - - - - - - - - - 
 
 
 
@@ -138,8 +149,8 @@ const scaleRatio = ref(0.95)
 				defineDynamicStatus(index)
 			]"
 
-			@click="onStepClick(index)"
-			@mouseup.prevent
+			@mousedown="onMouseDown(index)"
+			@mouseup="onMouseUp($event, index)"
 
 			:data-index="index"
 			:status="defineDynamicStatus(index)"
@@ -148,7 +159,7 @@ const scaleRatio = ref(0.95)
 				left: dynamicLeft
 			}"
 		>
-			<p>{{ isCurrentlyManipulatedIndex }}</p>
+			<p>{{ store.currentStepIndex }}</p>
 			
 		</component>
 
