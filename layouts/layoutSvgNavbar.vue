@@ -19,7 +19,7 @@ defineProps({
 // - - - HOVER LOGIC - - 
 const isHovered = ref(false)
 const randomDeg = ref("0deg")
-const multiples = [90,180,270,360,450,1440]
+const multiples = [-270, -90, 90, 270, 450]
 
 function onMouseEnter(){
     isHovered.value = true
