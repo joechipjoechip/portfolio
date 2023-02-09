@@ -128,7 +128,7 @@ const decayYMax = 10
 const decayYStringPrimary = computed(() => `${Math.min(decayY.value, decayYMax) / 3}%`)
 const decayYStringSecondary = computed(() => `${Math.min(decayY.value, decayYMax)}%`)
 
-const scaleRatio = ref(0.95)
+const scaleRatio = ref(0.9)
 
 
 
@@ -192,7 +192,7 @@ const scaleRatio = ref(0.95)
 
 		transition: 
 			opacity 1.2s,
-			transform 0.9s,
+			transform 0.6s,
 			left 0.6s;
 	
 		&.isActive {
@@ -205,14 +205,26 @@ const scaleRatio = ref(0.95)
 		&.isNext {
 			opacity: 0.4;
 			z-index: 50;
+
+			&:hover {
+				opacity: 0.9;
+			}
 		}
 	
 		&.isPrevious {
 			transform: translateX(v-bind(decayXNegativeString)) translateY(v-bind(decayYStringSecondary)) scale(v-bind(scaleRatio));
+			
+			&:hover {
+				transform: translateX(v-bind(decayXNegativeString)) translateY(v-bind(decayYStringSecondary)) scale(0.97);
+			}
 		}
 	
 		&.isNext {
 			transform: translateX(v-bind(decayXPositiveString)) translateY(v-bind(decayYStringSecondary)) scale(v-bind(scaleRatio));
+			
+			&:hover {
+				transform: translateX(v-bind(decayXPositiveString)) translateY(v-bind(decayYStringSecondary)) scale(0.97);
+			}
 		}
 	
 		&.isOutPrevious,
