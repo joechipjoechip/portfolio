@@ -19,7 +19,7 @@
 	margin: 0 auto;
 	padding-top: 80px;
 	position: relative;
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 * {
