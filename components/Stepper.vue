@@ -51,10 +51,6 @@ function onTouchStart( event ){
 	decayY.value = -5
 
 	isCurrentlyManipulatedIndex.value = parseInt(event.target.dataset.index)
-
-	// @TODO : mainntenant que j'ai cet index : 
-	// allons y pour des sweet anims discrêtes pour améliorer le look&feel
-	// selon quel élément est attrapé (isNext isPrevious tac tac)
 	
 }
 
@@ -135,6 +131,8 @@ const scaleRatio = ref(0.95)
 			class="step-component"
 			@click="onStepClick(index)"
 			:data-index="index"
+			:step-index="index"
+			:is-manipulated="isCurrentlyManipulatedIndex === index"
 			:class="[
 				`step-${step.name.toLowerCase()}`,
 				defineDynamicClasses(index)

@@ -1,4 +1,22 @@
 <script setup>
+const props = defineProps({
+    isManipulated: {
+        type: Boolean,
+        default: false
+    },
+    stepIndex: {
+        type: Number,
+        required: true
+    }
+})
+
+
+watch(()=> props.isManipulated, newVal => {
+    console.log("manip : ", props.stepIndex, newVal)
+
+    // @TODO : c'est bon, la props isManipulated<Boolean> est ready
+    // pour faire des trucs funs avec
+})
 
 </script>
 
