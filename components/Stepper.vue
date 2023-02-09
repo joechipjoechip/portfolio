@@ -80,26 +80,28 @@ function onTouchMove( diffsObj ){
 
 
 
-// - - - CLASS LOGIC - - - -
-let componentState = reactive({
+// - - - COMPONENT STATUS / CLASS LOGIC - - - -
+let componentStatus = reactive({
 	isActive: false,
 	isPrevious: false,
 	isNext: false,
 	isOutPrevious: false,
 	isOutNext: false,
+	isCurrentlyManipulated: false
 })
 
-function defineDynamicClasses(index){
+function defineDynamicStatus(index){
 
-	componentState = reactive({
+	componentStatus = reactive({
 		isActive: index === store.currentStepIndex,
 		isPrevious: index === store.currentStepIndex - 1,
 		isNext: index === store.currentStepIndex + 1,
 		isOutPrevious: store.currentStepIndex - index > 1,
-		isOutNext: index - store.currentStepIndex > 1
+		isOutNext: index - store.currentStepIndex > 1,
+		isCurrentlyManipulated: isCurrentlyManipulatedIndex.value === index
 	})
 
-	return componentState
+	return componentStatus
 }
 // - - - - - - - - - - - -
 
@@ -131,11 +133,10 @@ const scaleRatio = ref(0.95)
 			class="step-component"
 			@click="onStepClick(index)"
 			:data-index="index"
-			:step-index="index"
-			:is-manipulated="isCurrentlyManipulatedIndex === index"
+			:status="defineDynamicStatus(index)"
 			:class="[
 				`step-${step.name.toLowerCase()}`,
-				defineDynamicClasses(index)
+				defineDynamicStatus(index)
 			]"
 			:style="{ 
 				left: dynamicLeft
@@ -157,6 +158,8 @@ const scaleRatio = ref(0.95)
 		margin: 0 auto;
 		border-radius: 60px;
 		// border: solid 2px red;
+
+		color: white;
 	}
 }
 
