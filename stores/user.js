@@ -8,6 +8,7 @@ export const useUserStore = defineStore('storedUser',
 			currentStepIndex: 1,
 			stepsCount: 0,
 			navigation: {
+				stepGrabbed: false,
 				navbar: {
 					isMoving: false,
 					position: { x:0, y:0 }
@@ -44,6 +45,10 @@ export const useUserStore = defineStore('storedUser',
 
 
 			// NAVIGATION
+			setStepGrabbed( bool ){
+				this.navigation.stepGrabbed = bool
+			},
+
 			setNavigationNavbarPosition( obj ){
 				this.navigation.navbar.position = obj
 			},

@@ -63,6 +63,10 @@ function onMainTouchMove( event ){
 	}
 }
 
+watch(isDown, newVal => {
+	store.navigation.setStepGrabbed = newVal
+})
+
 
 
 function computePositionDiff(){
