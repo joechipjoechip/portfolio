@@ -63,7 +63,7 @@ function onMainTouchMove( event ){
 	>
 
 		<IconsUiChevronLeft 
-			color="darkTurquoise"
+			color="mediumVioletRed"
 			title="previous"
 			@click="store.setCurrentStepIndexDecrement()"
 		/>
@@ -72,13 +72,13 @@ function onMainTouchMove( event ){
 			color="orange"
 			title="bio"
 			:isCircular="true"
-			@click="store.setCurrentStepIndex(2)"
+			@click="store.setCurrentStepIndex(0)"
 		/>
 
 		<IconsGameIconsStripedSun
 			color="darkTurquoise"
 			title="formation"
-			@click="store.setCurrentStepIndex(2)"
+			@click="store.setCurrentStepIndex(1)"
 		/>
 
 		<IconsGameIconsMoebiusTrefoil
