@@ -26,6 +26,13 @@ const goodSteps = [
 store.setStepsCount(goodSteps.length)
 
 
+function onStepClick( index ){
+	if( store.currentStepIndex !== index ){
+		store.setCurrentStepIndex(index)
+	}
+}
+
+
 
 // - - - - TOUCH LOGIC - - - -
 const isCurrentlyManipulatedIndex = ref(0)
@@ -70,7 +77,6 @@ function onTouchMove( diffsObj ){
 	decayY.value = diffsObj.diffY / -10
 
 }
-
 // - - - - - - - - - - - - -
 
 
@@ -127,6 +133,7 @@ const scaleRatio = ref(0.95)
 			v-for="(step, index) in goodSteps" :key="index"
 			:is="step.component"
 			class="step-component"
+			@click="onStepClick(index)"
 			:data-index="index"
 			:class="[
 				`step-${step.name.toLowerCase()}`,
