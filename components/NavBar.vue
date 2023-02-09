@@ -33,14 +33,16 @@ function onMainTouchMove( event ){
 
 		decayY.value = computedY
 
+		store.setNavigationNavbarIsMoving(true)
 		store.setNavigationNavbarPosition({ x: computedX, y: computedY })
-
+		
 	} else {
-
+		
 		decayX.value = 0
-
+		
 		decayY.value = 0
-
+		
+		store.setNavigationNavbarIsMoving(false)
 		store.setNavigationNavbarPosition({x: 0,y: 0})
 
 	}
