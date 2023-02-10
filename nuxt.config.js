@@ -3,6 +3,18 @@ export default defineNuxtConfig(
 	{
 		ssr: false,
 
+		css: ['@/assets/styles/main.scss'],
+
+		vite: {
+			css: {
+				preprocessorOptions: {
+					scss: {
+						additionalData: '@import "@/assets/styles/_mixins.scss";'
+					}
+				}
+			}
+		},
+
 		modules: [
 			'@vueuse/motion/nuxt',
 			'@pinia/nuxt',

@@ -13,6 +13,13 @@
 @import "@/assets/fonts/playfair/stylesheet.css";
 @import "@/assets/fonts/pt/stylesheet.css";
 
+
+
+:root {
+	--borderRadius: 30px;
+}
+
+
 body {
 	margin: 0;
 	padding: 0;

@@ -6,7 +6,7 @@ export const stepsWording = {
 		slots: [
 			{
 				title: "3W Academy",
-				subTitle: "full-stack developer",
+				subtitle: "full-stack developer",
 				location: "Marseille",
 				date: {
 					year: 2015,
@@ -21,25 +21,10 @@ export const stepsWording = {
 			},
 			{
 				title: "FreeCodeCamp",
-				subTitle: "full-stack developer",
+				subtitle: "full-stack developer",
 				location: "Online",
 				date: {
 					year: 2017,
-					from: "",
-					to: ""
-				},
-				description: [
-					"jhjhjhsss",
-					"oioioioioirrr",
-					"utututututeeee"
-				]
-			},
-			{
-				title: "Beaux-Arts",
-				subTitle: "full-stack developer",
-				location: "Aix-en-Provence",
-				date: {
-					year: 2013,
 					from: "",
 					to: ""
 				},

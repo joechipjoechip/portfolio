@@ -11,7 +11,7 @@ const props = defineProps({
 
 <template>
     <div class="layout-step">
-        <div 
+        <section 
             class="layout-step-inner"
             :class="[
                 props.status.name,
@@ -28,14 +28,14 @@ const props = defineProps({
         
             <Step :stepInfos="props.status" />
 
-        </div>
+        </section>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .layout-step {
 
-    border-radius: 30px;
+    border-radius: var(--borderRadius);
     // padding-top: 4rem;
 
     &-inner {

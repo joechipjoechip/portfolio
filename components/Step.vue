@@ -35,6 +35,7 @@ const wording = stepsWording[props.stepInfos.name]
 			<SlotItem 
 				v-for="(dataItem, index) in wording.slots" :key="index"
 				:data="dataItem"
+				:stepInfos="stepInfos"
 			/>
 
 		</div>
@@ -51,10 +52,12 @@ const wording = stepsWording[props.stepInfos.name]
 .step {
 
 	&-head {
-		border: solid 1px white;
-		padding-bottom: 40px;
+		// border: solid 1px white;
+		padding: 40px 0;
+		margin-bottom: 20px;
+		background-color: rgba(0,0,0,0.4);
 
-		* {
+		& > * {
 			margin: 0;
 		}
 
@@ -62,6 +65,8 @@ const wording = stepsWording[props.stepInfos.name]
 			text-align: center;
 			text-transform: capitalize;
 			letter-spacing: 2px;
+			font-weight: 100;
+			font-size: 2rem;
 		}
 
 		&-catcher {
@@ -73,7 +78,7 @@ const wording = stepsWording[props.stepInfos.name]
 	}
 
 	&-body {
-		border: solid 1px lime;
+		// border: solid 1px lime;
 		//
 	}
 
