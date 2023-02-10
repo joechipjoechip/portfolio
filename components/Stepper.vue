@@ -13,13 +13,13 @@ const goodSteps = [
 		name: "Bio",
         component: resolveComponent('Bio')
     },
+	{
+		name: "Formation",
+        component: resolveComponent('Formation')
+    },
     {
 		name: "Experience",
         component: resolveComponent('Experience')
-    },
-    {
-		name: "Formation",
-        component: resolveComponent('Formation')
     }
 ]
 
@@ -104,7 +104,7 @@ let componentStatus = reactive({
 function defineDynamicStatus(index){
 
 	componentStatus = reactive({
-		name: goodSteps[index].name,
+		name: goodSteps[index].name?.toLowerCase(),
 		isActive: index === store.currentStepIndex,
 		isPrevious: index === store.currentStepIndex - 1,
 		isNext: index === store.currentStepIndex + 1,
@@ -158,10 +158,7 @@ const scaleRatio = ref(0.9)
 			:style="{ 
 				left: dynamicLeft
 			}"
-		>
-			<p>{{ store.currentStepIndex }}</p>
-			
-		</component>
+		/>
 
 	</div>
 </template>

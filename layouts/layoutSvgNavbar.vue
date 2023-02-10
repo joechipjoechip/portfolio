@@ -122,11 +122,12 @@ function handleCircular(){
                         }
 
 
-                        &::after {
-                            width: 100%;
-                            filter: blur(25px);
-                            bottom: -10px;
-                        }
+                        // NOPE because cause flickering on chrome mac
+                        // &::after {
+                        //     width: 100%;
+                        //     filter: blur(25px);
+                        //     bottom: -10px;
+                        // }
 
                     }
 

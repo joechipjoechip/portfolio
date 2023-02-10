@@ -14,7 +14,7 @@ const props = defineProps({
         <div 
             class="layout-step-inner"
             :class="[
-                props.status.name.toLowerCase(),
+                props.status.name,
                 {
                     'isActive': props.status.isActive,
                     'isPrevious': props.status.isPrevious,
@@ -25,8 +25,9 @@ const props = defineProps({
                 }
             ]"
         >
-            <pre>{{ props.status }}</pre>
-            <slot />
+        
+            <Step :stepInfos="props.status" />
+
         </div>
     </div>
 </template>
@@ -46,11 +47,11 @@ const props = defineProps({
         }
 
         &.experience {
-            background-color: rgb(33, 5, 62);
+            background-color: lime;
         }
 
         &.formation {
-            background-color: lime;
+            background-color: rgb(33, 5, 62);
         }
     }
 }
