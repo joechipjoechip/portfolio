@@ -37,7 +37,8 @@ defineProps({
 
 		&-wrapper {
 
-			border: solid 1px red;
+			@include glassMorph;
+
 			padding: 20px;
 			margin: 2rem 0;
 

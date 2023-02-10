@@ -101,7 +101,9 @@ function handleCircular(){
                 .layout-svg-navbar {
 
                     &-container {
-                        @include neumorphHover(v-bind(color))
+                        @include glassMorphHover(v-bind(color));
+
+                        transform: translateY(-10px) scale(1.1);
                     }
 
                     &-inner {
@@ -136,7 +138,8 @@ function handleCircular(){
         }
 
         &-container {
-            @include neumorph;
+            @include glassMorph;
+            background-color: rgba(255,255,255,0.09);
 
             cursor: pointer;
             overflow: hidden;
