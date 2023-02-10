@@ -5,8 +5,8 @@ defineProps({
 		type: Object,
 		required: true
 	},
-	stepInfos: {
-		type: Object,
+	stepIsActive: {
+		type: Boolean,
 		required: true
 	}
 })
@@ -15,7 +15,7 @@ defineProps({
 
 <template>
 	<article 
-		v-if="stepInfos.isActive"
+		v-if="stepIsActive"
 		class="step-slot-wrapper"
 	>
 		<div class="step-slot-inner">

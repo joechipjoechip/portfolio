@@ -1,5 +1,7 @@
 <script setup>
 
+import { stepsWording } from "@/assets/wording/steps"
+
 import { useUserStore } from "@/stores/user"
 
 const store = useUserStore()
@@ -130,10 +132,6 @@ const decayYStringSecondary = computed(() => `${Math.min(decayY.value, decayYMax
 
 const scaleRatio = ref(0.9)
 
-
-
-
-
 </script>
 
 <template>
@@ -154,6 +152,7 @@ const scaleRatio = ref(0.9)
 
 			:data-index="index"
 			:status="defineDynamicStatus(index)"
+			:wording="stepsWording[defineDynamicStatus(index).name]"
 
 			:style="{ 
 				left: dynamicLeft
@@ -181,7 +180,7 @@ const scaleRatio = ref(0.9)
 
 	&-item {
 		width: 100%;
-		overflow: hidden;
+		// overflow: hidden;
 		position: absolute;
 		top: 0;
 		transform: translateX(0) translateY(0) scale(1);

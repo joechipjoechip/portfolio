@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <NuxtLayout name="layout-step">
+    <NuxtLayout name="layout-step" :status="status">
 
         <div class="experience-wrapper">
             hey ici le component experience

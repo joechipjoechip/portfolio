@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <NuxtLayout name="layout-step">
+    <NuxtLayout name="layout-step" :status="status">
 
         <div class="bio-wrapper">
             hey ici le component bio

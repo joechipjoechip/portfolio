@@ -1,11 +1,11 @@
 <script setup>
-const props = defineProps({
-    status: {
-        type: Object,
-        required: true
-    }
-})
 
+const props = defineProps({
+	status: {
+		type: Object,
+		required: true
+	}
+})
 
 </script>
 
@@ -26,7 +26,8 @@ const props = defineProps({
             ]"
         >
         
-            <Step :stepInfos="props.status" />
+            <!-- here comes Formation.vue / Bio.vue / Experience.vue > -->
+            <slot :status="status"/>
 
         </section>
     </div>
@@ -35,10 +36,13 @@ const props = defineProps({
 <style lang="scss" scoped>
 .layout-step {
 
-    border-radius: var(--borderRadiusMedium);
+    
     // padding-top: 4rem;
 
     &-inner {
+        @include glassMorph;
+        border-radius: var(--borderRadiusMedium);
+        
         height: 170vh;
         padding: 2rem;
 
@@ -51,7 +55,7 @@ const props = defineProps({
         }
 
         &.formation {
-            background-color: rgb(33, 5, 62);
+            background-color: rgb(43, 43, 43);
         }
     }
 }

@@ -1,12 +1,12 @@
 export const stepsWording = {
-
+	
 	"formation": {
 		catcher: "hey, ici cest la formation",
-		slotType: "slotFormation",
+		stepStyle: "squared",
 		slots: [
 			{
 				title: "3W Academy",
-				subtitle: "full-stack developer",
+				subtitle: "back-end developer",
 				location: "Marseille",
 				date: {
 					year: 2015,
@@ -14,9 +14,8 @@ export const stepsWording = {
 					to: ""
 				},
 				description: [
-					"jhjhjh",
-					"oioioioioi",
-					"ututututut"
+					"POO / MVC",
+					"PHP5, mySQL"
 				]
 			},
 			{
@@ -38,10 +37,44 @@ export const stepsWording = {
 	},
 
 	"bio": {
-		catcher: "hey, ici cest la bio"
+		catcher: "hey, ici cest la bio",
+		stepStyle: "line",
 	},
 
 	"experience": {
-		catcher: "hey, ici cest la experience"
-	},
-}
+		catcher: "hey, ici cest la experience",
+		stepStyle: "line",
+		slots: [
+			{
+				title: "mazarine",
+				subtitle: "front-end creative developer",
+				location: "Paris",
+				date: {
+					year: 2017,
+					from: 2017,
+					to: 2021
+				},
+				description: [
+					"POO / MVC",
+					"PHP5, mySQL"
+				]
+			},
+			{
+				title: "applyface",
+				subtitle: "chef de projet / dev front-end / graphiste",
+				location: "paris",
+				date: {
+					year: 2017,
+					from: 2016,
+					to: 2017
+				},
+				description: [
+					"jhjhjhsss",
+					"oioioioioirrr",
+					"utututututeeee"
+				]
+			}
+		]
+	}
+
+} 

@@ -16,6 +16,8 @@ body {
 
 	// font-family: "Playfair Display";
 	font-family: "PT Sans";
+
+	background-color: rgb(18, 18, 18);
 }
 
 .page-enter-active,
