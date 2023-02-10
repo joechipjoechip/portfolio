@@ -243,18 +243,6 @@ const scaleRatio = ref(0.9)
 
 	}
 
-	&-bio {
-		background-color: orange;
-	}
-
-	&-experience {
-		background-color: rgb(33, 5, 62);
-	}
-
-	&-formation {
-		background-color: lime;
-	}
-
 }
 
 </style>

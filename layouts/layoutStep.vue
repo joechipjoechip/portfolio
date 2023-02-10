@@ -13,14 +13,17 @@ const props = defineProps({
     <div class="layout-step">
         <div 
             class="layout-step-inner"
-            :class="{
-                'isActive': props.status.isActive,
-                'isPrevious': props.status.isPrevious,
-                'isNext': props.status.isNext,
-                'isOutPrevious': props.status.isOutPrevious,
-                'isOutNext': props.status.isOutNext,
-                'isCurrentlyManipulated': props.status.isCurrentlyManipulated
-            }"
+            :class="[
+                props.status.name.toLowerCase(),
+                {
+                    'isActive': props.status.isActive,
+                    'isPrevious': props.status.isPrevious,
+                    'isNext': props.status.isNext,
+                    'isOutPrevious': props.status.isOutPrevious,
+                    'isOutNext': props.status.isOutNext,
+                    'isCurrentlyManipulated': props.status.isCurrentlyManipulated
+                }
+            ]"
         >
             <pre>{{ props.status }}</pre>
             <slot />
@@ -32,11 +35,23 @@ const props = defineProps({
 .layout-step {
 
     border-radius: 30px;
-    height: 170vh;
     // padding-top: 4rem;
 
     &-inner {
+        height: 170vh;
         padding: 2rem;
+
+        &.bio {
+		background-color: orange;
+        }
+
+        &.experience {
+            background-color: rgb(33, 5, 62);
+        }
+
+        &.formation {
+            background-color: lime;
+        }
     }
 }
 
