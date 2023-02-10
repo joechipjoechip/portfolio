@@ -82,10 +82,6 @@ function handleCircular(){
 
 <style lang="scss">
 
-    $transitionDuration: 0.3s;
-    $transitionDurationShort: 0.18s;
-    $transitionDurationLong: 0.7s;
-
     .layout-svg-navbar {
 
         &-wrapper {
@@ -93,7 +89,7 @@ function handleCircular(){
 
             filter: grayscale(0);
 
-            transition: filter $transitionDurationLong;
+            transition: filter var(--transitionDurationLong);
             
             &.isGreyed {
                 
@@ -105,10 +101,7 @@ function handleCircular(){
                 .layout-svg-navbar {
 
                     &-container {
-                        transform: translateY(-10px) scale(1.1);
-                        box-shadow: inset -2px 2px 1px rgba(255,255,255,0.1),
-                                    inset 0 0 14px rgba(0,0,0,0.6),
-                                    0 -20px 130px v-bind(color);
+                        @include neumorphHover(v-bind(color))
                     }
 
                     &-inner {
@@ -147,15 +140,11 @@ function handleCircular(){
 
             cursor: pointer;
             overflow: hidden;
-            border-radius: 15px;
-            // background-color: rgba(255,255,255,0.09);
-            // box-shadow: inset 0 2px 1px rgba(255,255,255,0.1),
-            //             inset -1px 1px 18px rgba(0,0,0,0.4),
-            //             1px -1px 1px transparent;
+            border-radius: var(--borderRadiusSmall);
     
             transform: translateY(0) scale(1);
-            transition: box-shadow $transitionDurationLong, 
-                        transform $transitionDurationShort cubic-bezier(0,1.61,1,1.67);
+            transition: box-shadow var(--transitionDurationLong), 
+                        transform var(--transitionDurationShort) cubic-bezier(0,1.61,1,1.67);
 
         }
 
@@ -173,8 +162,8 @@ function handleCircular(){
                 transform: rotate(0deg);
                 filter: drop-shadow(0 0 6px v-bind(color));
 
-                transition: width $transitionDuration,
-                            transform $transitionDuration;
+                transition: width var(--transitionDurationMedium),
+                            transform var(--transitionDurationMedium);
             }
 
             &::after {
@@ -187,7 +176,7 @@ function handleCircular(){
                 bottom: 0;
                 filter: blur(12px);
 
-                transition: all $transitionDuration;
+                transition: all var(--transitionDurationMedium);
             }
 
         }
@@ -209,9 +198,9 @@ function handleCircular(){
             filter: blur(20px);
             opacity: 0;
 
-            transition: opacity $transitionDurationLong,
-                        transform $transitionDuration cubic-bezier(0,.93,.38,.98),
-                        filter $transitionDurationLong cubic-bezier(0,.93,.38,.98);
+            transition: opacity var(--transitionDurationLong),
+                        transform var(--transitionDurationMedium) cubic-bezier(0,.93,.38,.98),
+                        filter var(--transitionDurationLong) cubic-bezier(0,.93,.38,.98);
         }
         
     }

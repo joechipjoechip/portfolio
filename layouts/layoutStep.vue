@@ -35,7 +35,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 .layout-step {
 
-    border-radius: var(--borderRadius);
+    border-radius: var(--borderRadiusMedium);
     // padding-top: 4rem;
 
     &-inner {

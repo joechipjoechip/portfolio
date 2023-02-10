@@ -15,9 +15,9 @@
 
 
 
-:root {
-	--borderRadius: 30px;
-}
+// :root {
+// 	--borderRadius: 30px;
+// }
 
 
 body {

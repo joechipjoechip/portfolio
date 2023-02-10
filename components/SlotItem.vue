@@ -41,7 +41,7 @@ defineProps({
 			padding: 20px;
 			margin: 2rem 0;
 
-			border-radius: var(--borderRadius);
+			border-radius: var(--borderRadiusMedium);
 	
 			&:first-of-type {
 				margin-top: 0;
@@ -50,7 +50,7 @@ defineProps({
 			&:last-of-type {
 				margin-bottom: 0;
 			}
-			
+
 
 		}
 
