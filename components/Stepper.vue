@@ -149,7 +149,7 @@ const scaleRatio = ref(0.9)
 
 			:data-index="index"
 			:status="defineDynamicStatus(index)"
-			:wording="stepsWording[defineDynamicStatus(index).name]"
+			:wording="stepsWording[step.name.toLowerCase()]"
 
 			:style="{ 
 				left: dynamicLeft
