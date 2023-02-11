@@ -1,11 +1,15 @@
 <script setup>
 
+import { useUserStore } from '@/stores/user';
+
 const props = defineProps({
 	status: {
 		type: Object,
 		required: true
 	}
 })
+
+const store = useUserStore()
 
 </script>
 
@@ -21,7 +25,9 @@ const props = defineProps({
                     'isNext': props.status.isNext,
                     'isOutPrevious': props.status.isOutPrevious,
                     'isOutNext': props.status.isOutNext,
-                    'isCurrentlyManipulated': props.status.isCurrentlyManipulated
+                    'isCurrentlyManipulated': props.status.isCurrentlyManipulated,
+
+                    'isGreyed': store.navigation.navbar.isMoving
                 }
             ]"
         >
@@ -46,17 +52,32 @@ const props = defineProps({
         height: 170vh;
         padding: 2rem;
 
-        &.bio {
-		background-color: orange;
+        filter: grayscale(0) blur(0);
+
+        transition: filter var(--transitionDurationLong);
+
+        &.isGreyed {
+            filter: grayscale(1) blur(40px);
         }
 
-        &.experience {
-            background-color: lime;
+        &.bio {
+		    background: linear-gradient(217deg, rgba(0,255,0,0), rgba(255,0,0,0) 70.71%),
+                                linear-gradient(127deg, #0a1c45, rgba(79, 5, 0, 0.8) 70.71%),
+                                linear-gradient(336deg, rgba(0,0,255,.8), #2e1d40 70.71%);
         }
 
         &.formation {
-            background-color: rgb(43, 43, 43);
+            background: linear-gradient(217deg, #2e1d40, rgb(15, 0, 82) 70.71%),
+                                linear-gradient(127deg, #0a1c45, rgba(0,255,0,0) 70.71%),
+                                linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,255,0,.8) 70.71%);
         }
+
+        &.experience {
+            background: linear-gradient(217deg, #1d401da4, rgba(255,0,0,0) 70.71%),
+                                linear-gradient(127deg, #0a1c45, rgba(0,255,0,0) 70.71%),
+                                linear-gradient(336deg, rgba(0,0,255,.8), rgba(74, 0, 158, 0.561) 70.71%);
+        }
+
     }
 }
 

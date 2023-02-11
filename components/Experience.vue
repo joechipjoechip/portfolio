@@ -1,5 +1,16 @@
 <script setup>
 
+const props = defineProps({
+	status: {
+		type: Object,
+		required: true
+	},
+	wording: {
+		type: Object,
+		required: true
+	}
+})
+
 </script>
 
 <template>
