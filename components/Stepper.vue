@@ -31,14 +31,14 @@ store.setStepsCount(goodSteps.length)
 // - - BASIC CLICK LOGIC - - -
 function onMouseDown( index ){
 
-	if( store.currentStepIndex !== index ){
+	if( store.currentStepIndex !== index && !store.navigation.navbar.isMoving ){
 		store.setCurrentStepIndex(index)
 	}
 }
 
 function onMouseUp( event, index ){
 
-	if( store.currentStepIndex !== index ){
+	if( store.currentStepIndex !== index && !store.navigation.navbar.isMoving ){
 		event.preventDefault()
 	}
 
@@ -58,6 +58,8 @@ $on("update-step-positions-start", onTouchStart)
 $on("update-step-positions-end", onTouchEnd)
 
 function onTouchStart( event ){
+
+	if( store.navigation.navbar.isMoving ){ return }
 
 	decayX.value *= 0.92
 
@@ -80,6 +82,11 @@ function onTouchEnd(){
 }
 
 function onTouchMove( diffsObj ){
+
+	if( store.navigation.navbar.isMoving ){ 
+		onTouchEnd()
+		return 
+	}
 
 	dynamicLeft.value = `${diffsObj.diffX * -1}px`
 
@@ -160,6 +167,7 @@ const scaleRatio = ref(0.9)
 		max-width: 1050px;
 		margin: 0 auto;
 		border-radius: 60px;
+		min-height: 100vh;
 		// border: solid 2px red;
 
 		// color: white;

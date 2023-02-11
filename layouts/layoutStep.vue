@@ -49,7 +49,7 @@ const store = useUserStore()
         @include glassMorph;
         border-radius: var(--borderRadiusMedium);
         
-        height: 170vh;
+        height: 70vh;
         padding: 2rem;
 
         filter: grayscale(0) blur(0);
