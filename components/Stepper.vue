@@ -59,7 +59,7 @@ $on("update-step-positions-end", onTouchEnd)
 
 function onTouchStart( event ){
 
-	decayX.value *= 0.9
+	decayX.value *= 0.92
 
 	decayY.value = -5
 
@@ -71,7 +71,7 @@ function onTouchEnd(){
 	
 	isCurrentlyManipulatedIndex.value = false
 
-	decayX.value = 110
+	decayX.value = 105
 
 	decayY.value = 0
 	
@@ -121,7 +121,7 @@ function defineDynamicStatus(index){
 
 
 // - - - - DYNAMIC STYLE LOGIC - - - -
-const decayX = ref(110)
+const decayX = ref(105)
 const decayXPositiveString = computed(() => `${decayX.value}%`)
 const decayXNegativeString = computed(() => `${-decayX.value}%`)
 
@@ -166,8 +166,8 @@ const scaleRatio = ref(0.9)
 .stepper {
 	&-wrapper {
 		position: relative;
-		width: 70%;
-		max-width: 800px;
+		width: 80%;
+		max-width: 1050px;
 		margin: 0 auto;
 		border-radius: 60px;
 		// border: solid 2px red;
