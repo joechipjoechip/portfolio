@@ -104,6 +104,8 @@ function computePositionDiff(){
 <template>
 	<div class="index-wrapper" ref="indexWrapper">
 
+		<Kaleidoscope />
+
 		<Stepper />
 
 		<NavBar/>

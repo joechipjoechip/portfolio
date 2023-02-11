@@ -183,11 +183,12 @@ const scaleRatio = ref(0.9)
 		top: 0;
 		transform: translateX(0) translateY(0) scale(1);
 		
-
 		transition: 
 			opacity 1.2s,
 			transform 0.6s,
 			left 0.6s;
+
+	
 	
 		&.isActive {
 			z-index: 100;
@@ -199,6 +200,8 @@ const scaleRatio = ref(0.9)
 		&.isNext {
 			opacity: 0.4;
 			z-index: 50;
+
+			
 
 			&:hover {
 				opacity: 0.9;

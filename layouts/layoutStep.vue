@@ -42,16 +42,20 @@ const store = useUserStore()
 <style lang="scss" scoped>
 .layout-step {
 
+    backdrop-filter: blur(30px);
+    border-radius: var(--borderRadiusMedium);
+    overflow: hidden;
+
     
     // padding-top: 4rem;
 
     &-inner {
         @include glassMorph;
-        border-radius: var(--borderRadiusMedium);
         
         height: 70vh;
         padding: 2rem;
 
+        
         filter: grayscale(0) blur(0);
 
         transition: filter var(--transitionDurationLong);
@@ -61,21 +65,27 @@ const store = useUserStore()
         }
 
         &.bio {
-		    background: linear-gradient(217deg, rgb(12, 64, 12), rgba(255,0,0,0) 70.71%),
-                                linear-gradient(127deg, #0a1c45, rgba(79, 5, 0, 0.8) 70.71%),
-                                linear-gradient(336deg, rgba(0,0,255,.8), #2e1d40 70.71%);
+            background: linear-gradient(
+                            217deg, 
+                            rgba(255, 255, 255, 0.419), 
+                            rgba(212, 255, 0, 0.542) 70%
+                        );
         }
 
         &.formation {
-            background: linear-gradient(217deg, #2e1d40, rgb(15, 0, 82) 70.71%),
-                                linear-gradient(127deg, #0a1c45, rgba(0,255,0,0) 70.71%),
-                                linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,255,0,.8) 70.71%);
+            background: linear-gradient(
+                217deg, 
+                #2e1d408b, 
+                rgba(255, 3, 104, 0.476) 70%
+            );
         }
 
         &.experience {
-            background: linear-gradient(217deg, #1d401da4, rgb(6, 144, 182) 70.71%),
-                                linear-gradient(127deg, #0a1c45, rgba(0,255,0,0) 70.71%),
-                                linear-gradient(336deg, rgba(0,0,255,.8), rgba(74, 0, 158, 0.561) 70.71%);
+            background: linear-gradient(
+                            217deg, 
+                            rgba(0, 123, 255, 0.419), 
+                            rgba(255, 255, 255, 0.361) 70.71%
+                        );
         }
 
     }
