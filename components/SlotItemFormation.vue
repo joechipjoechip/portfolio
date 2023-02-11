@@ -56,7 +56,7 @@ defineProps({
 		}
 
 		&-inner {
-			border: solid 1px orange;
+			// border: solid 1px orange;
 
 			> * {
 				margin: 0;

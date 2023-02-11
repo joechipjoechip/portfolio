@@ -61,7 +61,7 @@ const store = useUserStore()
         }
 
         &.bio {
-		    background: linear-gradient(217deg, rgba(0,255,0,0), rgba(255,0,0,0) 70.71%),
+		    background: linear-gradient(217deg, rgb(12, 64, 12), rgba(255,0,0,0) 70.71%),
                                 linear-gradient(127deg, #0a1c45, rgba(79, 5, 0, 0.8) 70.71%),
                                 linear-gradient(336deg, rgba(0,0,255,.8), #2e1d40 70.71%);
         }
@@ -73,7 +73,7 @@ const store = useUserStore()
         }
 
         &.experience {
-            background: linear-gradient(217deg, #1d401da4, rgba(255,0,0,0) 70.71%),
+            background: linear-gradient(217deg, #1d401da4, rgb(6, 144, 182) 70.71%),
                                 linear-gradient(127deg, #0a1c45, rgba(0,255,0,0) 70.71%),
                                 linear-gradient(336deg, rgba(0,0,255,.8), rgba(74, 0, 158, 0.561) 70.71%);
         }

@@ -172,7 +172,7 @@ const scaleRatio = ref(0.9)
 		border-radius: 60px;
 		// border: solid 2px red;
 
-		color: white;
+		// color: white;
 	}
 }
 

@@ -10,14 +10,23 @@
 
 <style lang="scss">
 
+html {
+	font-size: 20px;
+}
+
 body {
 	margin: 0;
 	padding: 0;
 
-	// font-family: "Playfair Display";
-	font-family: "PT Sans";
+	font-family: "Playfair Display";
+	// font-family: "PT Sans";
+
+	letter-spacing: 1.7px;
 
 	background-color: rgb(18, 18, 18);
+
+
+	color: #69eaf4;
 }
 
 .page-enter-active,
