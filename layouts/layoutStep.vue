@@ -32,8 +32,8 @@ const store = useUserStore()
             ]"
         >
         
-            <!-- here comes Formation.vue / Bio.vue / Experience.vue > -->
-            <slot :status="status"/>
+            <!-- here comes : Formation.vue || Bio.vue || Experience.vue > -->
+            <slot />
 
         </section>
     </div>
