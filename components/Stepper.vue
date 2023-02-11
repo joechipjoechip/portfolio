@@ -94,18 +94,9 @@ function onTouchMove( diffsObj ){
 
 
 // - - - COMPONENT STATUS / CLASS LOGIC - - - -
-let componentStatus = reactive({
-	isActive: false,
-	isPrevious: false,
-	isNext: false,
-	isOutPrevious: false,
-	isOutNext: false,
-	isCurrentlyManipulated: false
-})
-
 function defineDynamicStatus(index){
 
-	componentStatus = reactive({
+	return {
 		name: goodSteps[index].name?.toLowerCase(),
 		isActive: index === store.currentStepIndex,
 		isPrevious: index === store.currentStepIndex - 1,
@@ -113,9 +104,8 @@ function defineDynamicStatus(index){
 		isOutPrevious: store.currentStepIndex - index > 1,
 		isOutNext: index - store.currentStepIndex > 1,
 		isCurrentlyManipulated: isCurrentlyManipulatedIndex.value === index
-	})
+	}
 
-	return componentStatus
 }
 // - - - - - - - - - - - -
 

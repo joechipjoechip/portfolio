@@ -10,6 +10,9 @@
 
 <style lang="scss">
 
+@import "@/assets/fonts/playfair/stylesheet.css";
+@import "@/assets/fonts/pt/stylesheet.css";
+
 html {
 	font-size: 20px;
 }
@@ -18,8 +21,8 @@ body {
 	margin: 0;
 	padding: 0;
 
-	font-family: "Playfair Display";
-	// font-family: "PT Sans";
+	// font-family: "Playfair Display";
+	font-family: "PT Sans";
 
 	letter-spacing: 1.7px;
 
