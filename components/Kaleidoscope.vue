@@ -46,8 +46,8 @@ function handleKalei(){
     };
 
     const opts = {
-        speed: 0.005,
-        segmentSize: 150,
+        speed: 0.00065,
+        segmentSize: 280,
         smoothing: 0.8,
     };
 
