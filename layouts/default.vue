@@ -18,6 +18,7 @@
 	border: dashed 2px green;
 	margin: 0 auto;
 	padding-top: 80px;
+	padding-bottom: 8rem;
 	position: relative;
 	overflow: hidden;
 }

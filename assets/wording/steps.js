@@ -6,12 +6,10 @@ export const stepsWording = {
 		slots: [
 			{
 				title: "3W Academy",
-				subtitle: "back-end developer",
+				body: "back-end<br>developer",
 				location: "Marseille",
 				date: {
-					year: 2015,
-					from: "",
-					to: ""
+					year: 2015
 				},
 				description: [
 					"POO / MVC",
@@ -19,18 +17,89 @@ export const stepsWording = {
 				]
 			},
 			{
-				title: "FreeCodeCamp",
-				subtitle: "full-stack developer",
+				title: "FreeCodeCamp.org",
+				body: "javascript<br>developer",
 				location: "Online",
 				date: {
-					year: 2017,
-					from: "",
-					to: ""
+					year: 2017
 				},
 				description: [
-					"jhjhjhsss",
-					"oioioioioirrr",
-					"utututututeeee"
+					"95% des exercices JS"
+				]
+			},
+			{
+				title: "The Hacking Project",
+				body: "full-stack<br>developer",
+				location: "Paris",
+				date: {
+					year: 2017
+				},
+				description: [
+					"95% des exercices JS",
+					"Ruby + Rails", 
+					"Nokogiri, API Twitter",
+					"Tests unitaires, Scrapping",
+					"Algo Cardio, [...]"
+				]
+			},
+			{
+				title: "INFA Crear",
+				body: "integration",
+				location: "Marseille",
+				date: {
+					year: 2014
+				},
+				description: [
+					"95% des exercices JS",
+					"HTML5, CSS3",
+					"Bootstrap", 
+					"Wordpress, Joomla"
+				]
+			},
+			{
+				title: "école des Beaux-Arts",
+				body: "DNAP",
+				location: "Aix-en-Provence",
+				date: {
+					year: 2013,
+				},
+				description: [
+					"spécialisations :",
+					"hypermedia & graphisme"
+				]
+			},
+			{
+				title: "école des Condé",
+				body: "graphisme",
+				location: "Marseille",
+				date: {
+					year: 2006,
+				},
+				description: [
+					"Design graphique",
+					"Communication visuelle"
+				]
+			},
+			{
+				title: "BTS Informatique",
+				body: "Sys@dmin",
+				location: "Marseille",
+				date: {
+					year: 2004,
+				},
+				description: [
+					"theorie informatique"
+				]
+			},
+			{
+				title: "BAC STT",
+				body: "Sciences Techniques Tertiaires",
+				location: "Luynes",
+				date: {
+					year: 2002
+				},
+				description: [
+					"Option : Commerce"
 				]
 			}
 		]
@@ -47,7 +116,7 @@ export const stepsWording = {
 		slots: [
 			{
 				title: "mazarine",
-				subtitle: "front-end creative developer",
+				body: "front-end creative developer",
 				location: "Paris",
 				date: {
 					year: 2017,
@@ -61,7 +130,7 @@ export const stepsWording = {
 			},
 			{
 				title: "applyface",
-				subtitle: "chef de projet / dev front-end / graphiste",
+				body: "chef de projet / dev front-end / graphiste",
 				location: "paris",
 				date: {
 					year: 2017,

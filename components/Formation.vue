@@ -11,6 +11,12 @@ const props = defineProps({
 	}
 })
 
+const orderedSlots = computed(() => {
+	return props.wording.slots.sort((a,b) => {
+		return b.date.year - a.date.year
+	})
+})
+
 console.log("le bon wording ? : ", props.wording)
 
 
@@ -19,86 +25,35 @@ console.log("le bon wording ? : ", props.wording)
 <template>
     <NuxtLayout name="layout-step" :status="status" :wording="wording">
 
-		<SlotItemFormation
-			v-for="(dataItem, index) in props.wording.slots" :key="index"
-			:data="dataItem"
-			:stepIsActive="status.isActive"
-		/>
-	
-        <!-- <div class="step-wrapper">
+		<div class="formation-wrapper">
 
-            <div class="step-head">
+			<SlotItemFormation
+				v-for="(dataItem, index) in orderedSlots" :key="index"
+				:data="dataItem"
+				:stepIsActive="status.isActive"
+			/>
 
-                <h2 class="step-head-title">
-                    {{ props.status.name }}
-                </h2>
-
-                <h3 class="step-head-catcher">
-                    {{ props.wording.catcher }}
-                </h3>
-
-            </div>
-
-            <div class="step-body">
-                
-                <SlotItemFormation
-                    v-for="(dataItem, index) in props.wording.slots" :key="index"
-                    :data="dataItem"
-                    :stepIsActive="status.isActive"
-                />
-
-            </div>
-
-            <div class="step-footer">
-
-            </div>
-
-        </div> -->
+		</div>
 
     </NuxtLayout>
 </template>
 
 <style lang="scss" scoped>
 
-// .step {
+.formation {
 
-// 	&-head {
-// 		// border: solid 1px white;
-// 		padding: 40px 0;
-// 		margin-bottom: 20px;
-// 		background-color: rgba(0,0,0,0.4);
+	&-wrapper {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-between;
+		row-gap: 1rem;
 
-// 		& > * {
-// 			margin: 0;
-// 		}
+		> * {
+			width: calc(50% - 0.5rem);
+			// flex-basis: 40%;
+		}
+	}
 
-// 		&-title {
-// 			text-align: center;
-// 			text-transform: capitalize;
-// 			letter-spacing: 2px;
-// 			font-weight: 100;
-// 			font-size: 2rem;
-// 		}
-
-// 		&-catcher {
-// 			text-align: center;
-// 			font-size: 0.75rem;
-// 			font-style: italic;
-// 			font-weight: 100;
-// 		}
-// 	}
-
-// 	&-body {
-
-// 		@include flex;
-
-// 	}
-
-// 	&-footer {
-// 		// border: solid 1px orange;
-// 		//
-// 	}
-
-// }
+}
 
 </style>

@@ -81,7 +81,7 @@ const store = useUserStore()
     &-inner {
         @include glassMorph;
         
-        height: 70vh;
+        min-height: 70vh;
         padding: 2rem;
 
         
@@ -153,9 +153,7 @@ const store = useUserStore()
 	}
 
 	&-body {
-
-		@include flex;
-
+        //
 	}
 
 	&-footer {
