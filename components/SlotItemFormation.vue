@@ -11,12 +11,27 @@ const props = defineProps({
 	}
 })
 
+const isHovered = ref(false)
+
+function onMouseEnter(){
+	isHovered.value = true
+}
+
+function onMouseLeave(){
+	isHovered.value = false
+
+}
 </script>
 
 <template>
 	<article 
 		v-if="stepIsActive"
 		class="step-slot-wrapper"
+		:class="{
+			isHovered
+		}"
+		@mouseenter="onMouseEnter"
+		@mouseleave="onMouseLeave"
 	>
 
 		<div class="step-slot-inner">
@@ -80,6 +95,28 @@ const props = defineProps({
 
 			position: relative;
 
+			&.isHovered {
+
+				.name {
+					padding-top: 2rem;
+					margin: 0 0 1rem 0;
+					border-radius: var(--borderRadiusSmall);
+				}
+
+				.description {
+					
+					height: 100%;
+					background-color: var(--bg-overlay-white-1);
+					border-radius: var(--borderRadiusSmall);
+					padding: 1rem 0;
+	
+					p {
+						opacity: 1;
+					}
+
+				}
+			}
+
 		}
 
 		&-inner {
@@ -95,6 +132,8 @@ const props = defineProps({
 		}
 
 		&-head {
+			position: absolute;
+			top: 0;
 			display: flex;
 			flex-flow: row nowrap;
 			justify-content: space-between;
@@ -102,7 +141,7 @@ const props = defineProps({
 			width: 100%;
 
 			.year {
-
+				
 				&-container {
 					@include flex;
 					flex-flow: column nowrap;
@@ -116,6 +155,7 @@ const props = defineProps({
 
 				&-inner {
 					@include fontSmall;
+					font-style: italic;
 				}
 
 			}
@@ -150,8 +190,6 @@ const props = defineProps({
 
 			}
 
-			
-
 		}
 
 		&-body {
@@ -165,36 +203,58 @@ const props = defineProps({
 
 			.name {
 				background-color: var(--bg-overlay-white-1);
+				border-radius: 0;
 	
 				font-size: 1rem;
 				letter-spacing: 1.3px;
 				text-align: center;
-				margin: 0.5rem 0;
-				height: 4.5rem;
+				margin: 0;
+				height: 3rem;
+				padding: 0.5rem 0;
 
 				@include flex;
 				flex-direction: column;
+
+				transition: 
+					border-radius var(--transitionDurationShort),
+					margin var(--transitionDurationShort),
+					padding var(--transitionDurationShort);
 			}
 
 			.description {
 				@include fontSmall;
-				background-color: var(--bg-overlay-white-1);
-				border-radius: var(--borderRadiusSmall) var(--borderRadiusSmall) 0 0;
-				width: calc(100% - 3rem);
+				background-color: rgba(255,255,255,0.2);
+				border-radius: 0 0  var(--borderRadiusSmall) var(--borderRadiusSmall);
+				min-width: calc(100% - 10rem);
+				width: 100%;
 				align-self: center;
-				height: 100%;
+				height: 10%;
+				max-height: 4rem;
+				overflow-y: scroll;
+
+				display: flex;
+				flex-flow: column nowrap;
+				justify-content: center;
+				align-items: center;
+				padding: 0;
+
+				transition: 
+					border-radius var(--transitionDurationMedium),
+					background-color var(--transitionDurationMedium),
+					height var(--transitionDurationMedium),
+					padding var(--transitionDurationMedium);
 
 				p {
+					opacity: 0;
 					margin: 0;
 					padding: 0;
 					margin-bottom: 0.25rem;
-					opacity: 0.6;
 
-					&:first-of-type {
-						margin-top: 0.25rem;
-					}
+					transition: opacity var(--transitionDurationMedium);
 					
 				}
+
+				
 			}
 
 		}
