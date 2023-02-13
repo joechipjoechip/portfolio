@@ -35,7 +35,6 @@ export const stepsWording = {
 					year: 2017
 				},
 				description: [
-					"95% des exercices JS",
 					"Ruby + Rails", 
 					"Nokogiri, API Twitter",
 					"Tests unitaires, Scrapping",
@@ -50,7 +49,6 @@ export const stepsWording = {
 					year: 2014
 				},
 				description: [
-					"95% des exercices JS",
 					"HTML5, CSS3",
 					"Bootstrap", 
 					"Wordpress, Joomla"
@@ -88,7 +86,8 @@ export const stepsWording = {
 					year: 2004,
 				},
 				description: [
-					"theorie informatique"
+					"theorie informatique",
+					"&nbsp;"
 				]
 			},
 			{
@@ -99,7 +98,8 @@ export const stepsWording = {
 					year: 2002
 				},
 				description: [
-					"Option : Commerce"
+					"Option : Commerce",
+					"&nbsp;"
 				]
 			}
 		]

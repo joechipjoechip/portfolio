@@ -69,8 +69,7 @@ function onMouseLeave(){
 
 				<div class="description">
 
-					<p v-for="sentence in props.data.description">
-						{{ sentence }}
+					<p v-for="sentence in props.data.description" :key="sentence.id" v-html="sentence">
 					</p>
 
 				</div>
@@ -111,6 +110,7 @@ function onMouseLeave(){
 					padding: 1rem 0;
 	
 					p {
+						transform: translateX(0);
 						opacity: 1;
 					}
 
@@ -228,7 +228,7 @@ function onMouseLeave(){
 				min-width: calc(100% - 10rem);
 				width: 100%;
 				align-self: center;
-				height: 10%;
+				height: 15%;
 				max-height: 4rem;
 				overflow-y: scroll;
 
@@ -249,11 +249,13 @@ function onMouseLeave(){
 					margin: 0;
 					padding: 0;
 					margin-bottom: 0.25rem;
+					transform: translateX(1rem);
 
-					transition: opacity var(--transitionDurationMedium);
+					transition: 
+						opacity var(--transitionDurationMedium),
+						transform var(--transitionDurationMedium);
 					
 				}
-
 				
 			}
 
