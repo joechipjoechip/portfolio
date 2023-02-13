@@ -1,6 +1,6 @@
 <script setup>
 
-defineProps({
+const props = defineProps({
 	data: {
 		type: Object,
 		required: true
@@ -20,9 +20,9 @@ defineProps({
 	>
 		<div class="step-slot-inner">
 
-			<time class="year">{{ data.date.year }}</time>
-			<h5 class="title">{{ data.title }}</h5>
-			<h4 class="subtitle">{{ data.subtitle }}</h4>
+			<time class="year">{{ props.data.date.year }}</time>
+			<h5 class="title">{{ props.data.title }}</h5>
+			<h4 class="subtitle">{{ props.data.subtitle }}</h4>
 
 		</div>
 	</article>

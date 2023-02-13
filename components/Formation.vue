@@ -17,9 +17,15 @@ console.log("le bon wording ? : ", props.wording)
 </script>
 
 <template>
-    <NuxtLayout name="layout-step" :status="status">
+    <NuxtLayout name="layout-step" :status="status" :wording="wording">
+
+		<SlotItemFormation
+			v-for="(dataItem, index) in props.wording.slots" :key="index"
+			:data="dataItem"
+			:stepIsActive="status.isActive"
+		/>
 	
-        <div class="step-wrapper">
+        <!-- <div class="step-wrapper">
 
             <div class="step-head">
 
@@ -47,58 +53,52 @@ console.log("le bon wording ? : ", props.wording)
 
             </div>
 
-        </div>
+        </div> -->
 
     </NuxtLayout>
 </template>
 
 <style lang="scss" scoped>
 
-.step {
+// .step {
 
-	&-head {
-		// border: solid 1px white;
-		padding: 40px 0;
-		margin-bottom: 20px;
-		background-color: rgba(0,0,0,0.4);
+// 	&-head {
+// 		// border: solid 1px white;
+// 		padding: 40px 0;
+// 		margin-bottom: 20px;
+// 		background-color: rgba(0,0,0,0.4);
 
-		& > * {
-			margin: 0;
-		}
+// 		& > * {
+// 			margin: 0;
+// 		}
 
-		&-title {
-			text-align: center;
-			text-transform: capitalize;
-			letter-spacing: 2px;
-			font-weight: 100;
-			font-size: 2rem;
-		}
+// 		&-title {
+// 			text-align: center;
+// 			text-transform: capitalize;
+// 			letter-spacing: 2px;
+// 			font-weight: 100;
+// 			font-size: 2rem;
+// 		}
 
-		&-catcher {
-			text-align: center;
-			font-size: 0.75rem;
-			font-style: italic;
-			font-weight: 100;
-		}
-	}
+// 		&-catcher {
+// 			text-align: center;
+// 			font-size: 0.75rem;
+// 			font-style: italic;
+// 			font-weight: 100;
+// 		}
+// 	}
 
-	&-body {
+// 	&-body {
 
-		@include flex;
+// 		@include flex;
 
-		&.isSquared {
-			flex-flow: row wrap;
-			justify-content: space-between;
-			align-items: stretch;
-		}
+// 	}
 
-	}
+// 	&-footer {
+// 		// border: solid 1px orange;
+// 		//
+// 	}
 
-	&-footer {
-		// border: solid 1px orange;
-		//
-	}
-
-}
+// }
 
 </style>
