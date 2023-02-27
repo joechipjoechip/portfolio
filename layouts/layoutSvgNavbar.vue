@@ -138,8 +138,8 @@ function handleCircular(){
         }
 
         &-container {
-            @include glassMorph;
-            background-color: rgba(255,255,255,0.09);
+            // @include glassMorph;
+            // background-color: rgba(255,255,255,0.09);
 
             cursor: pointer;
             overflow: hidden;

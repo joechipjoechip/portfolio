@@ -27,7 +27,7 @@ console.log("le bon wording ? : ", props.wording)
 
 		<div class="formation-wrapper">
 
-			<SlotItemFormation
+			<SlotItemList
 				v-for="(dataItem, index) in orderedSlots" :key="index"
 				:data="dataItem"
 				:stepIsActive="status.isActive"
@@ -46,14 +46,22 @@ console.log("le bon wording ? : ", props.wording)
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
-		row-gap: 6rem;
+		row-gap: 0.65rem;
 		// max-width: 750px;
 		margin: 0 auto;
 
 		> * {
-			width: 100%;
+			
 			// width: calc(50% - 1.5rem);
 			// flex-basis: 40%;
+
+			&:first-of-type {
+				margin-top: 0.25rem;
+			}
+
+			&:last-of-type {
+				margin-bottom: 2rem;
+			}
 		}
 	}
 

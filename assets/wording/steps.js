@@ -1,19 +1,20 @@
 export const stepsWording = {
 	
 	"formation": {
+		title: "Education",
 		catcher: "hey, ici cest la formation",
 		stepStyle: "squared",
 		slots: [
 			{
-				title: "3W Academy",
-				body: "back-end<br>developer",
-				location: "Marseille",
+				title: "The Hacking Project",
+				body: "full-stack<br>developer",
+				location: "Paris",
 				date: {
-					year: 2015
+					year: "2017"
 				},
 				description: [
-					"POO / MVC",
-					"PHP5, mySQL"
+					"Ruby + Rails, Javascript, API Twitter,",
+					"Unit tests Mocha, Scrapping, Algo Cardio, .."
 				]
 			},
 			{
@@ -21,96 +22,96 @@ export const stepsWording = {
 				body: "javascript<br>developer",
 				location: "Online",
 				date: {
-					year: 2017
+					year: "2017"
 				},
 				description: [
-					"95% des exercices JS"
+					"95% of Javascript exercices"
 				]
 			},
 			{
-				title: "The Hacking Project",
-				body: "full-stack<br>developer",
-				location: "Paris",
+				title: "3W Academy",
+				body: "back-end<br>developer",
+				location: "Marseille",
 				date: {
-					year: 2017
+					year: "2015"
 				},
 				description: [
-					"Ruby + Rails", 
-					"Nokogiri, API Twitter",
-					"Tests unitaires, Scrapping",
-					"Algo Cardio, [...]"
+					"POO, MVC, PHP5, MySQL,",
+					"HTML5, CSS3, Javascript, jQuery"
 				]
 			},
+			
+			
 			{
 				title: "INFA Crear",
 				body: "integration",
 				location: "Marseille",
 				date: {
-					year: 2014
+					year: "2014"
 				},
 				description: [
-					"HTML5, CSS3",
-					"Bootstrap", 
+					"HTML5, CSS3, Bootstrap,",
 					"Wordpress, Joomla"
 				]
 			},
 			{
-				title: "école des Beaux-Arts",
-				body: "DNAP",
+				title: "Fine Arts studies",
+				body: "Hypermedia<br>Graphism",
 				location: "Aix-en-Provence",
 				date: {
-					year: 2013,
+					year: "2013"
 				},
 				description: [
-					"spécialisations :",
-					"hypermedia & graphisme"
+					"Graphic Design, Generative drawing,",
+					"Historical, theorical and critical art studies"
 				]
 			},
 			{
-				title: "école des Condé",
-				body: "graphisme",
+				title: "Design school : condé",
+				body: "graphic<br>design",
 				location: "Marseille",
 				date: {
-					year: 2006,
+					year: "2004 - 2006"
 				},
 				description: [
-					"Design graphique",
-					"Communication visuelle"
+					"Composition, perspective, typography,",
+					"illustration, advertising, etc.."
 				]
 			},
 			{
-				title: "BTS Informatique",
-				body: "Sys@dmin",
+				title: "French Computing Secondary Degree",
+				body: "BTS Info<br>Sys@dmin",
 				location: "Marseille",
 				date: {
 					year: 2004,
 				},
 				description: [
-					"theorie informatique",
-					"&nbsp;"
+					"Computing theorical and pratical degree",
+					"Network, Admin, SQL requests crafting"
 				]
 			},
 			{
-				title: "BAC STT",
-				body: "Sciences Techniques Tertiaires",
+				title: "French Bacalauréat",
+				body: "STT",
 				location: "Luynes",
 				date: {
 					year: 2002
 				},
 				description: [
-					"Option : Commerce",
-					"&nbsp;"
+					"Sciences et Techniques du Tertiaire"
 				]
 			}
 		]
 	},
 
 	"bio": {
+		title: "Bio",
 		catcher: "hey, ici cest la bio",
 		stepStyle: "line",
 	},
 
 	"experience": {
+		title: "Experiences",
 		catcher: "hey, ici cest la experience",
 		stepStyle: "line",
 		slots: [

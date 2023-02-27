@@ -33,6 +33,8 @@ function incrementImageIndex(){
 .background {
 
     &-container {
+        z-index: -1;
+        display: block;
         position: fixed;
         top: 0;
         left: 0;
@@ -47,8 +49,8 @@ function incrementImageIndex(){
     }
 
     &-content {
-        position: relative;
-        object-fit: fill;
+        object-fit: cover;
+        object-position: center;
         width: 100%;
     }
 }

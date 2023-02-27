@@ -41,12 +41,8 @@ const store = useUserStore()
             <div class="step-head">
 
                 <h2 class="step-head-title">
-                    {{ props.status.name }}
+                    {{ props.wording.title }}
                 </h2>
-
-                <h3 class="step-head-catcher">
-                    {{ props.wording.catcher }}
-                </h3>
 
             </div>
 
@@ -69,54 +65,61 @@ const store = useUserStore()
 </template>
 
 <style lang="scss" scoped>
+
 .layout-step {
 
-    backdrop-filter: blur(30px);
     border-radius: var(--borderRadiusMedium);
     overflow: hidden;
 
-    
-    // padding-top: 4rem;
-
     &-inner {
-        @include glassMorph;
-        
-        // min-height: 70vh;
         position: relative;
         height: 100%;
-        padding: 0 2rem;
+        padding: 0 2rem 0 0;
 
-        
-        filter: grayscale(0) blur(0);
+        background: linear-gradient(
+                                217deg, 
+                                rgba(255, 255, 255, 0), 
+                                rgba(255, 255, 255, 0) 70%
+                            );
 
-        transition: filter var(--transitionDurationLong);
+        transition: background 2s;
 
-        &.isGreyed {
-            filter: grayscale(1) blur(40px);
-        }
+        // filter: grayscale(0) blur(0);
 
-        &.bio {
-            background: linear-gradient(
-                            217deg, 
-                            rgba(255, 255, 255, 0.419), 
-                            rgba(212, 255, 0, 0.542) 70%
-                        );
-        }
+        // transition: filter var(--transitionDurationLong);
 
-        &.formation {
-            background: linear-gradient(
-                            217deg, 
-                            #2e1d408b, 
-                            rgba(255, 3, 104, 0.476) 70%
-                        );
-        }
+        // &.isGreyed {
+        //     filter: grayscale(1) blur(40px);
+        // }
 
-        &.experience {
-            background: linear-gradient(
-                            217deg, 
-                            rgba(0, 123, 255, 0.419), 
-                            rgba(255, 255, 255, 0.361) 70.71%
-                        );
+
+        &.isPrevious,
+        &.isNext {
+
+            &.bio {
+                background: linear-gradient(
+                                217deg, 
+                                rgba(255, 255, 255, 0.419), 
+                                rgb(60, 161, 255) 70%
+                            );
+            }
+    
+            &.formation {
+                background: linear-gradient(
+                                217deg, 
+                                #2e1d408b, 
+                                rgb(91, 3, 255) 70%
+                            );
+            }
+    
+            &.experience {
+                background: linear-gradient(
+                                217deg, 
+                                rgba(0, 123, 255, 0.419), 
+                                rgb(255, 25, 151) 70.71%
+                            );
+            }
+
         }
 
     }
@@ -135,34 +138,39 @@ const store = useUserStore()
 
 	&-head {
 		// border: solid 1px white;
-		padding: 40px 0;
-		margin-bottom: 20px;
-		background-color: rgba(0,0,0,0.4);
-
+		margin-bottom: .75rem;
+        height: 10%;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        
 		& > * {
-			margin: 0;
+            margin: 0;
 		}
-
+        
 		&-title {
+            // overflow: hidden;
+            width: 40%;
+            // border-radius: 999px 999px 999px var(--borderRadiusSmallest);
+            // background-color: var(--bg-black-45);
+            // backdrop-filter: blur(8px);
+
+
+            font-weight: 100;
+            font-style: italic;
 			text-align: center;
-			text-transform: capitalize;
-			letter-spacing: 2px;
-			font-weight: 100;
-			font-size: 2rem;
+			text-transform: uppercase;
+			font-size: 4rem;
+            color: var(--bg-white-55);
 		}
 
-		&-catcher {
-			text-align: center;
-			font-size: 0.75rem;
-			font-style: italic;
-			font-weight: 100;
-		}
 	}
 
 	&-body {
         //
         @include scrollbar;
-        height: 100%;
+        height: 90%;
         overflow-y: scroll;
         padding-right: 2rem;
 	}

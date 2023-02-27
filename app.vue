@@ -10,11 +10,11 @@
 
 <style lang="scss">
 
-@import "@/assets/fonts/playfair/stylesheet.css";
-@import "@/assets/fonts/pt/stylesheet.css";
+@import "@/assets/fonts/roboto/stylesheet.css";
+@import "@/assets/fonts/jaldi/stylesheet.css";
 
 html {
-	font-size: 20px;
+	font-size: 12px;
 }
 
 body {
@@ -22,14 +22,15 @@ body {
 	padding: 0;
 
 	// font-family: "Playfair Display";
-	font-family: "PT Sans";
+	font-family: "Roboto";
+	font-weight: 300;
 
 	// letter-spacing: 1.7px;
 
 	background-color: rgb(18, 18, 18);
 
 
-	color: #69eaf4;
+	color: rgba(255,255,255,0.8);
 }
 
 .page-enter-active,

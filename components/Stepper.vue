@@ -203,6 +203,8 @@ const scaleRatio = ref(0.9)
 		&.isNext {
 			opacity: 0.4;
 			z-index: 50;
+			backdrop-filter: blur(55px);
+			background-color: var(--bg-black-45);
 
 			
 

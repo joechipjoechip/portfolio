@@ -15,7 +15,7 @@
 <style lang="scss" scoped>
 
 .layout-default-wrapper {
-	border: dashed 2px green;
+	// border: dashed 2px green;
 	margin: 0 auto;
 	padding-top: 60px;
 	height: var(--stepHeight);

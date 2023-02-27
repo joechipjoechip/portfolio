@@ -1,12 +1,14 @@
 @mixin glassMorph {
-	box-shadow: 0 -2px 0px rgba(255, 255, 255, 0.15),
+	box-shadow: 0 -1px 0px rgba(255, 255, 255, 0.15),
+				0 2px 2px rgba(0,0,0, 0.25),
 				1px -1px 1px transparent;
 
 }
 
 @mixin glassMorphHover($color){
-	box-shadow: 0 -2px 0px rgba(255,255,255,0.15),
-				0 -20px 130px $color;
+	box-shadow: 0 -1px 0px rgba(255,255,255,0.15),
+				0 2px 2px rgba(0,0,0, 0.25),
+				0 -20px 60px $color;
 }
 
 @mixin flex {

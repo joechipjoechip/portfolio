@@ -108,13 +108,13 @@ function computePositionDiff(){
 		<!-- <Kaleidoscope /> -->
 		<Background />
 
-		<main>
+		<!-- <main> -->
 			
 			<Stepper />
 			
 			<NavBar/>
 
-		</main>
+		<!-- </main> -->
 
 		<!-- sidebar here -->
 		
