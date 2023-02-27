@@ -23,3 +23,21 @@
 @mixin fontMedium {
 	font-size: 0.75rem;
 }
+
+@mixin scrollbar {
+
+		&::-webkit-scrollbar {
+			width: 6px;
+	  	}
+	   
+		&::-webkit-scrollbar-track {
+			background: rgba(0,0,0,0.25);
+	  	}
+	   
+		&::-webkit-scrollbar-thumb {
+			background: rgba(0,0,0,0.45);
+	  	}
+
+	scrollbar-color: rgba(0,0,0,0.45) rgba(0,0,0,0.25);
+  	scrollbar-width: thin;
+}

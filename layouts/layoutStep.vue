@@ -161,8 +161,10 @@ const store = useUserStore()
 
 	&-body {
         //
+        @include scrollbar;
         height: 100%;
         overflow-y: scroll;
+        padding-right: 2rem;
 	}
 
 	&-footer {
