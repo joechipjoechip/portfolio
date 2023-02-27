@@ -91,7 +91,7 @@ export const stepsWording = {
 				]
 			},
 			{
-				title: "French Bacalauréat",
+				title: "French Baccalauréat",
 				body: "STT",
 				location: "Luynes",
 				date: {

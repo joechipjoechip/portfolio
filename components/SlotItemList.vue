@@ -100,6 +100,10 @@ function onMouseLeave(){
 				margin: 2.5rem 0;
 				padding: 1rem 0;
 
+				.year {
+					color: var(--bg-white-55);
+				}
+
 				.name {
 					//
 				}
@@ -126,6 +130,9 @@ function onMouseLeave(){
 			.year {
 				font-style: italic;
 				font-weight: 300;
+				color: var(--bg-white-25);
+
+				transition: color var(--transitionDurationMedium);
 			}
 
 		}
@@ -171,10 +178,11 @@ function onMouseLeave(){
 				margin-left: 2rem;
 				
 				p {
+					color: var(--bg-white-70);
 					margin-top: 0;
 					margin-left: 2rem;
 					margin-bottom: 1rem;
-
+					
 					&:last-of-type {
 						margin-bottom: 0;
 					}
