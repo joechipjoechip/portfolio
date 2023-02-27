@@ -230,7 +230,7 @@ function onMouseLeave(){
 				align-self: center;
 				height: 15%;
 				max-height: 4rem;
-				overflow-y: scroll;
+				// overflow-y: scroll;
 
 				display: flex;
 				flex-flow: column nowrap;
