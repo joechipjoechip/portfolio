@@ -46,12 +46,13 @@ console.log("le bon wording ? : ", props.wording)
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
-		row-gap: 3rem;
-		max-width: 750px;
+		row-gap: 6rem;
+		// max-width: 750px;
 		margin: 0 auto;
 
 		> * {
-			width: calc(50% - 1.5rem);
+			width: 100%;
+			// width: calc(50% - 1.5rem);
 			// flex-basis: 40%;
 		}
 	}

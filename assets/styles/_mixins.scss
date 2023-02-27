@@ -1,13 +1,11 @@
 @mixin glassMorph {
-	box-shadow: inset 0 2px 1px rgba(255,255,255,0.1),
-				inset -1px 1px 18px rgba(0,0,0,0.4),
+	box-shadow: 0 -2px 0px rgba(255, 255, 255, 0.15),
 				1px -1px 1px transparent;
 
 }
 
 @mixin glassMorphHover($color){
-	box-shadow: inset -2px 2px 1px rgba(255,255,255,0.1),
-				inset 0 0 14px rgba(0,0,0,0.6),
+	box-shadow: 0 -2px 0px rgba(255,255,255,0.15),
 				0 -20px 130px $color;
 }
 

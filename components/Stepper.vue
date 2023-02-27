@@ -167,7 +167,7 @@ const scaleRatio = ref(0.9)
 		max-width: 1050px;
 		margin: 0 auto;
 		border-radius: 60px;
-		min-height: 100vh;
+		// min-height: 100vh;
 		// border: solid 2px red;
 
 		// color: white;
@@ -177,11 +177,14 @@ const scaleRatio = ref(0.9)
 .step {
 
 	&-item {
+		position: relative;
 		width: 100%;
-		// overflow: hidden;
+		height: var(--stepHeight);
+		overflow: hidden;
 		position: absolute;
 		top: 0;
 		transform: translateX(0) translateY(0) scale(1);
+		// max-height: calc(100vh - 180px);
 		
 		transition: 
 			opacity 1.2s,

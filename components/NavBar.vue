@@ -19,8 +19,8 @@ function onMainTouchMove( event ){
 
 	const { x, y } = useGetEventPosition(event)
 
-	const cursorIsBottom = (y / window.innerHeight) > 0.75
-	const cursorIsCenter = (x / window.innerWidth) > 0.1 && (x / window.innerWidth) < 0.9
+	const cursorIsBottom = (y / window.innerHeight) > 0.87
+	const cursorIsCenter = (x / window.innerWidth) > 0.3 && (x / window.innerWidth) < 0.7
 	const cursorIsNearNavbar = cursorIsBottom && cursorIsCenter
 
 	if( cursorIsNearNavbar ){
@@ -100,11 +100,9 @@ function onMainTouchMove( event ){
 
 <style lang="scss" scoped>
 
-	$iconWidth: 30px;
-	$iconBorderRadius: 18px;
-
 	.navbar {
 		&-wrapper {
+			@include glassMorph;
 			z-index: 250;
 			position: fixed;
 
@@ -115,24 +113,22 @@ function onMainTouchMove( event ){
 			display: flex;
 			justify-content: space-between;
 			
-			padding: 1rem;
+			padding: 0.3rem;
 			// letter-spacing: 2px;
 			
-			border-radius: $iconBorderRadius;
-			backdrop-filter: blur(5px);
-			box-shadow: 0px 10px 25px rgba(0,0,0,0.2),
-						inset -1px 1px 1px rgba(255,255,255,0.1);
+			border-radius: var(--navbarIconBorderRadius);
+			backdrop-filter: blur(15px);
 
-			background-color: rgba(0,0,0,0.4);
+			background-color: rgba(0,0,0,0.25);
 
 			transition: padding .3s,
 						transform .3s;
 
 			&:hover {
-				padding: 2rem;
+				padding: 1rem;
 
 				:deep(.layout-svg-navbar-wrapper){
-					margin: 0 1rem;
+					margin: 0 0.5rem;
 				}
 
 				:deep(.layout-svg-navbar-container) {
@@ -147,7 +143,7 @@ function onMainTouchMove( event ){
 
 			:deep(.layout-svg-navbar-wrapper) {
 
-				margin: 0 0.25rem;
+				margin: 0 0.2rem;
 
 				transition: margin .3s;
 
@@ -162,12 +158,12 @@ function onMainTouchMove( event ){
 
 			:deep(.layout-svg-navbar-container) {
 
-				border-radius: $iconBorderRadius;
+				border-radius: var(--navbarIconBorderRadius);
 				
 
 				svg {
-					width: $iconWidth;
-					height: $iconWidth;
+					width: var(--navbarIconWidth);
+					height: var(--navbarIconWidth);
 				}
 
 			}

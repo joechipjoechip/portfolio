@@ -81,8 +81,10 @@ const store = useUserStore()
     &-inner {
         @include glassMorph;
         
-        min-height: 70vh;
-        padding: 2rem;
+        // min-height: 70vh;
+        position: relative;
+        height: 100%;
+        padding: 0 2rem;
 
         
         filter: grayscale(0) blur(0);
@@ -126,6 +128,11 @@ const store = useUserStore()
 
 .step {
 
+    &-wrapper {
+        position: relative;
+        height: 100%;
+    }
+
 	&-head {
 		// border: solid 1px white;
 		padding: 40px 0;
@@ -154,6 +161,8 @@ const store = useUserStore()
 
 	&-body {
         //
+        height: 100%;
+        overflow-y: scroll;
 	}
 
 	&-footer {

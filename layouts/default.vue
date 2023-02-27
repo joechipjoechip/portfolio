@@ -17,8 +17,8 @@
 .layout-default-wrapper {
 	border: dashed 2px green;
 	margin: 0 auto;
-	padding-top: 80px;
-	padding-bottom: 8rem;
+	padding-top: 60px;
+	height: var(--stepHeight);
 	position: relative;
 	overflow: hidden;
 }
