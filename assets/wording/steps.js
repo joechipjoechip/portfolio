@@ -116,34 +116,112 @@ export const stepsWording = {
 		stepStyle: "line",
 		slots: [
 			{
-				title: "mazarine",
-				body: "front-end creative developer",
-				location: "Paris",
+				title: "Zadig & Voltaire",
+				body: "Front-end dev.",
+				location: "Full remote",
 				date: {
-					year: 2017,
-					from: 2017,
-					to: 2021
+					year: "2022"
 				},
 				description: [
-					"POO / MVC",
-					"PHP5, mySQL"
+					"Vue2, Nuxt2, VueStorefront, SSR,",
+					"graphQL, ElasticSearch, TypeScript.."
 				]
 			},
 			{
-				title: "applyface",
-				body: "chef de projet / dev front-end / graphiste",
-				location: "paris",
+				title: "Danone",
+				body: "Front-end dev.<br>UI Consultant",
+				location: "Full remote",
 				date: {
-					year: 2017,
-					from: 2016,
-					to: 2017
+					year: "2021 - 2022",
 				},
 				description: [
-					"jhjhjhsss",
-					"oioioioioirrr",
-					"utututututeeee"
+					"DAM on AEM architecture",
+					"Vanilla Javascript, LESS CSS (BEM), ..",
 				]
-			}
+			},
+			{
+				title: "Mazarine agency",
+				body: "Front-end dev.<br>createch",
+				location: "Paris",
+				date: {
+					year: "2017 - 2021"
+				},
+				description: [
+					"Vanilla Javascript, Vue, React, Node, PHP,",
+					"Twig, Blade, Drupal, Wordpress, Laravel, .."
+				]
+			},
+			{
+				title: "Applyface",
+				body: "designer / dev.<br>Project manager",
+				location: "Paris",
+				date: {
+					year: "2016 - 2017"
+				},
+				description: [
+					"Setting up production line for",
+					"applications series production"
+				]
+			},
+			{
+				title: "Gellé & Frères",
+				body: "Front-end dev.<br>Designer",
+				location: "Paris",
+				date: {
+					year: "2016"
+				},
+				description: [
+					"Freelance oneshot for",
+					"Parfum & SkinCare brand launch"
+				]
+			},
+			{
+				title: "RG Design Agency",
+				body: "Integrator<br>Designer",
+				location: "Marseille",
+				date: {
+					year: "2015"
+				},
+				description: [
+					"Wordpress, Prestashop & Joomla",
+					"Custom templates integrations, design, .."
+				]
+			},
+			{
+				title: "Freelance Designer",
+				body: "Graphic<br>Design",
+				location: "Marseille - Aix-en-Provence",
+				date: {
+					year: "2008 - 2015"
+				},
+				description: [
+					"Various communication supports",
+					"Fondation Vasarely, Friche Belle de Mai, .."
+				]
+			},
+			{
+				title: "ArtKom Agency",
+				body: "Designer<br>(stage)",
+				location: "Marseille",
+				date: {
+					year: "2006"
+				},
+				description: [
+					"Various communication supports"
+				]
+			},
+			{
+				title: "Atos",
+				body: "Designer<br>(stage)",
+				location: "Paris",
+				date: {
+					year: "2005"
+				},
+				description: [
+					"Various communication supports"
+				]
+			},
+			
 		]
 	}
 

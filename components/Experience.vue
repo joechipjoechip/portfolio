@@ -14,21 +14,15 @@ const props = defineProps({
 </script>
 
 <template>
+
     <NuxtLayout name="layout-step" :status="status" :wording="wording">
 
-        <div class="experience-wrapper">
-            hey ici le component experience
-            <slot />
-        </div>
-        
-    </NuxtLayout>
-</template>
+		<SlotItemList
+			v-for="(dataItem, index) in props.wording.slots" :key="index"
+			:data="dataItem"
+			:stepIsActive="status.isActive"
+		/>
 
-<style lang="scss" scoped>
-.experience {
-    &-wrapper {
-        // height: 70vh;
-        
-    }
-}
-</style>
+    </NuxtLayout>
+	
+</template>

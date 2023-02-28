@@ -3,6 +3,13 @@
 
 		
 		<!-- <AppHeader /> -->
+		<h1 class="name">
+			Lionel
+			<br>
+			Orsini
+			<br>
+			<span>.fr</span>
+		</h1>
 		
 		<slot />
 		<!-- <AppFooter /> -->
@@ -22,9 +29,27 @@
 	position: relative;
 	overflow-x: hidden;
 	overflow-y:auto;
+
+	.name {
+		position: fixed;
+		top: 5rem;
+		left: 5rem;
+		z-index: 99;
+		text-transform: uppercase;
+		color: var(--bg-white-90);
+		font-size: 5.3rem;
+		line-height: 5.3rem;
+		
+		span {
+			color: var(--bg-white-40);
+		}
+	}
 }
 
 * {
+	margin: 0;
+	padding: 0;
+
 	-webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
