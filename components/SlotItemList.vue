@@ -158,7 +158,7 @@ function onMouseLeave(){
 				font-style: normal;
 				opacity: 0;
 				margin-left: 1rem;
-				transform: translateX(5rem);
+				transform: translateX(2rem);
 
 				transition: 
 					opacity var(--transitionDurationLong),

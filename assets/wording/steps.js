@@ -8,6 +8,18 @@ export const stepsWording = {
 		placeholder: "Ruby, HTML, ..",
 		slots: [
 			{
+				title: "Self learning",
+				body: "web<br>creative",
+				location: "Full remote",
+				date: {
+					year: "2021 - 2022",
+				},
+				description: [
+					"Figma, Blender, ThreeJS (webgl)",
+					"Shaders (glsl), TroisJS, Vue3, Nuxt3"
+				]
+			},
+			{
 				title: "The Hacking Project",
 				body: "web<br>full-stack",
 				location: "Paris",
