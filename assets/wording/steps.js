@@ -7,7 +7,7 @@ export const stepsWording = {
 		slots: [
 			{
 				title: "The Hacking Project",
-				body: "full-stack<br>developer",
+				body: "web<br>full-stack",
 				location: "Paris",
 				date: {
 					year: "2017"
@@ -30,7 +30,7 @@ export const stepsWording = {
 			},
 			{
 				title: "3W Academy",
-				body: "back-end<br>developer",
+				body: "web<br>full-stack",
 				location: "Marseille",
 				date: {
 					year: "2015"
@@ -44,7 +44,7 @@ export const stepsWording = {
 			
 			{
 				title: "INFA Crear",
-				body: "integration",
+				body: "web<br>integration",
 				location: "Marseille",
 				date: {
 					year: "2014"
@@ -67,9 +67,9 @@ export const stepsWording = {
 				]
 			},
 			{
-				title: "Design school : condé",
+				title: "Graphic Design school",
 				body: "graphic<br>design",
-				location: "Marseille",
+				location: "Marseille (Condé School, old AxeSud)",
 				date: {
 					year: "2004 - 2006"
 				},

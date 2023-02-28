@@ -54,7 +54,7 @@ const store = useUserStore()
             </div>
 
             <div class="step-footer">
-
+                <!--  -->
             </div>
 
         </div>
@@ -71,6 +71,17 @@ const store = useUserStore()
     border-radius: var(--borderRadiusMedium);
     overflow: hidden;
 
+    > * {
+
+        &:first-of-type {
+            margin-top: 0.25rem;
+        }
+
+        &:last-of-type {
+            margin-bottom: 2rem;
+        }
+    }
+
     &-inner {
         position: relative;
         height: 100%;
@@ -83,44 +94,6 @@ const store = useUserStore()
                             );
 
         transition: background 2s;
-
-        // filter: grayscale(0) blur(0);
-
-        // transition: filter var(--transitionDurationLong);
-
-        // &.isGreyed {
-        //     filter: grayscale(1) blur(40px);
-        // }
-
-
-        // &.isPrevious,
-        // &.isNext {
-
-        //     &.bio {
-        //         background: linear-gradient(
-        //                         217deg, 
-        //                         rgba(255, 255, 255, 0.419), 
-        //                         rgb(60, 161, 255) 70%
-        //                     );
-        //     }
-    
-        //     &.formation {
-        //         background: linear-gradient(
-        //                         217deg, 
-        //                         #2e1d408b, 
-        //                         rgb(91, 3, 255) 70%
-        //                     );
-        //     }
-    
-        //     &.experience {
-        //         background: linear-gradient(
-        //                         217deg, 
-        //                         rgba(0, 123, 255, 0.419), 
-        //                         rgb(255, 25, 151) 70.71%
-        //                     );
-        //     }
-
-        // }
 
     }
 }
@@ -137,7 +110,6 @@ const store = useUserStore()
     }
 
 	&-head {
-		// border: solid 1px white;
 		margin-bottom: .75rem;
         height: 10%;
         display: flex;
@@ -150,13 +122,7 @@ const store = useUserStore()
 		}
         
 		&-title {
-            // overflow: hidden;
             width: 40%;
-            // border-radius: 999px 999px 999px var(--borderRadiusSmallest);
-            // background-color: var(--bg-black-45);
-            // backdrop-filter: blur(8px);
-
-
             font-weight: 100;
             font-style: italic;
 			text-align: center;
@@ -168,11 +134,14 @@ const store = useUserStore()
 	}
 
 	&-body {
-        //
         @include scrollbar;
         height: 90%;
         overflow-y: scroll;
         padding-right: 2rem;
+
+        display: flex;
+        flex-flow: row wrap;
+        row-gap: 0.65rem;
 	}
 
 	&-footer {

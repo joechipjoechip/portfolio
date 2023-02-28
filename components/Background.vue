@@ -29,6 +29,16 @@ const store = useUserStore()
         width: 100vw;
         height: 100vh;
 
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(130deg, rgba(255,78,78,0.08) 60%, rgba(78,106,255,0.8) 100%);
+        }
+
         button {
             z-index: 999;
             position: absolute;

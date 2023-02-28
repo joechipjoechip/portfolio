@@ -11,60 +11,18 @@ const props = defineProps({
 	}
 })
 
-const orderedSlots = computed(() => {
-	return props.wording.slots.sort((a,b) => {
-		return b.date.year - a.date.year
-	})
-})
-
-console.log("le bon wording ? : ", props.wording)
-
-
 </script>
 
 <template>
+
     <NuxtLayout name="layout-step" :status="status" :wording="wording">
 
-		<div class="formation-wrapper">
-
-			<SlotItemList
-				v-for="(dataItem, index) in orderedSlots" :key="index"
-				:data="dataItem"
-				:stepIsActive="status.isActive"
-			/>
-
-		</div>
+		<SlotItemList
+			v-for="(dataItem, index) in props.wording.slots" :key="index"
+			:data="dataItem"
+			:stepIsActive="status.isActive"
+		/>
 
     </NuxtLayout>
+	
 </template>
-
-<style lang="scss" scoped>
-
-.formation {
-
-	&-wrapper {
-		display: flex;
-		flex-flow: row wrap;
-		justify-content: space-between;
-		row-gap: 0.65rem;
-		// max-width: 750px;
-		margin: 0 auto;
-
-		> * {
-			
-			// width: calc(50% - 1.5rem);
-			// flex-basis: 40%;
-
-			&:first-of-type {
-				margin-top: 0.25rem;
-			}
-
-			&:last-of-type {
-				margin-bottom: 2rem;
-			}
-		}
-	}
-
-}
-
-</style>
