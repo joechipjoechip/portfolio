@@ -20,7 +20,7 @@ const props = defineProps({
 	<div class="search-wrapper">
 
 		<div class="icon">
-
+			<div class="icon-bg"></div>
 			<UiSearch :color="props.color" />
 
 		</div>
@@ -51,14 +51,29 @@ const props = defineProps({
 		padding: 0.25rem;
 
 		.icon {
+			position: relative;
 			z-index: 20;
 			width: 3.5rem;
 			height: 3.5rem;
+
+			&-bg {
+				width: 60%;
+				height: 60%;
+				display: block;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translateY(-50%) translateX(-50%);
+				border-radius: 50%;
+
+				background-color: var(--bg-white-100);
+			}
 
 			svg {
 				display: block;
 				width: 100%;
 				height: 100%;
+				position: relative;
 			}
 
 		}
