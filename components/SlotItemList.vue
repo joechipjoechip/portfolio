@@ -45,12 +45,19 @@ function onMouseLeave(){
 				{{ props.data.date.year }}
 			</time>
 
+			<time class="duration">
+				{{ props.data.date.duration }}
+			</time>
+
 		</div>
 
 
 		<div class="step-slot-body">
 
-			<h5 class="title">{{ props.data.title }}</h5>
+			<h5 class="title">
+				{{ props.data.title }}
+				<span class="location">{{ props.data.location }}</span>
+			</h5>
 
 			<h4 class="name">
 				<span v-html="props.data.body"></span>
@@ -104,6 +111,12 @@ function onMouseLeave(){
 					color: var(--bg-white-55);
 				}
 
+				.duration,
+				.location {
+					opacity: 1;
+					transform: translateX(0) translateY(0);
+				}
+
 				.name {
 					//
 				}
@@ -127,13 +140,32 @@ function onMouseLeave(){
 			left: 0;
 			margin-left: 4.1rem;
 
-			.year {
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: flex-start;
+			align-items: center;
+
+			.year,
+			.duration {
 				font-style: italic;
 				font-weight: 300;
 				color: var(--bg-white-25);
-
+				
 				transition: color var(--transitionDurationMedium);
 			}
+			
+			.duration {
+				font-style: normal;
+				opacity: 0;
+				margin-left: 1rem;
+				transform: translateX(5rem);
+
+				transition: 
+					opacity var(--transitionDurationLong),
+					transform var(--transitionDurationLong);
+			}
+
+		
 
 		}
 
@@ -149,11 +181,27 @@ function onMouseLeave(){
 			padding-left: 7rem;
 
 			.title {
+				position: relative;
 				font-weight: 300;
 				font-size: 2rem;
 				width: 35%;
 				text-align: left;
 				text-transform: capitalize;
+			}
+
+			.location {
+				position: absolute;
+				top: 2.25rem;
+				left: 0;
+				font-size: 1.3rem;
+				color: var(--bg-white-25);
+
+				opacity: 0;
+				transform: translateY(1rem);
+
+				transition: 
+					opacity var(--transitionDurationMedium),
+					transform var(--transitionDurationMedium);
 			}
 			
 			.name {

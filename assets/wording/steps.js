@@ -10,7 +10,8 @@ export const stepsWording = {
 				body: "web<br>full-stack",
 				location: "Paris",
 				date: {
-					year: "2017"
+					year: "2017",
+					duration: "4 intensive months"
 				},
 				description: [
 					"Ruby + Rails, Javascript, API Twitter,",
@@ -19,10 +20,11 @@ export const stepsWording = {
 			},
 			{
 				title: "FreeCodeCamp.org",
-				body: "Pure<br>Alrorythm",
+				body: "Pure<br>Algorythm",
 				location: "Online",
 				date: {
-					year: "2017"
+					year: "2017",
+					duration: "5 months - 5/7 - 8/24"
 				},
 				description: [
 					"95% of Javascript exercices"
@@ -33,7 +35,8 @@ export const stepsWording = {
 				body: "web<br>full-stack",
 				location: "Marseille",
 				date: {
-					year: "2015"
+					year: "2015",
+					duration: "3 intensive months",
 				},
 				description: [
 					"POO, MVC, PHP5, MySQL,",
@@ -47,7 +50,8 @@ export const stepsWording = {
 				body: "web<br>integration",
 				location: "Marseille",
 				date: {
-					year: "2014"
+					year: "2014",
+					duration: "4 months"
 				},
 				description: [
 					"HTML5, CSS3, Bootstrap,",
@@ -79,7 +83,7 @@ export const stepsWording = {
 				]
 			},
 			{
-				title: "French Computing Secondary Degree",
+				title: "CPU Secondary Degree",
 				body: "BTS Info<br>Sys@dmin",
 				location: "Marseille",
 				date: {
@@ -120,7 +124,8 @@ export const stepsWording = {
 				body: "Front-end dev.",
 				location: "Full remote",
 				date: {
-					year: "2022"
+					year: "2022",
+					duration: "4 months mission"
 				},
 				description: [
 					"Vue2, Nuxt2, VueStorefront, SSR,",
@@ -133,6 +138,7 @@ export const stepsWording = {
 				location: "Full remote",
 				date: {
 					year: "2021 - 2022",
+					duration: "6 months mission"
 				},
 				description: [
 					"DAM on AEM architecture",
@@ -144,7 +150,8 @@ export const stepsWording = {
 				body: "Front-end dev.<br>createch",
 				location: "Paris",
 				date: {
-					year: "2017 - 2021"
+					year: "2017 - 2021",
+					duration: "3 years and 7 months of ❤"
 				},
 				description: [
 					"Vanilla Javascript, Vue, React, Node, PHP,",
@@ -156,7 +163,8 @@ export const stepsWording = {
 				body: "designer / dev.<br>Project manager",
 				location: "Paris",
 				date: {
-					year: "2016 - 2017"
+					year: "2016 - 2017",
+					duration: "1 year and 2 months"
 				},
 				description: [
 					"Setting up production line for",
@@ -168,7 +176,8 @@ export const stepsWording = {
 				body: "Front-end dev.<br>Designer",
 				location: "Paris",
 				date: {
-					year: "2016"
+					year: "2016",
+					duration: "1 month mission"
 				},
 				description: [
 					"Freelance oneshot for",
@@ -180,7 +189,8 @@ export const stepsWording = {
 				body: "Integrator<br>Designer",
 				location: "Marseille",
 				date: {
-					year: "2015"
+					year: "2015",
+					duration: "3 months mission"
 				},
 				description: [
 					"Wordpress, Prestashop & Joomla",
@@ -204,7 +214,8 @@ export const stepsWording = {
 				body: "Designer<br>(stage)",
 				location: "Marseille",
 				date: {
-					year: "2006"
+					year: "2006",
+					duration: "1 month"
 				},
 				description: [
 					"Various communication supports"
@@ -215,7 +226,8 @@ export const stepsWording = {
 				body: "Designer<br>(stage)",
 				location: "Paris",
 				date: {
-					year: "2005"
+					year: "2005",
+					duration: "3 weeks"
 				},
 				description: [
 					"Various communication supports"
