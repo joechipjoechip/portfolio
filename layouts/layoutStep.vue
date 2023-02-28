@@ -13,8 +13,6 @@ const props = defineProps({
 	},
 })
 
-console.log("wsh le wording : ", props.wording)
-
 const store = useUserStore()
 
 </script>
@@ -46,7 +44,10 @@ const store = useUserStore()
                     {{ props.wording.title }}
                 </h2>
 
-                <SearchBar class="step-head-search" :color="props.wording.color" />
+                <SearchBar class="step-head-search" 
+                    :color="props.wording.color" 
+                    :placeholder="props.wording.placeholder"
+                />
 
             </div>
 

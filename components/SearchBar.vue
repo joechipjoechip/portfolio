@@ -5,6 +5,10 @@ const props = defineProps({
     color: {
         type: String,
         default: "currentColor"
+    },
+    placeholder: {
+        type: String,
+        default: "search somthing"
     }
 })
 
@@ -24,7 +28,7 @@ const props = defineProps({
 		<input 
 			class="input"
 			type="text"
-			placeholder="search something"
+			:placeholder="props.placeholder"
 		>
 
 	</div>
@@ -56,9 +60,11 @@ const props = defineProps({
 				width: 100%;
 				height: 100%;
 			}
+
 		}
 
 		.input {
+			font-size: 1.25rem;
 			z-index: 10;
 			outline: none;
 			border: none;
@@ -69,12 +75,17 @@ const props = defineProps({
 			color: var(--bg-white-80);
 			margin-left: 0.5rem;
 			padding-right: 3rem;
+
+			&::first-letter {
+				margin-left: 1rem;
+			}
 			
 			&::placeholder {
 				color: var(--bg-white-25);
 			}
 
 		}
+
 
 	}
 

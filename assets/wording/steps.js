@@ -5,6 +5,7 @@ export const stepsWording = {
 		catcher: "hey, ici cest la formation",
 		stepStyle: "squared",
 		color: "#4E6AFF",
+		placeholder: "Ruby, HTML, ..",
 		slots: [
 			{
 				title: "The Hacking Project",
@@ -121,6 +122,7 @@ export const stepsWording = {
 		catcher: "hey, ici cest la experience",
 		stepStyle: "line",
 		color: "orange",
+		placeholder: "Vue, GSAP, Three, ..",
 		slots: [
 			{
 				title: "Zadig & Voltaire",
