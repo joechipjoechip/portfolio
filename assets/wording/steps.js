@@ -19,7 +19,7 @@ export const stepsWording = {
 			},
 			{
 				title: "FreeCodeCamp.org",
-				body: "javascript<br>developer",
+				body: "Pure<br>Alrorythm",
 				location: "Online",
 				date: {
 					year: "2017"
@@ -59,11 +59,11 @@ export const stepsWording = {
 				body: "Hypermedia<br>Graphism",
 				location: "Aix-en-Provence",
 				date: {
-					year: "2013"
+					year: "2010 - 2013"
 				},
 				description: [
-					"Graphic Design, Generative drawing,",
-					"Historical, theorical and critical art studies"
+					"Historical, theorical and critical art studies",
+					"Graphic Design, Generative drawing, .."
 				]
 			},
 			{
@@ -83,7 +83,7 @@ export const stepsWording = {
 				body: "BTS Info<br>Sys@dmin",
 				location: "Marseille",
 				date: {
-					year: 2004,
+					year: "2002 - 2004",
 				},
 				description: [
 					"Computing theorical and pratical degree",

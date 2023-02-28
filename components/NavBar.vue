@@ -65,7 +65,7 @@ function onMainTouchMove( event ){
 		<IconsUiChevronLeft 
 			color="mediumVioletRed"
 			title="previous"
-			@click="store.setCurrentStepIndexDecrement()"
+			@click="store.setBgCurrentIndexDecrement()"
 		/>
 
 		<IconsGameIconsDividedSquare
@@ -91,7 +91,7 @@ function onMainTouchMove( event ){
 		<IconsUiChevronRight 
 			color="mediumVioletRed"
 			title="next"
-			@click="store.setCurrentStepIndexIncrement()"
+			@click="store.setBgCurrentIndexIncrement()"
 		/>
 
 	</div>

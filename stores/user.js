@@ -6,6 +6,7 @@ export const useUserStore = defineStore('storedUser',
 		state: () => ({
 			name: "Paul",
 			currentStepIndex: 1,
+			bgCurrentIndex: 0,
 			stepsCount: 0,
 			navigation: {
 				stepGrabbed: false,
@@ -41,6 +42,26 @@ export const useUserStore = defineStore('storedUser',
 
 			setStepsCount( size ){
 				this.stepsCount = size
+			},
+
+			// BACKGROUND
+			setBgCurrentIndex(newIndex){
+				if( newIndex <= 4 ){
+					this.bgCurrentIndex = newIndex
+				} else {
+					this.bgCurrentIndex = 0
+				}
+			},
+			setBgCurrentIndexIncrement(){
+				if( this.bgCurrentIndex < 4 ){
+					this.bgCurrentIndex++
+				}
+			},
+
+			setBgCurrentIndexDecrement(){
+				if( this.bgCurrentIndex > 0 ){
+					this.bgCurrentIndex--
+				}
 			},
 
 

@@ -1,30 +1,18 @@
 <script setup>
 
-const currentIndex = ref(0)
+import { useUserStore } from '@/stores/user';
 
-const imagesArr = ref([
-    "001.png",
-    "002.png",
-    "003.png",
-    "004.png"
-])
-
-
-function incrementImageIndex(){
-    
-    currentIndex.value =  (currentIndex.value + 1) % imagesArr.value.length
-    console.log("current index : ", currentIndex.value)
-}
+const store = useUserStore()
 
 </script>
 
 <template>
     <div class="background-container">
-        <img v-if="currentIndex === 0" class="background-content" src="./../assets/images/promptart/001.png" alt="">
-        <img v-if="currentIndex === 1" class="background-content" src="./../assets/images/promptart/002.png" alt="">
-        <img v-if="currentIndex === 2" class="background-content" src="./../assets/images/promptart/003.png" alt="">
-        <img v-if="currentIndex === 3" class="background-content" src="./../assets/images/promptart/004.png" alt="">
-        <button @click="incrementImageIndex">next bg</button>
+        <img v-if="store.bgCurrentIndex === 0" class="background-content" src="./../assets/images/promptart/001.png" alt="">
+        <img v-if="store.bgCurrentIndex === 1" class="background-content" src="./../assets/images/promptart/002.png" alt="">
+        <img v-if="store.bgCurrentIndex === 2" class="background-content" src="./../assets/images/promptart/003.png" alt="">
+        <img v-if="store.bgCurrentIndex === 3" class="background-content" src="./../assets/images/promptart/004.png" alt="">
+        <img v-if="store.bgCurrentIndex === 4" class="background-content" src="./../assets/images/promptart/005.png" alt="">
     </div>
 </template>
 
@@ -42,6 +30,7 @@ function incrementImageIndex(){
         height: 100vh;
 
         button {
+            z-index: 999;
             position: absolute;
             bottom : 10px;
             left : 10px;
@@ -52,6 +41,7 @@ function incrementImageIndex(){
         object-fit: cover;
         object-position: center;
         width: 100%;
+        height: 100%;
     }
 }
 

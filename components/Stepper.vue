@@ -31,9 +31,9 @@ store.setStepsCount(goodSteps.length)
 // - - BASIC CLICK LOGIC - - -
 function onMouseDown( index ){
 
-	if( store.currentStepIndex !== index && !store.navigation.navbar.isMoving ){
-		store.setCurrentStepIndex(index)
-	}
+	// if( store.currentStepIndex !== index && !store.navigation.navbar.isMoving ){
+	// 	store.setCurrentStepIndex(index)
+	// }
 }
 
 function onMouseUp( event, index ){
@@ -210,6 +210,7 @@ const scaleRatio = ref(0.9)
 
 			&:hover {
 				opacity: 0.9;
+				cursor: grab;
 			}
 		}
 	

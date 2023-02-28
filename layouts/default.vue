@@ -18,9 +18,10 @@
 	// border: dashed 2px green;
 	margin: 0 auto;
 	padding-top: 60px;
-	height: var(--stepHeight);
+	height: calc(100vh - 60px);
 	position: relative;
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y:auto;
 }
 
 * {

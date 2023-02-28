@@ -93,34 +93,34 @@ const store = useUserStore()
         // }
 
 
-        &.isPrevious,
-        &.isNext {
+        // &.isPrevious,
+        // &.isNext {
 
-            &.bio {
-                background: linear-gradient(
-                                217deg, 
-                                rgba(255, 255, 255, 0.419), 
-                                rgb(60, 161, 255) 70%
-                            );
-            }
+        //     &.bio {
+        //         background: linear-gradient(
+        //                         217deg, 
+        //                         rgba(255, 255, 255, 0.419), 
+        //                         rgb(60, 161, 255) 70%
+        //                     );
+        //     }
     
-            &.formation {
-                background: linear-gradient(
-                                217deg, 
-                                #2e1d408b, 
-                                rgb(91, 3, 255) 70%
-                            );
-            }
+        //     &.formation {
+        //         background: linear-gradient(
+        //                         217deg, 
+        //                         #2e1d408b, 
+        //                         rgb(91, 3, 255) 70%
+        //                     );
+        //     }
     
-            &.experience {
-                background: linear-gradient(
-                                217deg, 
-                                rgba(0, 123, 255, 0.419), 
-                                rgb(255, 25, 151) 70.71%
-                            );
-            }
+        //     &.experience {
+        //         background: linear-gradient(
+        //                         217deg, 
+        //                         rgba(0, 123, 255, 0.419), 
+        //                         rgb(255, 25, 151) 70.71%
+        //                     );
+        //     }
 
-        }
+        // }
 
     }
 }
