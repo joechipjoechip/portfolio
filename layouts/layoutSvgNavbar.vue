@@ -163,7 +163,7 @@ function handleCircular(){
 
             svg {
                 transform: rotate(0deg);
-                filter: drop-shadow(0 0 6px v-bind(color));
+                filter: drop-shadow(0 0 6px transparent);
 
                 transition: width var(--transitionDurationMedium),
                             transform var(--transitionDurationMedium);
