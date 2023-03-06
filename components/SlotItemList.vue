@@ -100,15 +100,15 @@ function onMouseLeave(){
 			&.isHovered {
 
 				.step-slot-inner {
-
+					
 					background-color: var(--bg-black-65);
-					margin: 2.5rem 0;
+					margin: 2rem 0;
 					padding: 1rem 0;
 
 				}
 
 				& + .step-slot-wrapper {
-					margin-top: 7.5rem;
+					margin-top: 4rem;
 				}
 				
 
@@ -134,6 +134,8 @@ function onMouseLeave(){
 			border-radius: 0 999px 999px 0;
 			background-color: var(--bg-black-45);
 			backdrop-filter: blur(15px);
+
+			box-sizing: border-box;
 
 			margin: 0;
 			padding: 0;
