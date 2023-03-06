@@ -10,7 +10,7 @@ export const stepsWording = {
 			{
 				title: "Self learning",
 				body: "web<br>creative",
-				location: "Full remote",
+				location: "Online",
 				date: {
 					year: "2021 - 2022",
 				},
@@ -75,13 +75,13 @@ export const stepsWording = {
 			{
 				title: "Fine Arts studies",
 				body: "Hypermedia<br>Graphism",
-				location: "Aix-en-Provence",
+				location: "Aix-en-Provence (Beaux-Arts)",
 				date: {
 					year: "2010 - 2013"
 				},
 				description: [
-					"Historical, theorical and critical art studies",
-					"Graphic Design, Generative drawing, .."
+					"Historical, theorical and critical arts studies",
+					"Pictural Design, Generative drawing, .."
 				]
 			},
 			{
@@ -219,7 +219,8 @@ export const stepsWording = {
 				body: "Graphic<br>Design",
 				location: "Marseille - Aix-en-Provence",
 				date: {
-					year: "2008 - 2015"
+					year: "2008 - 2015",
+					duration: "while studying & working"
 				},
 				description: [
 					"Various communication supports",
@@ -235,7 +236,8 @@ export const stepsWording = {
 					duration: "1 month"
 				},
 				description: [
-					"Various communication supports"
+					"Various communication supports",
+					"Roughman & infographist"
 				]
 			},
 			{
@@ -247,7 +249,8 @@ export const stepsWording = {
 					duration: "3 weeks"
 				},
 				description: [
-					"Various communication supports"
+					"Intern communication supports",
+					"Infographist"
 				]
 			},
 			

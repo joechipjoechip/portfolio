@@ -149,7 +149,7 @@ function onMouseLeave(){
 			.duration {
 				font-style: italic;
 				font-weight: 300;
-				color: var(--bg-white-25);
+				color: var(--bg-white-45);
 				
 				transition: color var(--transitionDurationMedium);
 			}
@@ -194,7 +194,7 @@ function onMouseLeave(){
 				top: 2.25rem;
 				left: 0;
 				font-size: 1.3rem;
-				color: var(--bg-white-25);
+				color: var(--bg-white-45);
 
 				opacity: 0;
 				transform: translateY(1rem);

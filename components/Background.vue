@@ -4,15 +4,46 @@ import { useUserStore } from '@/stores/user';
 
 const store = useUserStore()
 
+const imagesPaths = ref([])
+
+function currentStringIndex(index) {
+
+    let stringIndex = new String(index)
+
+    switch( stringIndex.length ){
+        case 1:
+            stringIndex = "00" + stringIndex
+            break;
+        case 2:
+            stringIndex = "0" + stringIndex
+            break;
+    }
+
+    return stringIndex
+
+}
+
+for (let index = 0; index < store.bgHomeCount; index++) {
+
+    imagesPaths.value[index] = `/images/prompt/${currentStringIndex(index + 1)}.png`
+
+}
+
 </script>
 
 <template>
-    <div class="background-container">
-        <img v-if="store.bgCurrentIndex === 0" class="background-content" src="./../assets/images/promptart/001.png" alt="">
-        <img v-if="store.bgCurrentIndex === 1" class="background-content" src="./../assets/images/promptart/002.png" alt="">
-        <img v-if="store.bgCurrentIndex === 2" class="background-content" src="./../assets/images/promptart/003.png" alt="">
-        <img v-if="store.bgCurrentIndex === 3" class="background-content" src="./../assets/images/promptart/004.png" alt="">
-        <img v-if="store.bgCurrentIndex === 4" class="background-content" src="./../assets/images/promptart/005.png" alt="">
+    <div 
+        v-for="(imageSrc, index) in imagesPaths" :key="imageSrc"
+        class="background-container"
+        :class="{ active: index === store.bgCurrentIndex }"
+    >
+
+        <img
+            class="background-content"
+            :src="imageSrc"
+            alt=""
+        />
+
     </div>
 </template>
 
@@ -22,12 +53,16 @@ const store = useUserStore()
 
     &-container {
         z-index: -1;
-        display: block;
+        display: none;
         position: fixed;
         top: 0;
         left: 0;
         width: 100vw;
         height: 100vh;
+
+        &.active {
+            display: block;
+        }
 
         &::after {
             content: "";

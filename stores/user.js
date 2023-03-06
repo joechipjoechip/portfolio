@@ -14,7 +14,8 @@ export const useUserStore = defineStore('storedUser',
 					isMoving: false,
 					position: { x:0, y:0 }
 				}
-			}
+			},
+			bgHomeCount: 88
 		}),
 
 		actions: {
@@ -53,7 +54,7 @@ export const useUserStore = defineStore('storedUser',
 				}
 			},
 			setBgCurrentIndexIncrement(){
-				if( this.bgCurrentIndex < 4 ){
+				if( this.bgCurrentIndex < this.bgHomeCount ){
 					this.bgCurrentIndex++
 				}
 			},
