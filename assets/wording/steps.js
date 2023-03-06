@@ -168,7 +168,7 @@ export const stepsWording = {
 				location: "Paris",
 				date: {
 					year: "2017 - 2021",
-					duration: "3 years and 7 months of ❤"
+					duration: "3 years and 7 months (of ❤)"
 				},
 				description: [
 					"Vanilla Javascript, Vue, React, Node, PHP,",

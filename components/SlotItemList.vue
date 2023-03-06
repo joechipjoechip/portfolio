@@ -39,38 +39,43 @@ function onMouseLeave(){
 		@mouseleave="onMouseLeave"
 	>
 
-		<div class="step-slot-head">
+		<div class="step-slot-inner">
 
-			<time class="year">
-				{{ props.data.date.year }}
-			</time>
-
-			<time class="duration">
-				{{ props.data.date.duration }}
-			</time>
-
-		</div>
-
-
-		<div class="step-slot-body">
-
-			<h5 class="title">
-				{{ props.data.title }}
-				<span class="location">{{ props.data.location }}</span>
-			</h5>
-
-			<h4 class="name">
-				<span v-html="props.data.body"></span>
-			</h4>
-
-			<div class="description">
-
-				<p v-for="sentence in props.data.description" :key="sentence.id" v-html="sentence">
-				</p>
-
+			<div class="step-slot-head">
+		
+				<time class="year">
+					{{ props.data.date.year }}
+				</time>
+		
+				<time class="duration">
+					{{ props.data.date.duration }}
+				</time>
+		
 			</div>
-
+		
+		
+			<div class="step-slot-body">
+		
+				<h5 class="title">
+					{{ props.data.title }}
+					<span class="location">{{ props.data.location }}</span>
+				</h5>
+		
+				<h4 class="name">
+					<span v-html="props.data.body"></span>
+				</h4>
+		
+				<div class="description">
+		
+					<p v-for="sentence in props.data.description" :key="sentence.id" v-html="sentence">
+					</p>
+		
+				</div>
+		
+			</div>
+			
 		</div>
+
 
 	</article>
 
@@ -84,8 +89,47 @@ function onMouseLeave(){
 	&-slot {
 
 		&-wrapper {
+			
+			width: 100%;
+			box-sizing: border-box;
+			margin-top: 0;
+
+			transition: margin-top var(--transitionDurationMedium);
+			
+			
+			&.isHovered {
+
+				.step-slot-inner {
+
+					background-color: var(--bg-black-65);
+					margin: 2.5rem 0;
+					padding: 1rem 0;
+
+				}
+
+				& + .step-slot-wrapper {
+					margin-top: 7.5rem;
+				}
+				
+
+				.year {
+					color: var(--bg-white-55);
+				}
+
+				.duration,
+				.location {
+					opacity: 1;
+					transform: translateX(0) translateY(0);
+				}
+
+			}
+
+		}
+
+		&-inner {
 			@include glassMorph;
 			width: 100%;
+			height: 100%;
 			// position: relative;
 			border-radius: 0 999px 999px 0;
 			background-color: var(--bg-black-45);
@@ -98,40 +142,6 @@ function onMouseLeave(){
 				background-color var(--transitionDurationShort),
 				margin var(--transitionDurationLong),
 				padding var(--transitionDurationMedium);
-			
-			
-			
-			&.isHovered {
-				
-				background-color: var(--bg-black-65);
-				margin: 2.5rem 0;
-				padding: 1rem 0;
-
-				.year {
-					color: var(--bg-white-55);
-				}
-
-				.duration,
-				.location {
-					opacity: 1;
-					transform: translateX(0) translateY(0);
-				}
-
-				.name {
-					//
-				}
-
-				.description {
-					
-					//
-	
-					p {
-						//
-					}
-
-				}
-			}
-
 		}
 
 		&-head {
