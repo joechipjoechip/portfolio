@@ -2,9 +2,18 @@
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { CurtainShader } from './../assets/shaders/CurtainShader.js'
+
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js';
+
+// import { PixelShader } from 'three/examples/jsm/shaders/PixelShader.js';
+import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 
 import { useGetEventPosition } from "@/composables/getEventPosition";
-
 import { useUserStore } from '@/stores/user';
 
 const store = useUserStore()
@@ -71,27 +80,35 @@ function onMainTouchMove( event ){
 	mouse.y = y / window.innerHeight
 
 }
+
+watch(mouse, newVal => {
+	console.log("watch de la mouse : ", newVal.x)
+	// if( )
+})
 // - - - - - - - - - - - - - - - - - - - - - - -
 
 
 // THREE LOGIC - - - - - - - - - - - - - - - - -
 const canvas = ref(null)
 
-onMounted(() => {
+let scene
+let camera
+let mesh
+let renderer
+let deltaTime = 0
+let clones = []
+let orbit
+let group = new THREE.Group()
+let renderPass
+let composer
+let effects = []
+let postProcs = []
 
-	let scene
-	let camera
-	let mesh
-	let renderer
-	let deltaTime = 0
-	let clones = []
-	let orbit
-	let group = new THREE.Group()
-	
-	const frameRate = 1/60
-	const clock = new THREE.Clock()
-	const clonesCount = 7
-	
+const frameRate = 1/60
+const clock = new THREE.Clock()
+const clonesCount = 12
+
+onMounted(() => {
 
 	scene = new THREE.Scene();
 	
@@ -126,86 +143,179 @@ onMounted(() => {
 	renderer.setSize( window.innerWidth, window.innerHeight )
 	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 	// renderer.setClearColor(currentWorldConfig.main.spaceColor);
-	renderer.outputEncoding = THREE.sRGBEncoding
+
+	// TODO : voir si on laisse ça ou pas (dépend de la presence/absence d'effets postProcs)
+	// renderer.outputEncoding = THREE.sRGBEncoding
 
 	renderer.shadowMap.enabled = true
 	renderer.shadowMap.type = THREE.PCFShadowMap
 
+	initComposer()
 
-	function displayTexture( item ){
-		console.log("item : ", item)
+	displayTexture(collection.value[1])
 
-		const currentMaterial = new THREE.MeshStandardMaterial({
-			map: item.texture
-		})
-
-		mesh.material = currentMaterial
-		mesh.material.needsUpdate = true
-
-		group.add(mesh)
-
-		if( clones.length ){
-			clones.forEach(mesh => mesh.dispose())
-			clones = []
-		}
-
-		for(let i = 0; i < clonesCount; i++){
-			clones[i] = mesh.clone()
-
-			clones[i].material = currentMaterial
-			
-			clones[i].position.z = i * 0.04
-			// clones[i].position.y = i * -0.05
-			
-			clones[i].material.needsUpdate = true
-
-			group.add(clones[i])
-		}
-
-
-	}
-	
-	
-
-
-	function mainTick(){
-		const elapsedTime = clock.elapsedTime
-
-		deltaTime += clock.getDelta()
-
-		
-		// NOW CHECK IF FRAMERATE IS GOOD
-		if( deltaTime > frameRate ){
-
-			if( orbit ){
-				orbit.update()
-			}
-
-
-			doRotation(mesh, elapsedTime)
-
-			clones.forEach(mesh => doRotation(mesh, elapsedTime))
-
-
-			renderer.render(scene, camera);
-			
-			deltaTime = deltaTime % frameRate;
-		}
-
-		window.requestAnimationFrame(mainTick);
-
-	}
-
-	function doRotation( passedMesh, elapsedTime ){
-
-		passedMesh.rotation.y = Math.sin(elapsedTime / 5) / 10;
-
-	}
-
-	displayTexture(collection.value[0])
 	mainTick()
 
 })
+
+
+function displayTexture( item ){
+
+	const currentMaterial = new THREE.MeshStandardMaterial({
+		map: item.texture
+	})
+
+	const transparentMaterial = new THREE.MeshStandardMaterial({
+		map: item.texture,
+		transparent: true,
+		alphaMap: textureLoader.load("./images/misc/mask3.png")
+	})
+
+	mesh.material = currentMaterial
+	mesh.material.needsUpdate = true
+
+	group.add(mesh)
+
+	if( clones.length ){
+		clones.forEach(mesh => mesh.dispose())
+		clones = []
+	}
+
+	for(let i = 0; i < clonesCount; i++){
+		clones[i] = mesh.clone()
+
+		clones[i].material = transparentMaterial
+
+		clones[i].position.z = i * 0.01
+		// clones[i].position.y = i * -0.05
+		
+		clones[i].material.needsUpdate = true
+
+		group.add(clones[i])
+	}
+
+
+}
+
+function initComposer(){
+
+	renderPass = new RenderPass(scene, camera);
+
+	composer = new EffectComposer(renderer);
+
+	composer.setSize(window.innerWidth, window.innerHeight);
+
+	composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+	composer.addPass(renderPass)
+
+
+	buildPostProcs()
+	buildEffects()
+
+	addPostProcs()
+	addEffects()
+
+}
+
+function buildPostProcs(){
+
+	// PIXEL :
+
+	// const pixelPass = new ShaderPass( PixelShader );
+
+	// pixelPass.uniforms["resolution"].value = new THREE.Vector2(window.innerWidth, window.innerHeight);
+
+	// pixelPass.uniforms["pixelSize"].value = 40;
+
+	// postProcs.push(pixelPass);
+
+	// - - - -
+
+
+	// GLITCH :
+	// postProcs.push(new GlitchPass())
+
+
+	// BLOOM :
+	// const strength = .25
+	// const threshold = 0.045
+	// const radius = 0.01
+
+	// const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+
+	// postProcs.push(
+	// 	Object.assign(bloomPass, { threshold, strength, radius })
+	// );
+	
+}
+
+function addPostProcs(){
+	
+
+	postProcs.forEach(postProc => composer.addPass(postProc))
+}
+
+function buildEffects(){
+
+	// Curtain custom effect
+	effects.push(
+		new ShaderPass(CurtainShader)
+	)
+
+}
+
+function addEffects(){
+
+	console.log("wsh le effect add : ", effects)
+
+	composer.addPass(renderPass)
+
+	effects.forEach(effect => composer.addPass(effect))
+
+}
+
+
+
+function doRotation( passedMesh, elapsedTime ){
+
+	passedMesh.rotation.y = Math.sin(elapsedTime / 5) / 10;
+
+}
+
+function mainTick(){
+
+	const elapsedTime = clock.elapsedTime
+
+	deltaTime += clock.getDelta()
+
+
+	// NOW CHECK IF FRAMERATE IS GOOD
+	if( deltaTime > frameRate ){
+
+		if( orbit ){
+			orbit.update()
+		}
+
+
+		doRotation(mesh, elapsedTime)
+
+		clones.forEach(mesh => doRotation(mesh, elapsedTime))
+
+		if( postProcs.length || effects.length ){
+			composer.render(scene, camera);
+		} else {
+			renderer.render(scene, camera)
+		}
+		
+		deltaTime = deltaTime % frameRate;
+	}
+
+	window.requestAnimationFrame(mainTick);
+
+}
+
+
 
 
 
