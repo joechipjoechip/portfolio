@@ -17,6 +17,9 @@ export function useUserInteractions() {
     useEventListener(window, "mousemove", handleTouchMove)
 
 
+    useEventListener(window, "keydown", handleKeyDown)
+
+
 	function handleTouchStart( event ){
 		$emit("main-touch-start", event)
 	}
@@ -31,6 +34,10 @@ export function useUserInteractions() {
     
     function handleTouchAndClick( event ){
         $emit("main-touch-and-click", event)
+    }
+
+    function handleKeyDown( event ){
+        $emit("main-keydown", event)
     }
 
 }

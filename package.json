@@ -16,6 +16,7 @@
     "@pinia/nuxt": "^0.4.6",
     "@vueuse/core": "^9.12.0",
     "@vueuse/motion": "^2.0.0-beta.23",
+    "gsap": "^3.11.4",
     "mitt": "^3.0.0",
     "nuxt-use-motion": "^2.0.0-beta.11",
     "pinia": "^2.0.30",

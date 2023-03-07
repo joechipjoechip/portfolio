@@ -1,5 +1,7 @@
 <script setup>
 
+import { gsap } from 'gsap'
+
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
@@ -18,8 +20,7 @@ import { useGetEventPosition } from "@/composables/getEventPosition";
 import { useUserStore } from '@/stores/user';
 
 const store = useUserStore()
-
-const textureLoader = new THREE.TextureLoader();
+const devImageIndex = 16;
 
 
 // IMAGES COLLECTION LOGIC - - - - - - - - - - -
@@ -67,7 +68,7 @@ onBeforeMount(() => createCollection())
 
 
 
-// MOUSEMOVE LOGIC - - - - - - - - - - - - - - -
+// ITERACTIONS LOGIC - - - - - - - - - - - - - - -
 const { $on } = useNuxtApp()
 const mouse = reactive({
 	lastClick: { x: 0, y: 0 },
@@ -77,6 +78,13 @@ const mouse = reactive({
 
 $on("main-touch-move", onMainTouchMove)
 $on("main-touch-and-click", onMainClick)
+$on("main-keydown", onMainKeyDown)
+
+function onMainKeyDown(){
+
+	buildTimelines()
+
+}
 
 
 function onMainClick( event ){
@@ -86,8 +94,6 @@ function onMainClick( event ){
 		x: event.clientX,
 		y: event.clientY
 	}
-	
-	console.log("ss", mouse.lastClick.x, mouse.lastClick.y)
 
 }
 
@@ -102,8 +108,64 @@ function onMainTouchMove( event ){
 // - - - - - - - - - - - - - - - - - - - - - - -
 
 
+
+// TIMELINE LOGIC - - - - - - - - - - - - - - - -
+const timelines = ref([])
+const uProgress = ref(1)
+
+function buildTimelines(){
+
+	console.log("buildTl bien triggered")
+
+	// const tl = new gsap
+	const tl = gsap.timeline({ paused: true })
+
+	const animatedObj = { progress: uProgress.value }
+
+	tl.to(animatedObj, 
+		.45, 
+		{
+			progress: 0,
+			onUpdate: (uProgressNewVal) => {
+				// console.log("uProgressNewVal -> ", uProgressNewVal)
+				updateAllWithProgress(uProgressNewVal.progress)
+
+			},
+			onUpdateParams: [animatedObj],
+
+			onComplete: () => {
+				uProgress.value = 1
+			}
+		}
+	).play()
+
+	// timelines.push(tl)
+}
+
+function updateAllWithProgress( newVal ){
+
+	if( composer && effectsCustomPass.length ){
+
+		effectsCustomPass.forEach(effect => {
+			effect.uniforms.uProgress.value = newVal
+		})
+
+	}
+
+	// clones.forEach((clone, index) => {
+	// 	// console.log(" clones : ", clone)
+	// 	clone.position.z = newVal * 10 * index *  staggerRatioClonesPositions
+	// })
+
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
 // THREE LOGIC - - - - - - - - - - - - - - - - -
 const canvas = ref(null)
+const textureLoader = new THREE.TextureLoader();
 
 let scene
 let camera
@@ -115,24 +177,13 @@ let orbit
 let group = new THREE.Group()
 let renderPass
 let composer
-let effectsPass = []
+let effectsCustomPass = []
 let postProcsPass = []
 
 const frameRate = 1/60
+const staggerRatioClonesPositions = 0.01
 const clock = new THREE.Clock()
 const clonesCount = 12
-
-watch(mouse, newVal => {
-
-	if( composer && effectsPass.length ){
-
-		effectsPass.forEach(effect => {
-			effect.uniforms.uMouseX.value = newVal.x
-		})
-
-	}
-
-})
 
 onMounted(() => {
 
@@ -178,7 +229,13 @@ onMounted(() => {
 
 	initComposer()
 
-	displayTexture(collection.value[0])
+	buildPostProcs()
+	buildCustomEffects()
+
+	addPostProcs()
+	addCustomEffects()
+
+	displayTexture(collection.value[devImageIndex])
 
 	mainTick()
 
@@ -212,7 +269,7 @@ function displayTexture( item ){
 
 		clones[i].material = transparentMaterial
 
-		clones[i].position.z = i * 0.01
+		clones[i].position.z = i * staggerRatioClonesPositions
 		// clones[i].position.y = i * -0.05
 		
 		clones[i].material.needsUpdate = true
@@ -234,13 +291,6 @@ function initComposer(){
 	composer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 	composer.addPass(renderPass)
-
-
-	buildPostProcs()
-	buildEffects()
-
-	addPostProcs()
-	addEffects()
 
 }
 
@@ -264,15 +314,15 @@ function buildPostProcs(){
 
 
 	// BLOOM :
-	// const strength = .25
-	// const threshold = 0.045
-	// const radius = 0.01
+	const strength = .25
+	const threshold = 0.045
+	const radius = 0.01
 
-	// const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+	const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
 
-	// postProcsPass.push(
-	// 	Object.assign(bloomPass, { threshold, strength, radius })
-	// );
+	postProcsPass.push(
+		Object.assign(bloomPass, { threshold, strength, radius })
+	);
 	
 }
 
@@ -282,26 +332,27 @@ function addPostProcs(){
 
 }
 
-function buildEffects(){
+function buildCustomEffects(){
 
 	// Curtain custom effect
-	effectsPass.push(
+	effectsCustomPass.push(
 		new ShaderPass(CurtainShader)
 	)
 
-	effectsPass.push(
+	// RGB custom effect
+	effectsCustomPass.push(
 		new ShaderPass(RGBShader)
 	)
 
 }
 
-function addEffects(){
+function addCustomEffects(){
 
-	console.log("wsh le effect add : ", effectsPass)
+	console.log("wsh le effect add : ", effectsCustomPass)
 
 	composer.addPass(renderPass)
 
-	effectsPass.forEach(effect => composer.addPass(effect))
+	effectsCustomPass.forEach(effect => composer.addPass(effect))
 
 }
 
@@ -332,7 +383,7 @@ function mainTick(){
 
 		clones.forEach(mesh => doRotation(mesh, elapsedTime))
 
-		if( postProcsPass.length || effectsPass.length ){
+		if( postProcsPass.length || effectsCustomPass.length ){
 			composer.render(scene, camera);
 		} else {
 			renderer.render(scene, camera)
@@ -347,9 +398,6 @@ function mainTick(){
 
 
 
-
-
-
 // - - - - - - - - - - - - - - - - - - - - - - -
 
 
@@ -360,7 +408,7 @@ function mainTick(){
 	<canvas 
 		ref="canvas"
 		class="background-container"
-		width="800" height="500" 
+		width="800" height="500"
 	></canvas>
 
 </template>
@@ -378,7 +426,7 @@ function mainTick(){
 		width: 100vw;
 		height: 100vh;
 
-		&::after {
+		&::before {
 			content: "";
 			position: absolute;
 			top: 0;
