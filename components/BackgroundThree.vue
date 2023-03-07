@@ -84,6 +84,8 @@ function onMainKeyDown(){
 
 	buildTimelines()
 
+	timelines.value.forEach(tl => tl.play()) 
+
 }
 
 
@@ -126,6 +128,9 @@ function buildTimelines(){
 		.45, 
 		{
 			progress: 0,
+
+			// ease: "elastic",
+			ease: "power4.out",
 			onUpdate: (uProgressNewVal) => {
 				// console.log("uProgressNewVal -> ", uProgressNewVal)
 				updateAllWithProgress(uProgressNewVal.progress)
@@ -135,11 +140,15 @@ function buildTimelines(){
 
 			onComplete: () => {
 				uProgress.value = 1
+
+				timelines.value = []
+
 			}
 		}
-	).play()
+	)
 
 	// timelines.push(tl)
+	timelines.value.push(tl)
 }
 
 function updateAllWithProgress( newVal ){

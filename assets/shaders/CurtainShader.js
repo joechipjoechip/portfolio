@@ -57,7 +57,7 @@ const CurtainShader = {
                 
             }
 
-            p += 0.1 * sin(5. * vUv.x) * uProgress;
+            //p += 0.5 * sin(5. * vUv.x) * uProgress;
 
             vec4 color = texture2D( tDiffuse, p);
 
