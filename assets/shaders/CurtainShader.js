@@ -35,7 +35,7 @@ const CurtainShader = {
         void main() {
             vec2 p = vUv;
 
-            // p += 0.1 * sin(10. * vUv.x);
+            
 
             if( p.x < 0.25 ) {
 
@@ -55,6 +55,8 @@ const CurtainShader = {
                 p.x = p.x - 0.65 * uMouseX;
                 
             }
+
+            p += 0.1 * sin(5. * vUv.x) * uMouseX;
 
             vec4 color = texture2D( tDiffuse, p);
 
