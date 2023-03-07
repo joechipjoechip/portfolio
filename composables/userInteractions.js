@@ -3,6 +3,8 @@ import { useEventListener } from '@vueuse/core'
 export function useUserInteractions() {
     const { $emit } = useNuxtApp()
 
+    useEventListener(window, "click", handleTouchAndClick)
+
     useEventListener(window, "touchstart", handleTouchStart)
     useEventListener(window, "touchend", handleTouchEnd)
     useEventListener(window, "touchmove", handleTouchMove)
@@ -26,5 +28,9 @@ export function useUserInteractions() {
 	function handleTouchMove( event ){
 		$emit("main-touch-move", event)
 	}
+    
+    function handleTouchAndClick( event ){
+        $emit("main-touch-and-click", event)
+    }
 
 }

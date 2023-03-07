@@ -69,9 +69,27 @@ onBeforeMount(() => createCollection())
 
 // MOUSEMOVE LOGIC - - - - - - - - - - - - - - -
 const { $on } = useNuxtApp()
-$on("main-touch-move", onMainTouchMove)
+const mouse = reactive({
+	lastClick: { x: 0, y: 0 },
+	x: 0,
+	y: 0
+})
 
-const mouse = reactive({})
+$on("main-touch-move", onMainTouchMove)
+$on("main-touch-and-click", onMainClick)
+
+
+function onMainClick( event ){
+
+	
+	mouse.lastClick = {
+		x: event.clientX,
+		y: event.clientY
+	}
+	
+	console.log("ss", mouse.lastClick.x, mouse.lastClick.y)
+
+}
 
 function onMainTouchMove( event ){
 
@@ -160,7 +178,7 @@ onMounted(() => {
 
 	initComposer()
 
-	displayTexture(collection.value[1])
+	displayTexture(collection.value[0])
 
 	mainTick()
 
@@ -260,8 +278,8 @@ function buildPostProcs(){
 
 function addPostProcs(){
 	
-
 	postProcsPass.forEach(postProc => composer.addPass(postProc))
+
 }
 
 function buildEffects(){

@@ -39,6 +39,7 @@ const CurtainShader = {
 
             if( p.x < 0.25 ) {
 
+            
                 
             } else if( p.x < 0.5) {
                 
