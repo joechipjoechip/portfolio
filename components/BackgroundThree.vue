@@ -6,6 +6,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { CurtainShader } from './../assets/shaders/CurtainShader.js'
+import { RGBShader } from './../assets/shaders/RGBShader.js'
 
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js';
@@ -80,11 +81,6 @@ function onMainTouchMove( event ){
 	mouse.y = y / window.innerHeight
 
 }
-
-watch(mouse, newVal => {
-	console.log("watch de la mouse : ", newVal.x)
-	// if( )
-})
 // - - - - - - - - - - - - - - - - - - - - - - -
 
 
@@ -101,12 +97,24 @@ let orbit
 let group = new THREE.Group()
 let renderPass
 let composer
-let effects = []
-let postProcs = []
+let effectsPass = []
+let postProcsPass = []
 
 const frameRate = 1/60
 const clock = new THREE.Clock()
 const clonesCount = 12
+
+watch(mouse, newVal => {
+
+	if( composer && effectsPass.length ){
+
+		effectsPass.forEach(effect => {
+			effect.uniforms.uMouseX.value = newVal.x
+		})
+
+	}
+
+})
 
 onMounted(() => {
 
@@ -144,7 +152,7 @@ onMounted(() => {
 	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 	// renderer.setClearColor(currentWorldConfig.main.spaceColor);
 
-	// TODO : voir si on laisse ça ou pas (dépend de la presence/absence d'effets postProcs)
+	// TODO : voir si on laisse ça ou pas (dépend de la presence/absence d'effets postProcsPass)
 	// renderer.outputEncoding = THREE.sRGBEncoding
 
 	renderer.shadowMap.enabled = true
@@ -228,13 +236,13 @@ function buildPostProcs(){
 
 	// pixelPass.uniforms["pixelSize"].value = 40;
 
-	// postProcs.push(pixelPass);
+	// postProcsPass.push(pixelPass);
 
 	// - - - -
 
 
 	// GLITCH :
-	// postProcs.push(new GlitchPass())
+	// postProcsPass.push(new GlitchPass())
 
 
 	// BLOOM :
@@ -244,7 +252,7 @@ function buildPostProcs(){
 
 	// const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
 
-	// postProcs.push(
+	// postProcsPass.push(
 	// 	Object.assign(bloomPass, { threshold, strength, radius })
 	// );
 	
@@ -253,25 +261,29 @@ function buildPostProcs(){
 function addPostProcs(){
 	
 
-	postProcs.forEach(postProc => composer.addPass(postProc))
+	postProcsPass.forEach(postProc => composer.addPass(postProc))
 }
 
 function buildEffects(){
 
 	// Curtain custom effect
-	effects.push(
+	effectsPass.push(
 		new ShaderPass(CurtainShader)
+	)
+
+	effectsPass.push(
+		new ShaderPass(RGBShader)
 	)
 
 }
 
 function addEffects(){
 
-	console.log("wsh le effect add : ", effects)
+	console.log("wsh le effect add : ", effectsPass)
 
 	composer.addPass(renderPass)
 
-	effects.forEach(effect => composer.addPass(effect))
+	effectsPass.forEach(effect => composer.addPass(effect))
 
 }
 
@@ -302,7 +314,7 @@ function mainTick(){
 
 		clones.forEach(mesh => doRotation(mesh, elapsedTime))
 
-		if( postProcs.length || effects.length ){
+		if( postProcsPass.length || effectsPass.length ){
 			composer.render(scene, camera);
 		} else {
 			renderer.render(scene, camera)

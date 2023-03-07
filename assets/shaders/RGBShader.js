@@ -1,6 +1,6 @@
 import { Vector2 } from 'three'
 
-const CurtainShader = {
+const RGBShader = {
 
     uniforms: {
         'tDiffuse': { value: null },
@@ -32,37 +32,19 @@ const CurtainShader = {
 
         varying vec2 vUv;
 
+    
+
         void main() {
             vec2 p = vUv;
 
-            // p += 0.1 * sin(10. * vUv.x);
-
-            if( p.x < 0.25 ) {
-
-                
-            } else if( p.x < 0.5) {
-                
-                p.x = p.x - 0.25 * uMouseX;
-                
-                
-            } else if( p.x < 0.75) {
-                
-                p.x = p.x - 0.35 * uMouseX;
-                
-                
-            } else {
-
-                p.x = p.x - 0.65 * uMouseX;
-                
-            }
-
-            vec4 color = texture2D( tDiffuse, p);
-
-            gl_FragColor = color;
-        }
+            vec4 cr = texture2D(tDiffuse, p + uMouseX * vec2(0.1,0.));
+            vec4 cg = texture2D(tDiffuse, p);
+            vec4 cb = texture2D(tDiffuse, p - uMouseX * vec2(0.1,0.));
 
 
-    `
+            gl_FragColor = vec4(cr.r, cg.g, cb.b, 1.0);
+        }`
+
 }
 
-export { CurtainShader }
+export { RGBShader }
