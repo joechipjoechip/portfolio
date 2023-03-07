@@ -19,7 +19,8 @@
     "mitt": "^3.0.0",
     "nuxt-use-motion": "^2.0.0-beta.11",
     "pinia": "^2.0.30",
-    "sass": "^1.58.0"
+    "sass": "^1.58.0",
+    "three": "^0.150.1"
   },
   "overrides": {
     "vue": "3"

@@ -106,7 +106,7 @@ function computePositionDiff(){
 
 		<!-- bg stuff here (slider / shader / kaleidoscope / etc ) -->
 		<!-- <Kaleidoscope /> -->
-		<Background />
+		<BackgroundThree />
 
 		<!-- <main> -->
 			

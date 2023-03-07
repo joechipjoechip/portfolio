@@ -5,7 +5,7 @@ export const useUserStore = defineStore('storedUser',
 
 		state: () => ({
 			name: "Paul",
-			currentStepIndex: 1,
+			currentStepIndex: 0,
 			bgCurrentIndex: 0,
 			stepsCount: 0,
 			navigation: {

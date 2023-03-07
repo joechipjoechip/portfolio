@@ -184,8 +184,8 @@ export const stepsWording = {
 					duration: "1 year and 2 months"
 				},
 				description: [
-					"Setting up production line for",
-					"applications series production"
+					"Setting up a code/no-code production line",
+					"for the app agency."
 				]
 			},
 			{

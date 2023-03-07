@@ -4,9 +4,11 @@ import { useUserStore } from '@/stores/user';
 
 const store = useUserStore()
 
-const imagesPaths = ref([])
 
-function currentStringIndex(index) {
+// IMAGES COLLECTION LOGIC - - - - - - - - - - -
+const collection = ref([])
+
+function formatIndex(index) {
 
     let stringIndex = new String(index)
 
@@ -23,24 +25,46 @@ function currentStringIndex(index) {
 
 }
 
-for (let index = 0; index < store.bgHomeCount; index++) {
+function createCollection(){
 
-    imagesPaths.value[index] = `/images/prompt/${currentStringIndex(index + 1)}.png`
+    for (let index = 0; index < store.bgHomeCount; index++) {
+    
+        collection.value[index] = {
+            src: `./images/prompt/${formatIndex(index)}.png`
+        }
+    
+    }
 
 }
+
+onBeforeMount(() => createCollection())
+// - - - - - - - - - - - - - - - - - - - - - - -
+
+
+// THREE LOGIC - - - - - - - - - - - - - - - - -
+
+
+
+
+
+
+// - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
 
 </script>
 
 <template>
     <div 
-        v-for="(imageSrc, index) in imagesPaths" :key="imageSrc"
+        v-for="(item, index) in collection" :key="item"
         class="background-container"
         :class="{ active: index === store.bgCurrentIndex }"
     >
 
         <img
             class="background-content"
-            :src="imageSrc"
+            :src="item.src"
             alt=""
         />
 

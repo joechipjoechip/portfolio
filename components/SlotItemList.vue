@@ -94,6 +94,8 @@ function onMouseLeave(){
 			box-sizing: border-box;
 			margin-top: 0;
 
+			will-change: margin-top;
+
 			transition: margin-top var(--transitionDurationMedium);
 			
 			
