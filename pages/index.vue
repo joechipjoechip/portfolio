@@ -110,9 +110,9 @@ function computePositionDiff(){
 
 		<!-- <main> -->
 			
-			<Stepper />
+			<!-- <Stepper />
 			
-			<NavBar/>
+			<NavBar/> -->
 
 		<!-- </main> -->
 

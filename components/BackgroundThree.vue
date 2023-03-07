@@ -1,6 +1,7 @@
 <script setup>
 
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 import { useGetEventPosition } from "@/composables/getEventPosition";
 
@@ -84,6 +85,8 @@ onMounted(() => {
 	let renderer
 	let deltaTime = 0
 	let clones = []
+	let orbit
+	let group = new THREE.Group()
 	
 	const frameRate = 1/60
 	const clock = new THREE.Clock()
@@ -93,19 +96,26 @@ onMounted(() => {
 	scene = new THREE.Scene();
 	
 	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10 )
-	camera.position.z = 4;
+	camera.position.z = 0.5;
 
 	const light = new THREE.AmbientLight(0xFFFFFF)
 	
 	
-	const geometry = new THREE.PlaneGeometry( 1.6, 0.9 )
+	const geometry = new THREE.PlaneGeometry( 0.96, 0.54 )
 
 	const material = new THREE.MeshStandardMaterial({ side: THREE.DoubleSide });
 	
 	mesh = new THREE.Mesh( geometry, material );
 
+	group.add(mesh)
+
 	scene.add(light)
-	scene.add( mesh )
+	scene.add(group)
+
+	orbit = new OrbitControls(camera, canvas.value);
+	orbit.enabled = true;
+	orbit.enableDamping = true;
+	orbit.target = group.position;
 
 	
 	renderer = new THREE.WebGLRenderer({
@@ -121,9 +131,6 @@ onMounted(() => {
 	renderer.shadowMap.enabled = true
 	renderer.shadowMap.type = THREE.PCFShadowMap
 
-	
-
-
 
 	function displayTexture( item ){
 		console.log("item : ", item)
@@ -135,6 +142,8 @@ onMounted(() => {
 		mesh.material = currentMaterial
 		mesh.material.needsUpdate = true
 
+		group.add(mesh)
+
 		if( clones.length ){
 			clones.forEach(mesh => mesh.dispose())
 			clones = []
@@ -142,14 +151,15 @@ onMounted(() => {
 
 		for(let i = 0; i < clonesCount; i++){
 			clones[i] = mesh.clone()
+
 			clones[i].material = currentMaterial
-			// clones[i].position.y = i * 1
-			clones[i].position.z = i * 0.9
-			clones[i].position.y = i * -0.2
+			
+			clones[i].position.z = i * 0.04
+			// clones[i].position.y = i * -0.05
 			
 			clones[i].material.needsUpdate = true
 
-			scene.add(clones[i])
+			group.add(clones[i])
 		}
 
 
@@ -166,6 +176,10 @@ onMounted(() => {
 		
 		// NOW CHECK IF FRAMERATE IS GOOD
 		if( deltaTime > frameRate ){
+
+			if( orbit ){
+				orbit.update()
+			}
 
 
 			doRotation(mesh, elapsedTime)
@@ -184,24 +198,12 @@ onMounted(() => {
 
 	function doRotation( passedMesh, elapsedTime ){
 
-		passedMesh.rotation.y = Math.sin(elapsedTime / 5);
+		passedMesh.rotation.y = Math.sin(elapsedTime / 5) / 10;
 
 	}
 
 	displayTexture(collection.value[0])
 	mainTick()
-	
-	
-	// animation
-	
-	// function animation( time ) {
-	
-	// 	mesh.rotation.x = time / 2000;
-	// 	mesh.rotation.y = time / 1000;
-	
-	// 	renderer.render( scene, camera );
-	
-	// }
 
 })
 
@@ -209,8 +211,6 @@ onMounted(() => {
 
 
 // - - - - - - - - - - - - - - - - - - - - - - -
-
-
 
 
 </script>
@@ -230,7 +230,7 @@ onMounted(() => {
 .background {
 
 	&-container {
-		z-index: -1;
+		z-index: 1;
 		display: block;
 		position: fixed;
 		top: 0;
