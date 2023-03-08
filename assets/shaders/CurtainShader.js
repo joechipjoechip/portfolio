@@ -8,7 +8,9 @@ const CurtainShader = {
         'center': { value: new Vector2(0.5, 0.5) },
         'angle': { value: 1.57 },
         'scale': { value: 1.0 },
-        'uProgress': { value: 1.0 },
+        'uProgress1': { value: 1.0 },
+        'uProgress2': { value: 1.0 },
+        'uProgress3': { value: 1.0 },
     },
 
     vertexShader: `
@@ -26,7 +28,9 @@ const CurtainShader = {
         uniform vec2 tSize;
         uniform float angle;
         uniform float scale;
-        uniform float uProgress;
+        uniform float uProgress1;
+        uniform float uProgress2;
+        uniform float uProgress3;
 
         uniform sampler2D tDiffuse;
 
@@ -37,27 +41,29 @@ const CurtainShader = {
 
             
 
-            if( p.x < 0.25 ) {
+            if( p.x < 0.20 ) {
 
-                p.x = p.x + 0.65 * uProgress;
+                p.x = p.x + 0.65 * uProgress3;
                 
-            } else if( p.x < 0.5) {
+            } else if( p.x < 0.4) {
                 
-                p.x = p.x - 0.25 * uProgress;
+                p.x = p.x - 0.25 * uProgress1;
                 
+            } else if( p.x < 0.6) {
                 
-            } else if( p.x < 0.75) {
+                p.x = p.x + 0.25 * uProgress3;
                 
-                p.x = p.x + 0.35 * uProgress;
+            } else if( p.x < 0.8) {
                 
+                p.x = p.x + 0.25 * uProgress1;
                 
             } else {
 
-                p.x = p.x - 0.65 * uProgress;
+                p.x = p.x - 0.65 * uProgress3;
                 
             }
 
-            //p += 0.5 * sin(5. * vUv.x) * uProgress;
+            // p += 0.5 * sin(5. * vUv.x);
 
             vec4 color = texture2D( tDiffuse, p);
 

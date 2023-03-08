@@ -1,6 +1,6 @@
 <script setup>
 
-import { gsap } from 'gsap'
+import { gsap } from 'gsap';
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -20,7 +20,7 @@ import { useGetEventPosition } from "@/composables/getEventPosition";
 import { useUserStore } from '@/stores/user';
 
 const store = useUserStore()
-const devImageIndex = 1
+const devImageIndex = 0
 const clonesCount = 6
 
 
@@ -82,14 +82,6 @@ $on("main-touch-move", onMainTouchMove)
 $on("main-touch-and-click", onMainClick)
 $on("main-keydown", onMainKeyDown)
 
-function onMainKeyDown(){
-
-	buildTimelines()
-
-	timelines.value.forEach(tl => tl.play()) 
-
-}
-
 function onMainClick( event ){
 
 	
@@ -108,56 +100,72 @@ function onMainTouchMove( event ){
 	mouse.y = y / window.innerHeight
 
 }
+
+function onMainKeyDown(){
+
+	buildTimelines()
+
+	timelines.forEach(tl => tl.play())
+
+}
 // - - - - - - - - - - - - - - - - - - - - - - -
 
 
 // - - - - - - - - - - - - - - - - - - - - - - -
 // TIMELINE LOGIC - - - - - - - - - - - - - - - -
-const timelines = ref([])
-const uProgress = ref(1)
+const timelines = []
+const uProgressArr = [1,1,1]
+const uDurationsArr = [0.55, 0.75, 1]
 
 function buildTimelines(){
 
-	console.log("buildTl bien triggered")
+	uProgressArr.forEach((uValue, index) => {
 
-	// const tl = new gsap
-	const tl = gsap.timeline({ paused: true })
+		const tl = gsap.timeline({ paused: true })
+	
+		const animatedObj = { progress: uValue }
+	
+		tl.to(animatedObj, 
+			uDurationsArr[index] * 1.3, 
+			{
+				progress: 0,
+	
+				ease: index % 2 === 0 ? "power4.out" : "slow(0.7, 0.7, false)",
 
-	const animatedObj = { progress: uProgress.value }
-
-	tl.to(animatedObj, 
-		.65, 
-		{
-			progress: 0,
-
-			// ease: "elastic",
-			ease: "power4.out",
-			onUpdate: (uProgressNewVal) => {
-				// console.log("uProgressNewVal -> ", uProgressNewVal)
-				updateAllWithProgress(uProgressNewVal.progress)
-
+				onUpdate: (uProgressNewVal) => {
+					// console.log("uProgressNewVal -> ", uProgressNewVal)
+					updateAllWithProgress(index, uProgressNewVal.progress)
+	
+				},
+				onUpdateParams: [animatedObj],
+	
+				onComplete: () => {
+					uProgressArr[index] = 1
+	
+					if( index === uProgressArr.length ){
+						timelines = []
+					}
+	
+				}
 			},
-			onUpdateParams: [animatedObj],
+			// `+=${
+			// 	uDurationsArr[index - 1] ? uDurationsArr[index - 1] / 4 : 0
+			// }`
+			`start`
+		)
+	
+		timelines.push(tl)
 
-			onComplete: () => {
-				uProgress.value = 1
-
-				timelines.value = []
-
-			}
-		}
-	)
-
-	// timelines.push(tl)
-	timelines.value.push(tl)
+	})
 }
 
-function updateAllWithProgress( newVal ){
+function updateAllWithProgress( index, newVal ){
 
 	if( composer && effectsCustomPass.length ){
+		const uniformString = `uProgress${index + 1}`
 
 		effectsCustomPass.forEach(effect => {
-			effect.uniforms.uProgress.value = newVal
+			effect.uniforms[uniformString].value = newVal
 		})
 
 	}
@@ -199,13 +207,10 @@ onMounted(() => {
 	scene = new THREE.Scene();
 	
 	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10 )
-	camera.position.z = 0.5;
+	camera.position.z = 0.55 * (window.innerHeight / window.innerWidth);
 
 	const light = new THREE.AmbientLight(0xFFFFFF)
-	
-	
 	const geometry = new THREE.PlaneGeometry( 0.96, 0.54 )
-
 	const material = new THREE.MeshStandardMaterial({ side: THREE.DoubleSide });
 	
 	mesh = new THREE.Mesh( geometry, material );
@@ -386,9 +391,8 @@ function mainTick(){
 		}
 
 
-		doRotation(mesh, elapsedTime)
-
-		clones.forEach(mesh => doRotation(mesh, elapsedTime))
+		// doRotation(mesh, elapsedTime)
+		// clones.forEach(mesh => doRotation(mesh, elapsedTime))
 
 		if( postProcsPass.length || effectsCustomPass.length ){
 			composer.render(scene, camera);
