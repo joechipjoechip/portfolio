@@ -20,9 +20,11 @@ import { useGetEventPosition } from "@/composables/getEventPosition";
 import { useUserStore } from '@/stores/user';
 
 const store = useUserStore()
-const devImageIndex = 16;
+const devImageIndex = 1
+const clonesCount = 6
 
 
+// - - - - - - - - - - - - - - - - - - - - - - -
 // IMAGES COLLECTION LOGIC - - - - - - - - - - -
 const collection = ref([])
 
@@ -67,8 +69,8 @@ onBeforeMount(() => createCollection())
 // - - - - - - - - - - - - - - - - - - - - - - -
 
 
-
-// ITERACTIONS LOGIC - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - -
+// INTERACTIONS LOGIC - - - - - - - - - - - - - - -
 const { $on } = useNuxtApp()
 const mouse = reactive({
 	lastClick: { x: 0, y: 0 },
@@ -87,7 +89,6 @@ function onMainKeyDown(){
 	timelines.value.forEach(tl => tl.play()) 
 
 }
-
 
 function onMainClick( event ){
 
@@ -110,7 +111,7 @@ function onMainTouchMove( event ){
 // - - - - - - - - - - - - - - - - - - - - - - -
 
 
-
+// - - - - - - - - - - - - - - - - - - - - - - -
 // TIMELINE LOGIC - - - - - - - - - - - - - - - -
 const timelines = ref([])
 const uProgress = ref(1)
@@ -125,7 +126,7 @@ function buildTimelines(){
 	const animatedObj = { progress: uProgress.value }
 
 	tl.to(animatedObj, 
-		.45, 
+		.65, 
 		{
 			progress: 0,
 
@@ -171,7 +172,7 @@ function updateAllWithProgress( newVal ){
 // - - - - - - - - - - - - - - - - - - - - - - -
 
 
-
+// - - - - - - - - - - - - - - - - - - - - - - -
 // THREE LOGIC - - - - - - - - - - - - - - - - -
 const canvas = ref(null)
 const textureLoader = new THREE.TextureLoader();
@@ -192,7 +193,6 @@ let postProcsPass = []
 const frameRate = 1/60
 const staggerRatioClonesPositions = 0.01
 const clock = new THREE.Clock()
-const clonesCount = 12
 
 onMounted(() => {
 
@@ -365,8 +365,6 @@ function addCustomEffects(){
 
 }
 
-
-
 function doRotation( passedMesh, elapsedTime ){
 
 	passedMesh.rotation.y = Math.sin(elapsedTime / 5) / 10;
@@ -404,8 +402,6 @@ function mainTick(){
 	window.requestAnimationFrame(mainTick);
 
 }
-
-
 
 // - - - - - - - - - - - - - - - - - - - - - - -
 
