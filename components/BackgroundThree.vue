@@ -18,10 +18,13 @@ import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 
 import { useGetEventPosition } from "@/composables/getEventPosition";
 import { useUserStore } from '@/stores/user';
+import { rand } from '@vueuse/core';
 
 const store = useUserStore()
-const currentImageIndex = ref(0)
-const clonesCount = 6
+const currentImageIndex = ref(1)
+const clonesCount = 8
+const orbitEnabled = ref(true)
+const sceneIsPlaying = ref(false)
 
 
 // - - - - - - - - - - - - - - - - - - - - - - -
@@ -101,18 +104,32 @@ function onMainTouchMove( event ){
 
 }
 
-function onMainKeyDown(){
+function onMainKeyDown( event ){
 
-	currentImageIndex.value++
-	
-	buildTimelines()
+	if( timelines.length ){
+		timelines.forEach(tl => tl?.kill() )
+	}
 
-	timelines.forEach(tl => tl.play())
-
+	switch( event.code ){
+		case "ArrowRight":
+			if( currentImageIndex.value < collection.value.length ){
+				currentImageIndex.value++
+			}
+			break;
+		case "ArrowLeft":
+			if( currentImageIndex.value > 0 ){
+				currentImageIndex.value--
+			}
+			break;
+	}
 
 }
 
 watch(currentImageIndex, newVal => {
+
+	buildTimelines()
+
+	timelines.forEach(tl => tl.play())
 
 	changeTexture(collection.value[newVal])
 
@@ -126,20 +143,36 @@ const timelines = []
 const uProgressArr = [1,1,1]
 const uDurationsArr = [0.55, 0.75, 1]
 
+function random(min, max){
+
+	return Math.max(Math.min(
+							Math.random(), max
+					), min)
+
+}
+
 function buildTimelines(){
+
+	const randomFactor = random(0.35, 0.9)
+
 
 	uProgressArr.forEach((uValue, index) => {
 
 		const tl = gsap.timeline({ paused: true })
 	
 		const animatedObj = { progress: uValue }
+
+		
+
+		console.log("random : ", randomFactor)
 	
 		tl.to(animatedObj, 
-			uDurationsArr[index] * 1.3, 
+			uDurationsArr[index] * randomFactor, 
 			{
 				progress: 0,
 	
-				ease: index % 2 === 0 ? "power4.out" : "slow(0.7, 0.7, false)",
+				// ease: index % 2 === 0 ? "power4.out" : "slow(0.7, 0.7, false)",
+				ease: "power4.out",
 
 				onUpdate: (uProgressNewVal) => {
 					// console.log("uProgressNewVal -> ", uProgressNewVal)
@@ -208,15 +241,37 @@ let effectsCustomPass = []
 let postProcsPass = []
 
 const frameRate = 1/60
-const staggerRatioClonesPositions = 0.01
+const staggerRatioClonesPositions = 0.015
 const clock = new THREE.Clock()
+const cameraBasePositionZ = 0.64 * (window.innerHeight / window.innerWidth)
 
 onMounted(() => {
+
+	initScene()
+
+	initComposer()
+
+	initEffectsAndPostProcs()
+
+	displayTexture(collection.value[currentImageIndex.value])
+	displayClones(collection.value[currentImageIndex.value])
+
+	mainTick()
+
+	sceneIsPlaying.value = true
+
+})
+
+watch(sceneIsPlaying, newVal => {
+	currentImageIndex.value--
+})
+
+function initScene(){
 
 	scene = new THREE.Scene();
 	
 	camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 10 )
-	camera.position.z = 0.55 * (window.innerHeight / window.innerWidth);
+	camera.position.z = cameraBasePositionZ;
 
 	const light = new THREE.AmbientLight(0xFFFFFF)
 	const geometry = new THREE.PlaneGeometry( 0.96, 0.54 )
@@ -224,14 +279,12 @@ onMounted(() => {
 	
 	mesh = new THREE.Mesh( geometry, material );
 
-	// group.add(mesh)
-
 	scene.add(light)
 
 	scene.add(group)
 
 	orbit = new OrbitControls(camera, canvas.value);
-	orbit.enabled = true;
+	orbit.enabled = orbitEnabled.value;
 	orbit.enableDamping = true;
 	orbit.target = group.position;
 
@@ -251,16 +304,7 @@ onMounted(() => {
 	renderer.shadowMap.enabled = true
 	renderer.shadowMap.type = THREE.PCFShadowMap
 
-	initComposer()
-
-	initEffectsAndPostProcs()
-
-	displayTexture(collection.value[currentImageIndex.value])
-	displayClones(collection.value[currentImageIndex.value])
-
-	mainTick()
-
-})
+}
 
 function initEffectsAndPostProcs(){
 
@@ -271,7 +315,6 @@ function initEffectsAndPostProcs(){
 	addCustomEffects()
 
 }
-
 
 function displayTexture( item ){
 
@@ -291,16 +334,19 @@ function displayClones( item ){
 	const transparentMaterial = new THREE.MeshStandardMaterial({
 		map: item.texture,
 		transparent: true,
-		alphaMap: textureLoader.load("./images/misc/mask3.png")
+		alphaMap: textureLoader.load("./images/misc/mask3.png"),
+		opacity: 0
 	})
 
 	for(let i = 0; i < clonesCount; i++){
+
+		transparentMaterial.opacity = 0.2 + (clonesCount - i) / 10
+
 		clones[i] = mesh.clone()
 
 		clones[i].material = transparentMaterial
 
-		clones[i].position.z = i * staggerRatioClonesPositions
-		// clones[i].position.y = i * -0.05
+		clones[i].position.z = ((i + 1) * staggerRatioClonesPositions) *2
 		
 		clones[i].material.needsUpdate = true
 
@@ -403,9 +449,11 @@ function addCustomEffects(){
 
 }
 
-function doRotation( passedMesh, elapsedTime ){
+function doRotation( elapsedTime ){
 
-	passedMesh.rotation.y = Math.sin(elapsedTime / 5) / 10;
+	mesh.rotation.y = Math.sin(elapsedTime / 5) / 10;
+
+	clones.forEach(clone => clone.rotation.y = Math.sin(elapsedTime / 5) / 10 )
 
 }
 
@@ -419,13 +467,13 @@ function mainTick(){
 	// NOW CHECK IF FRAMERATE IS GOOD
 	if( deltaTime > frameRate ){
 
-		if( orbit ){
+		if( orbit && orbit.enabled ){
 			orbit.update()
 		}
 
+		cameraUpdate(elapsedTime)
 
-		// doRotation(mesh, elapsedTime)
-		// clones.forEach(mesh => doRotation(mesh, elapsedTime))
+		// doRotation(elapsedTime)
 
 		if( postProcsPass.length || effectsCustomPass.length ){
 			composer.render(scene, camera);
@@ -438,6 +486,23 @@ function mainTick(){
 
 	window.requestAnimationFrame(mainTick);
 
+}
+
+function cameraUpdate( elapsedTime ){
+
+	camera.position.x = Math.sin((elapsedTime / 5) * 0.9) / 70
+	// camera.position.z = (cameraBasePositionZ *2) + Math.sin((9.9 * elapsedTime) * 0.5) / 80
+
+	camera.fov = Math.max((Math.abs(Math.sin(elapsedTime /10 )) + 1) * 40, 65)
+
+	camera.lookAt(new THREE.Vector3(
+		0,
+		0,
+		-50
+	))
+
+	camera.updateProjectionMatrix()
+	
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - -

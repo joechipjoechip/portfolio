@@ -39,6 +39,8 @@
 		color: var(--bg-white-90);
 		font-size: 5.3rem;
 		line-height: 5.3rem;
+
+		text-shadow: 0 0 20px rgba(0,0,0,0.2);
 		
 		span {
 			color: var(--bg-white-40);

@@ -92,8 +92,8 @@ export const stepsWording = {
 					year: "2004 - 2006"
 				},
 				description: [
-					"Composition, perspective, typography,",
-					"illustration, advertising, etc.."
+					"Photoshop, Illustrator, Graphic theory,",
+					"Composition, illustration, logo, ad, .."
 				]
 			},
 			{
