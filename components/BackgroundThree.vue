@@ -20,7 +20,7 @@ import { useGetEventPosition } from "@/composables/getEventPosition";
 import { useUserStore } from '@/stores/user';
 
 const store = useUserStore()
-const devImageIndex = 0
+const currentImageIndex = ref(0)
 const clonesCount = 6
 
 
@@ -103,11 +103,20 @@ function onMainTouchMove( event ){
 
 function onMainKeyDown(){
 
+	currentImageIndex.value++
+	
 	buildTimelines()
 
 	timelines.forEach(tl => tl.play())
 
+
 }
+
+watch(currentImageIndex, newVal => {
+
+	changeTexture(collection.value[newVal])
+
+})
 // - - - - - - - - - - - - - - - - - - - - - - -
 
 
@@ -215,9 +224,10 @@ onMounted(() => {
 	
 	mesh = new THREE.Mesh( geometry, material );
 
-	group.add(mesh)
+	// group.add(mesh)
 
 	scene.add(light)
+
 	scene.add(group)
 
 	orbit = new OrbitControls(camera, canvas.value);
@@ -243,17 +253,24 @@ onMounted(() => {
 
 	initComposer()
 
+	initEffectsAndPostProcs()
+
+	displayTexture(collection.value[currentImageIndex.value])
+	displayClones(collection.value[currentImageIndex.value])
+
+	mainTick()
+
+})
+
+function initEffectsAndPostProcs(){
+
 	buildPostProcs()
 	buildCustomEffects()
 
 	addPostProcs()
 	addCustomEffects()
 
-	displayTexture(collection.value[devImageIndex])
-
-	mainTick()
-
-})
+}
 
 
 function displayTexture( item ){
@@ -262,21 +279,20 @@ function displayTexture( item ){
 		map: item.texture
 	})
 
-	const transparentMaterial = new THREE.MeshStandardMaterial({
-		map: item.texture,
-		transparent: true,
-		alphaMap: textureLoader.load("./images/misc/mask3.png")
-	})
-
 	mesh.material = currentMaterial
 	mesh.material.needsUpdate = true
 
 	group.add(mesh)
 
-	if( clones.length ){
-		clones.forEach(mesh => mesh.dispose())
-		clones = []
-	}
+}
+
+function displayClones( item ){
+
+	const transparentMaterial = new THREE.MeshStandardMaterial({
+		map: item.texture,
+		transparent: true,
+		alphaMap: textureLoader.load("./images/misc/mask3.png")
+	})
 
 	for(let i = 0; i < clonesCount; i++){
 		clones[i] = mesh.clone()
@@ -291,6 +307,23 @@ function displayTexture( item ){
 		group.add(clones[i])
 	}
 
+}
+
+function changeTexture(){
+
+	mesh.material.dispose()
+
+	group.remove(mesh)
+	
+	clones.forEach(clone => {
+		
+		clone.material.dispose()
+		group.remove(clone)
+
+	})
+
+	displayTexture(collection.value[currentImageIndex.value])
+	displayClones(collection.value[currentImageIndex.value])
 
 }
 
