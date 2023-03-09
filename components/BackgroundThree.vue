@@ -493,7 +493,7 @@ function cameraUpdate( elapsedTime ){
 	camera.position.x = Math.sin((elapsedTime / 5) * 0.9) / 70
 	// camera.position.z = (cameraBasePositionZ *2) + Math.sin((9.9 * elapsedTime) * 0.5) / 80
 
-	camera.fov = Math.max((Math.abs(Math.sin(elapsedTime /10 )) + 1) * 40, 65)
+	// camera.fov = Math.max((Math.abs(Math.sin(elapsedTime /10 )) + 1) * 40, 65)
 
 	camera.lookAt(new THREE.Vector3(
 		0,

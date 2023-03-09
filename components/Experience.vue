@@ -17,9 +17,8 @@ const props = defineProps({
 
     <NuxtLayout name="layout-step" :status="status" :wording="wording">
 
-		<SlotItemList
-			v-for="(dataItem, index) in props.wording.slots" :key="index"
-			:data="dataItem"
+		<SlotList 
+			:slots="props.wording.slots"
 			:stepIsActive="status.isActive"
 		/>
 
