@@ -37,9 +37,9 @@ function onMouseLeave(){
 
 // - - - - - - - - - - - - - 
 // ANIMATION LOGIC - - - - -
+const speed = ref(0.2)
 const idealDelay = computed(() => props.animationConfig.short * props.slotIndex)
 const isPair = ref(props.slotIndex % 2 === 0)
-const polarity = ref(0.3)
 
 const animationsAreFinished = ref(false)
 const isVisible = computed(() => animationsAreFinished.value && props.stepIsActive)
@@ -69,13 +69,11 @@ function handleStart(){
 	>
 
 		<div class="step-slot-inner"
-			:class="{
-				'isVisible': isVisible
-			}"
+			:class="{ isVisible }"
 			v-motion
 			:initial="{ 
 				opacity: 0,
-				y:  800 * polarity
+				y:  800 * speed
 			}"
 			:delay="idealDelay"
 			:enter="{ 
@@ -96,7 +94,7 @@ function handleStart(){
 			
 			<div class="step-slot-head"
 				v-motion
-				:initial="{ x: -300 * polarity }"
+				:initial="{ x: -300 * speed }"
 				:delay="idealDelay"
 				:enter="{ 
 					x: 0,
@@ -120,7 +118,7 @@ function handleStart(){
 		
 			<div class="step-slot-body"
 				v-motion
-				:initial="{ y: !isPair ? 300 * polarity : 600 * polarity }"
+				:initial="{ y: !isPair ? 300 * speed : 600 * speed }"
 				:delay="idealDelay"
 				:enter="{ 
 					y: 0,
@@ -133,7 +131,7 @@ function handleStart(){
 		
 				<h5 class="title"
 					v-motion
-					:initial="{ x: random(-4000, -800) * polarity }"
+					:initial="{ x: random(-4000, -800) * speed }"
 					:enter="{ 
 						x: 0,
 

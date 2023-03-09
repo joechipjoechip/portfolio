@@ -26,6 +26,19 @@ const props = defineProps({
         :stepIsActive="stepIsActive"
         :slotIndex="index"
         :animationConfig="store.animation.config"
+
+        v-motion
+        :initial="{ 
+            scale: 0.01,
+        }"
+        :enter="{ 
+            scale: 1,
+
+            transition: {
+                duration: store.animation.config.long,
+                ease: 'backInOut',
+            }
+        }"
     />
 
 </template>
