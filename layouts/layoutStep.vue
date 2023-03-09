@@ -54,7 +54,7 @@ const store = useUserStore()
             <div class="step-body">
                 
                 <!-- here comes : Formation.vue || Bio.vue || Experience.vue > -->
-                <slot />
+                <slot v-if="props.status.isActive" />
 
             </div>
 

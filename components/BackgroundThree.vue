@@ -17,8 +17,9 @@ import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectio
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 
 import { useGetEventPosition } from "@/composables/getEventPosition";
+
 import { useUserStore } from '@/stores/user';
-import { rand } from '@vueuse/core';
+import { random } from "@/assets/js/utils.js"
 
 const store = useUserStore()
 const currentImageIndex = ref(1)
@@ -142,14 +143,6 @@ watch(currentImageIndex, newVal => {
 const timelines = []
 const uProgressArr = [1,1,1]
 const uDurationsArr = [0.55, 0.75, 1]
-
-function random(min, max){
-
-	return Math.max(Math.min(
-							Math.random(), max
-					), min)
-
-}
 
 function buildTimelines(){
 

@@ -5,7 +5,7 @@ export const useUserStore = defineStore('storedUser',
 
 		state: () => ({
 			name: "Paul",
-			currentStepIndex: 0,
+			currentStepIndex: 1,
 			bgCurrentIndex: 0,
 			stepsCount: 0,
 			navigation: {
@@ -15,7 +15,14 @@ export const useUserStore = defineStore('storedUser',
 					position: { x:0, y:0 }
 				}
 			},
-			bgHomeCount: 88
+			bgHomeCount: 88,
+			animation: {
+				config: {
+					short: 180,
+					medium: 300,
+					long: 700
+				}
+			}
 		}),
 
 		actions: {

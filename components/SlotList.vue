@@ -1,5 +1,9 @@
 <script setup>
 
+import { useUserStore } from '@/stores/user';
+
+const store = useUserStore()
+
 const props = defineProps({
 	slots: {
 		type: Object,
@@ -20,6 +24,8 @@ const props = defineProps({
         v-for="(dataItem, index) in props.slots" :key="index"
         :data="dataItem"
         :stepIsActive="stepIsActive"
+        :slotIndex="index"
+        :animationConfig="store.animation.config"
     />
 
 </template>
