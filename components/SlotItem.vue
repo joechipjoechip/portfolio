@@ -41,10 +41,6 @@ const idealDelay = computed(() => props.animationConfig.short * props.slotIndex)
 const isPair = ref(props.slotIndex % 2 === 0)
 const polarity = ref(0.3)
 
-function pileOuFace(){
-	return Math.random() >= 0.5
-}
-
 const animationsAreFinished = ref(false)
 const isVisible = computed(() => animationsAreFinished.value && props.stepIsActive)
 
@@ -157,7 +153,6 @@ function handleStart(){
 						v-html="props.data.body"
 
 						v-motion
-
 						:initial="{ 
 							y: 300,
 							opacity: 0
@@ -230,7 +225,7 @@ function handleStart(){
 
 				.step-slot-inner {
 					
-					background-color: var(--bg-black-75);
+					background-color: var(--bg-black-85);
 					margin: 2rem 0;
 					padding: 1rem 0;
 
@@ -274,7 +269,7 @@ function handleStart(){
 			
 			transition: 
 				backdrop-filter 8s,
-				background-color var(--transitionDurationShort),
+				background-color var(--transitionDurationMedium),
 				margin var(--transitionDurationLong),
 				padding var(--transitionDurationMedium);
 
