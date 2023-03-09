@@ -57,7 +57,7 @@ function createCollection(){
 		const texture = textureLoader.load(pathString)
 	
 		collection.value[index] = {
-			id: formatedIndex,
+			id: index,
 			src: pathString,
 			texture
 		}
