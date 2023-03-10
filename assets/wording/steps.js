@@ -142,7 +142,7 @@ export const stepsWording = {
 				location: "Full remote",
 				date: {
 					year: "2022",
-					duration: "4 months mission"
+					duration: "Freelance : 4 months mission"
 				},
 				description: [
 					"Vue2, Nuxt2, VueStorefront, SSR,",
@@ -155,7 +155,7 @@ export const stepsWording = {
 				location: "Full remote",
 				date: {
 					year: "2021 - 2022",
-					duration: "6 months mission"
+					duration: "Freelance : 6 months mission"
 				},
 				description: [
 					"DAM on AEM architecture",
@@ -168,7 +168,7 @@ export const stepsWording = {
 				location: "Paris",
 				date: {
 					year: "2017 - 2021",
-					duration: "3 years and 7 months (of ❤)"
+					duration: "CDI : 3 years and 7 months (of ❤)"
 				},
 				description: [
 					"Vanilla Javascript, Vue, React, Node, PHP,",
@@ -181,7 +181,7 @@ export const stepsWording = {
 				location: "Paris",
 				date: {
 					year: "2016 - 2017",
-					duration: "1 year and 2 months"
+					duration: "CDI : 1 year and 2 months"
 				},
 				description: [
 					"Setting up a code/no-code production line",
@@ -194,7 +194,7 @@ export const stepsWording = {
 				location: "Paris",
 				date: {
 					year: "2016",
-					duration: "1 month mission"
+					duration: "Freelance : 1 month mission"
 				},
 				description: [
 					"Freelance oneshot for",
@@ -207,7 +207,7 @@ export const stepsWording = {
 				location: "Marseille",
 				date: {
 					year: "2015",
-					duration: "3 months mission"
+					duration: "Freelance : 3 months mission"
 				},
 				description: [
 					"Wordpress, Prestashop & Joomla",

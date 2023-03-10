@@ -26,6 +26,7 @@ const props = defineProps({
         :stepIsActive="stepIsActive"
         :slotIndex="index"
         :animationConfig="store.animation.config"
+        :soundEnabled="store.sound.enabled"
 
         v-motion
         :initial="{ 

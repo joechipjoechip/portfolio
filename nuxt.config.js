@@ -36,7 +36,7 @@ export default defineNuxtConfig(
 			},
 
 			head: {
-				title: 'awesome title',
+				title: 'Front-End Developer - Lionel Orsini',
 				script: [
 					{ src: "./js/sound/sfxr.js", tagPosition: "head" },
 					{ src: "./js/sound/riffwave.js", tagPosition: "head" },

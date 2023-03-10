@@ -22,6 +22,9 @@ export const useUserStore = defineStore('storedUser',
 					medium: 300,
 					long: 700
 				}
+			},
+			sound: {
+				enabled: true
 			}
 		}),
 

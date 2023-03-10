@@ -22,6 +22,10 @@ const props = defineProps({
 	slotIndex: {
 		type: Number,
 		required: true
+	},
+	soundEnabled: {
+		type: Boolean,
+		required: true
 	}
 })
 
@@ -57,16 +61,13 @@ function handleInnerComplete(){
 }
 
 function handleStart(){
-	console.log("start triggered - - - - - - - ")
-
-	createSound()
-
+	
+	createSound("bubble");
+	
 	setTimeout(() => {
-		
 		playSound()
-	
-	}, idealDelay.value)
-	
+	}, random(idealDelay.value, idealDelay.value * 1.6))
+
 }
 
 // - - - - - - - - - - - - - 
@@ -80,59 +81,102 @@ function handleStart(){
 const soundTypes = ["synth", "laserShoot"]
 const sound = ref()
 
-function createSound(){
+function createSound( type ){
+	if( !props.soundEnabled ){ return }
 
-	const forgedSoundOptions = {
-		"oldParams": true,
-		"wave_type": 1,
-		"p_env_attack": 0,
-		"p_env_sustain": 0.106,
-		"p_env_punch": 0.02169253542627644,
-		"p_env_decay": 0.6224005654145803,
-		"p_base_freq": 0.312,
-		"p_freq_limit": 0,
-		"p_freq_ramp": -0.12371676533548343,
-		"p_freq_dramp": 0.7881488219954658,
-		"p_vib_strength": 0.007838497625868867,
-		"p_vib_speed": -0.1720389707774026,
-		"p_arp_mod": 0.10556844719355096,
-		"p_arp_speed": 0.5281848848135842,
-		"p_duty": -0.2553719256156919,
-		"p_duty_ramp": 0.05653564786890511,
-		"p_repeat_speed": 0,
-		"p_pha_offset": 0.21837455263952593,
-		"p_pha_ramp": -0.020158793844971545,
-		"p_lpf_freq": 0.04316895631061235,
-		"p_lpf_ramp": 0.10032919647346196,
-		"p_lpf_resonance": 0,
-		"p_hpf_freq": 0.028011702230671846,
-		"p_hpf_ramp": -0.3411499172388156,
-		"sound_vol": 0.25,
-		"sample_rate": 44100,
-		"sample_size": 8
+	let forgedSoundOptions
+
+	switch( type ){
+		case "bubble":
+
+			forgedSoundOptions = {
+				"oldParams": true,
+				"wave_type": 1,
+				"p_env_attack": 0,
+				"p_env_sustain": 0.106,
+				"p_env_punch": 0.02169253542627644,
+				"p_env_decay": 0.6224005654145803,
+				"p_base_freq": 0.312,
+				"p_freq_limit": 0,
+				"p_freq_ramp": -0.12371676533548343,
+				"p_freq_dramp": 0.7881488219954658,
+				"p_vib_strength": 0.007838497625868867,
+				"p_vib_speed": -0.1720389707774026,
+				"p_arp_mod": 0.10556844719355096,
+				"p_arp_speed": 0.5281848848135842,
+				"p_duty": -0.2553719256156919,
+				"p_duty_ramp": 0.05653564786890511,
+				"p_repeat_speed": 0,
+				"p_pha_offset": 0.21837455263952593,
+				"p_pha_ramp": -0.020158793844971545,
+				"p_lpf_freq": 0.04316895631061235,
+				"p_lpf_ramp": 0.10032919647346196,
+				"p_lpf_resonance": 0,
+				"p_hpf_freq": 0.028011702230671846,
+				"p_hpf_ramp": -0.3411499172388156,
+				"sound_vol": 0.25,
+				"sample_rate": 44100,
+				"sample_size": 8
+			}
+		
+			forgedSoundOptions.p_base_freq = random(0.25, 0.75)
+			forgedSoundOptions.sound_vol = random(0.6, 0.9)
+
+		break;
+
+		case "laser":
+
+			forgedSoundOptions = {
+				"oldParams": true,
+				"wave_type": 1,
+				"p_env_attack": 0,
+				"p_env_sustain": 0.6069012743120976,
+				"p_env_punch": 0.6233621356009449,
+				"p_env_decay": 0.33359232528602545,
+				"p_base_freq": 0.114,
+				"p_freq_limit": 0,
+				"p_freq_ramp": 0,
+				"p_freq_dramp": 0,
+				"p_vib_strength": 0,
+				"p_vib_speed": 0,
+				"p_arp_mod": 0,
+				"p_arp_speed": 0.6220081955256818,
+				"p_duty": 0.8841864853487831,
+				"p_duty_ramp": 0,
+				"p_repeat_speed": 0,
+				"p_pha_offset": 0,
+				"p_pha_ramp": 0,
+				"p_lpf_freq": 0.4994763049139087,
+				"p_lpf_ramp": 0.792311745850447,
+				"p_lpf_resonance": 0.11697044086818131,
+				"p_hpf_freq": 0,
+				"p_hpf_ramp": 0.9470616102370923,
+				"sound_vol": 0.25,
+				"sample_rate": 44100,
+				"sample_size": 8
+			}
+
+			forgedSoundOptions.p_base_freq = random(0.05, 0.314)
+			forgedSoundOptions.sound_vol = random(0.005, 0.01)
+
+		break;
+
+		default:
+
+			break;
+
 	}
 
-	forgedSoundOptions.p_base_freq = random(0.35, 0.95)
-	forgedSoundOptions.sound_vol = random(0.4, 0.7)
-
-	try {
-		sound.value = sfxr.toAudio(forgedSoundOptions);
-	}
-	catch{
-		console.log("jsfxr is not well loaded")
-	}
 	
-	
+
+	sound.value = sfxr.toAudio(forgedSoundOptions);
+
 }
 
 function playSound(){
+	if( !props.soundEnabled ){ return }
 	
-	try {
-		sound.value.play();
-	}
-	catch {
-		console.log("jsfxr is not well loaded, so no sound to .play()")
-	}
+	sound.value.play();
 
 }
 
@@ -140,12 +184,15 @@ watch(isHovered, newVal => {
 
 	if( newVal ){
 
-		createSound()
+		createSound("bubble")
+
 		playSound()
 
 	}
 	
 })
+
+// onPlay: handleStart,
 
 // - - - - - - - - - - - - -
 
@@ -177,7 +224,6 @@ watch(isHovered, newVal => {
 
 				transition: {
 					duration: props.animationConfig.medium,
-					onPlay: handleStart,
 					onComplete: handleInnerComplete,
 					ease: 'easeInOut'
 				},
@@ -233,6 +279,7 @@ watch(isHovered, newVal => {
 
 						transition: {
 							duration: props.animationConfig.long,
+							onPlay: handleStart,
 							delay: idealDelay + 100,
 							ease: 'backInOut'
 						}
@@ -272,16 +319,16 @@ watch(isHovered, newVal => {
 
 						v-motion
 						:initial="{ 
-							y: random(400, 800),
+							x: random(200, 1000),
 							opacity: 0
 						}"
 						:delay="idealDelay"
 						:enter="{ 
-							y: 0,
+							x: 0,
 							opacity: 1,
 
 							transition: {
-								duration: props.animationConfig.long * 1.5,
+								duration: props.animationConfig.long,
 								ease: 'backInOut'
 							}
 						}"
