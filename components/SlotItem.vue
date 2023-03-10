@@ -65,7 +65,7 @@ function handleStart(){
 		
 		playSound()
 	
-	}, (props.slotIndex + 1) * 100)
+	}, idealDelay.value)
 	
 }
 
@@ -112,11 +112,9 @@ function createSound(){
 		"sample_size": 8
 	}
 
-	forgedSoundOptions.sound_vol = random(0.5, 0.8)
-	forgedSoundOptions.p_base_freq = random(0.35, 0.6)
+	forgedSoundOptions.p_base_freq = random(0.35, 0.95)
+	forgedSoundOptions.sound_vol = random(0.4, 0.7)
 
-	// const sound = sfxr.generate(soundTypes[Math.round(random(0, soundTypes.length))]);
-	// const sound = sfxr.generate("blipSelect");
 	try {
 		sound.value = sfxr.toAudio(forgedSoundOptions);
 	}
@@ -139,11 +137,14 @@ function playSound(){
 }
 
 watch(isHovered, newVal => {
+
 	if( newVal ){
-		console.log("wsh le watch de hover")
+
 		createSound()
 		playSound()
+
 	}
+	
 })
 
 // - - - - - - - - - - - - -
