@@ -38,7 +38,7 @@ function onMouseLeave(){
 // - - - - - - - - - - - - - 
 // ANIMATION LOGIC - - - - -
 const speed = ref(0.2)
-const idealDelay = computed(() => props.animationConfig.short * props.slotIndex)
+const idealDelay = computed(() => props.animationConfig.short * props.slotIndex + 1)
 const isPair = ref(props.slotIndex % 2 === 0)
 
 const animationsAreFinished = ref(false)
@@ -73,7 +73,7 @@ function handleStart(){
 			v-motion
 			:initial="{ 
 				opacity: 0,
-				y:  800 * speed
+				y:  800 * speed,
 			}"
 			:delay="idealDelay"
 			:enter="{ 
@@ -81,14 +81,10 @@ function handleStart(){
 				y: 0,
 
 				transition: {
-					duration: props.animationConfig.long,
-
-					onBegin: handleStart,
+					duration: props.animationConfig.medium,
 					onComplete: handleInnerComplete,
-					ease: 'backInOut'
+					ease: 'easeInOut'
 				},
-
-				
 			}"
 		>
 			
@@ -131,9 +127,13 @@ function handleStart(){
 		
 				<h5 class="title"
 					v-motion
-					:initial="{ x: random(-4000, -800) * speed }"
+					:initial="{ 
+						x: random(-4000, -800) * speed,
+						opacity: 0.2
+					}"
 					:enter="{ 
 						x: 0,
+						opacity: 1,
 
 						transition: {
 							duration: props.animationConfig.long,
@@ -155,14 +155,14 @@ function handleStart(){
 							y: 300,
 							opacity: 0
 						}"
-						:delay="idealDelay"
+						:delay="idealDelay * 0.7"
 
 						:enter="{ 
 							y: 0,
 							opacity: 1,
 
 							transition: {
-								duration: props.animationConfig.long,
+								duration: props.animationConfig.long * 1.7,
 								ease: 'backInOut'
 							}
 						}"
