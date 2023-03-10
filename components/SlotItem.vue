@@ -25,6 +25,9 @@ const props = defineProps({
 	}
 })
 
+
+// - - - - - - - - - - - - - 
+// BASIC LOGIC - - - - -
 const isHovered = ref(false)
 
 function onMouseEnter(){
@@ -34,25 +37,116 @@ function onMouseEnter(){
 function onMouseLeave(){
 	isHovered.value = false
 }
+// - - - - - - - - - - - - - 
+
+
+
 
 // - - - - - - - - - - - - - 
 // ANIMATION LOGIC - - - - -
 const speed = ref(0.2)
-const idealDelay = computed(() => props.animationConfig.short * props.slotIndex + 1)
+const idealDelay = computed(() => props.animationConfig.short * props.slotIndex)
 const isPair = ref(props.slotIndex % 2 === 0)
 
 const animationsAreFinished = ref(false)
 const isVisible = computed(() => animationsAreFinished.value && props.stepIsActive)
 
 function handleInnerComplete(){
+	console.log("complete triggered - - - - - - - ")
 	animationsAreFinished.value = true
 }
 
 function handleStart(){
-	console.log("start triggered")
+	console.log("start triggered - - - - - - - ")
+
+	createSound()
+
+	setTimeout(() => {
+		
+		playSound()
+	
+	}, (props.slotIndex + 1) * 100)
+	
 }
 
 // - - - - - - - - - - - - - 
+
+
+
+
+
+// - - - - - - - - - - - - - 
+// SOUND LOGIC - - - - -
+const soundTypes = ["synth", "laserShoot"]
+const sound = ref()
+
+function createSound(){
+
+	const forgedSoundOptions = {
+		"oldParams": true,
+		"wave_type": 1,
+		"p_env_attack": 0,
+		"p_env_sustain": 0.106,
+		"p_env_punch": 0.02169253542627644,
+		"p_env_decay": 0.6224005654145803,
+		"p_base_freq": 0.312,
+		"p_freq_limit": 0,
+		"p_freq_ramp": -0.12371676533548343,
+		"p_freq_dramp": 0.7881488219954658,
+		"p_vib_strength": 0.007838497625868867,
+		"p_vib_speed": -0.1720389707774026,
+		"p_arp_mod": 0.10556844719355096,
+		"p_arp_speed": 0.5281848848135842,
+		"p_duty": -0.2553719256156919,
+		"p_duty_ramp": 0.05653564786890511,
+		"p_repeat_speed": 0,
+		"p_pha_offset": 0.21837455263952593,
+		"p_pha_ramp": -0.020158793844971545,
+		"p_lpf_freq": 0.04316895631061235,
+		"p_lpf_ramp": 0.10032919647346196,
+		"p_lpf_resonance": 0,
+		"p_hpf_freq": 0.028011702230671846,
+		"p_hpf_ramp": -0.3411499172388156,
+		"sound_vol": 0.25,
+		"sample_rate": 44100,
+		"sample_size": 8
+	}
+
+	forgedSoundOptions.sound_vol = random(0.5, 0.8)
+	forgedSoundOptions.p_base_freq = random(0.35, 0.6)
+
+	// const sound = sfxr.generate(soundTypes[Math.round(random(0, soundTypes.length))]);
+	// const sound = sfxr.generate("blipSelect");
+	try {
+		sound.value = sfxr.toAudio(forgedSoundOptions);
+	}
+	catch{
+		console.log("jsfxr is not well loaded")
+	}
+	
+	
+}
+
+function playSound(){
+	
+	try {
+		sound.value.play();
+	}
+	catch {
+		console.log("jsfxr is not well loaded, so no sound to .play()")
+	}
+
+}
+
+watch(isHovered, newVal => {
+	if( newVal ){
+		console.log("wsh le watch de hover")
+		createSound()
+		playSound()
+	}
+})
+
+// - - - - - - - - - - - - -
 
 </script>
 
@@ -82,6 +176,7 @@ function handleStart(){
 
 				transition: {
 					duration: props.animationConfig.medium,
+					onPlay: handleStart,
 					onComplete: handleInnerComplete,
 					ease: 'easeInOut'
 				},

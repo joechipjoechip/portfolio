@@ -33,7 +33,15 @@ export default defineNuxtConfig(
 			layoutTransition: { 
 				name: 'layout', 
 				mode: 'out-in' 
-			}
+			},
+
+			head: {
+				title: 'awesome title',
+				script: [
+					{ src: "./js/sound/sfxr.js", tagPosition: "head" },
+					{ src: "./js/sound/riffwave.js", tagPosition: "head" },
+				]
+			},
 		},		
 		
 		motion: {

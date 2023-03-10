@@ -99,6 +99,7 @@ function computePositionDiff(){
 
 <template>
 	<div class="index-wrapper" ref="indexWrapper">
+		
 
 		<!-- bg stuff here (slider / shader / kaleidoscope / etc ) -->
 		<!-- <Kaleidoscope /> -->
