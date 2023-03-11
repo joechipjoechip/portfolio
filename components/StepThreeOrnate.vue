@@ -2,14 +2,10 @@
 
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
 
 const props = defineProps({
@@ -25,6 +21,7 @@ const props = defineProps({
 const canvas = ref(null)
 const glbIsLoaded = ref(false)
 const canvasSize = reactive({})
+const isEnabled = ref(false)
 
 onMounted(() => {
     const { width, height } = canvas.value.getBoundingClientRect()
@@ -33,12 +30,13 @@ onMounted(() => {
 
     initScene()
     loadGlb()
+
+    isEnabled.value = true
 })
 
 watch(glbIsLoaded, newVal => {
     if( newVal ){
         addElementsToTheScene()
-        orbitInit()
 
         // initComposer()
         // buildPostProcs()
@@ -55,16 +53,15 @@ watch(glbIsLoaded, newVal => {
 // THREE LOGIC - - - - - - - - - - - - -
 // - - - - - - - - - - - - - - - - - - -
 let scene
-let orbit
 let camera
 let renderer
 let composer
 let renderPass
 let deltaTime = 0
+const timeDecay = 60
 const clock = new THREE.Clock()
 const frameRate = 1/60
-const cameraBasePositionZ = 1.8
-const orbitEnabled = ref(true)
+const cameraBasePositionZ = 1.9
 const elements = {
     lights: [],
     meshs: []
@@ -77,10 +74,9 @@ function initScene(){
 
     camera = new THREE.PerspectiveCamera( 70, canvasSize.width / canvasSize.height, 0.01, 10 )
     camera.position.z = cameraBasePositionZ;
+    camera.position.y = 0.05;
 
-
-   scene.add(camera)
-
+    scene.add(camera)
 
     renderer = new THREE.WebGLRenderer({
         canvas: canvas.value,
@@ -109,26 +105,21 @@ function loadGlb(){
     // dracoLoader.setDecoderPath( './js/draco/' );
     // loader.setDRACOLoader( dracoLoader );
 
-    console.log("props : ", props.modelName)
-
     loader.load(
         `./3d/${props.modelName}.glb`,
 
         file => {
             // called when the resource is loaded
-            console.log("glb bien loaded - - - - ")
             onGlbLoad(file.scene)
         },
 
         xhr => {
             // called while loading is progressing
-
             console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
         },
 
         error => {
             // called when loading has errors
-
             console.log( 'An error happened' , error);
         }
 
@@ -149,26 +140,19 @@ function storeElements( file ) {
 
         if( child.name.includes("light") ){
 
-            // child.castShadow = true
             elements.lights.push(child)
 
         } else if( child.name.includes("sphere") || child.name.includes("cube") ){
 
-            // child.castShadow = true
-            // child.receiveShadow = true
             elements.meshs.push(child)
 
         }
 
     })
 
-    console.log("elements stored - - - ", elements)
-
 }
 
 function addElementsToTheScene(){
-
-    console.log("addElements : ", elements)
 
     elements.meshs.forEach((element, index) => {
 
@@ -182,21 +166,17 @@ function addElementsToTheScene(){
 
         if( lightFromBlender.name.includes("2") ){
 
-            lightFromBlender.intensity /= 1000
+            lightFromBlender.intensity /= 100
             scene.add(lightFromBlender)
 
         } else {
 
-            lightFromBlender.intensity /= 100
+            lightFromBlender.intensity /= 10
             scene.add(lightFromBlender)
 
         }
 
-
-        console.log("light from blender : ", lightFromBlender)
-
     })
-
 
 }
 
@@ -209,13 +189,6 @@ function giveMeshGlossyMaterial(mesh, index){
     })
 
     mesh.material = material
-}
-
-function orbitInit(){
-    orbit = new OrbitControls(camera, canvas.value);
-    orbit.enabled = orbitEnabled.value;
-    orbit.enableDamping = true;
-    orbit.target = elements.meshs[0].position;
 }
 
 function initComposer(){
@@ -239,36 +212,8 @@ function initComposer(){
 
 function buildPostProcs(){
 
-    // PIXEL :
-
-    // const pixelPass = new ShaderPass( PixelShader );
-
-    // pixelPass.uniforms["resolution"].value = new THREE.Vector2(window.innerWidth, window.innerHeight);
-
-    // pixelPass.uniforms["pixelSize"].value = 40;
-
-    // postProcsPass.push(pixelPass);
-
-    // - - - -
-
-
     // GLITCH :
     postProcsPass.push(new GlitchPass())
-
-
-    // BLOOM :
-    // const strength = .55
-    // const threshold = 0.045
-    // const radius = 0.01
-
-    // const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
-
-    // bloomPass.renderToScreen = true;
-    // // bloomPass.material.transparent = true; // FIX
-
-    // postProcsPass.push(
-    //     Object.assign(bloomPass, { threshold, strength, radius })
-    // );
 
 }
 
@@ -284,13 +229,8 @@ function mainTick(){
 
 	deltaTime += clock.getDelta()
 
-
 	// NOW CHECK IF FRAMERATE IS GOOD
 	if( deltaTime > frameRate ){
-
-		if( orbit && orbit.enabled ){
-			orbit.update()
-		}
 
 		doRotation(elapsedTime)
 
@@ -309,23 +249,46 @@ function mainTick(){
 
 function doRotation( elapsedTime ){
 
-    const rotateValue = Math.sin(elapsedTime / 15)
+    const moveValue = Math.sin((elapsedTime + timeDecay) / 25)
 
-    elements.meshs[0].rotation.y = rotateValue
-    elements.meshs[1].rotation.y = rotateValue * -1
+    elements.meshs.forEach((mesh, index) => {
 
-    elements.meshs[0].rotation.x = rotateValue * 2
-    elements.meshs[1].rotation.x = rotateValue * -2
+        const isPair = index % 2 === 0
 
-    elements.meshs[0].rotation.z = rotateValue * 6
-    elements.meshs[1].rotation.z = rotateValue * -8
+        if( isPair ){
+
+            elements.meshs[index].rotation.y = moveValue
+            elements.meshs[index].rotation.x = moveValue * 2
+            elements.meshs[index].rotation.z = moveValue * 6
+
+            elements.lights[index].position.x = moveValue / 2
+            
+        } else {
+            
+            elements.meshs[index].rotation.x = moveValue * -2
+            elements.meshs[index].rotation.y = moveValue * -1
+            elements.meshs[index].rotation.z = moveValue * -8
+            
+            if( elements.lights[index].name !== "light3" ){
+                elements.lights[index].position.x = moveValue / - 2
+
+            }
+
+        }
+
+
+    })
 
 }
 
 </script>
 
 <template>
-    <canvas ref="canvas" class="canvas"></canvas>
+    <canvas 
+        ref="canvas" 
+        class="canvas"
+        :class="{ isEnabled }"
+    ></canvas>
 </template>
 
 <style lang="scss" scoped>
@@ -339,33 +302,42 @@ function doRotation( elapsedTime ){
     top: 0;
     left: 0;
 
-    filter: brightness(1) sepia(0) blur(0);
+    filter: brightness(1) sepia(0) blur(0) opacity(1);
 
-    // opacity: 0.7;
+    opacity: 0;
 
-    will-change: filter;
+    transition: opacity 10s;
 
-    animation: 10s animateModelRender infinite;
+    will-change: opacity, filter;
+
+    &.isEnabled {
+        opacity: 1;
+        animation: 20s animateModelRender infinite;
+    }
+
 
 }
 
 @keyframes animateModelRender {
     0%, 100% {
-        filter: brightness(1) sepia(0) blur(0);
+        filter: brightness(1) sepia(0) blur(35px) opacity(1);
     }
     
-    40%, 60% {
-        filter: brightness(0.5) sepia(0.2) blur(0);
+    40% {
+        filter: brightness(1) sepia(0) blur(0) opacity(1);
     }
     
     45% {
-        filter: brightness(0.4) sepia(0) blur(15px);
-
+        filter: brightness(5) sepia(0) blur(0) opacity(1);
     }
 
-
     50% {
-        filter: brightness(2) sepia(2) blur(0);
+        filter: brightness(2) sepia(2) blur(0) opacity(1);
+    }
+    
+    75% {
+        filter: brightness(1) sepia(0) blur(0) opacity(0);
+
     }
 }
 
