@@ -257,22 +257,22 @@ function doRotation( elapsedTime ){
 
         if( isPair ){
 
-            elements.meshs[index].rotation.y = moveValue
-            elements.meshs[index].rotation.x = moveValue * 2
-            elements.meshs[index].rotation.z = moveValue * 6
+            mesh.rotation.y = moveValue
+            mesh.rotation.x = moveValue * 2
+            mesh.rotation.z = moveValue * 6
 
-            elements.lights[index].position.x = moveValue / 2
+            // elements.lights[index].position.z = 2 + moveValue / 2
             
         } else {
             
-            elements.meshs[index].rotation.x = moveValue * -2
-            elements.meshs[index].rotation.y = moveValue * -1
-            elements.meshs[index].rotation.z = moveValue * -8
+            mesh.rotation.x = moveValue * -2
+            mesh.rotation.y = moveValue * -1
+            mesh.rotation.z = moveValue * -8
             
-            if( elements.lights[index].name !== "light3" ){
-                elements.lights[index].position.x = moveValue / - 2
+            // if( elements.lights[index].name !== "light3" ){
+            //     elements.lights[index].position.z = 2 + moveValue / - 2
 
-            }
+            // }
 
         }
 
