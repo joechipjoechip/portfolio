@@ -56,7 +56,6 @@ const animationsAreFinished = ref(false)
 const isVisible = computed(() => animationsAreFinished.value && props.stepIsActive)
 
 function handleInnerComplete(){
-	console.log("complete triggered - - - - - - - ")
 	animationsAreFinished.value = true
 }
 
@@ -80,6 +79,18 @@ function handleStart(){
 // SOUND LOGIC - - - - -
 const soundTypes = ["synth", "laserShoot"]
 const sound = ref()
+
+watch(isHovered, newVal => {
+
+	if( newVal ){
+
+		createSound("bubble")
+
+		playSound()
+
+	}
+
+})
 
 function createSound( type ){
 	if( !props.soundEnabled ){ return }
@@ -167,8 +178,6 @@ function createSound( type ){
 
 	}
 
-	
-
 	sound.value = sfxr.toAudio(forgedSoundOptions);
 
 }
@@ -180,17 +189,7 @@ function playSound(){
 
 }
 
-watch(isHovered, newVal => {
 
-	if( newVal ){
-
-		createSound("bubble")
-
-		playSound()
-
-	}
-	
-})
 
 // onPlay: handleStart,
 

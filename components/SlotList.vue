@@ -30,9 +30,11 @@ const props = defineProps({
 
         v-motion
         :initial="{ 
-            scale: 0.01,
+            y: 500,
+            scale: 0.001,
         }"
         :enter="{ 
+            y: 0,
             scale: 1,
 
             transition: {
@@ -43,3 +45,12 @@ const props = defineProps({
     />
 
 </template>
+
+<style lang="scss" scoped>
+.list {
+    width: 100%;
+    padding-top: 15rem;
+
+    box-sizing: border-box;
+}
+</style>

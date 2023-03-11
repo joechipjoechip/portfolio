@@ -14,7 +14,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <NuxtLayout name="layout-step" :status="status" :wording="wording">
+    <NuxtLayout class="layout-exception" name="layout-step" :status="status" :wording="wording">
 
         <div class="bio-wrapper">
             hey ici le component bio
@@ -27,6 +27,10 @@ const props = defineProps({
 </template>
 
 <style lang="scss" scoped>
+
+.layout-exception {
+    opacity: 0;
+}
 
 .bio {
     &-wrapper {
