@@ -6,5 +6,5 @@ node_modules
 .output
 .env
 dist
-.blend
-.blend1
+**/*.blend
+**/*.blend1
