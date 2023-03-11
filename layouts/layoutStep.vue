@@ -15,6 +15,8 @@ const props = defineProps({
 
 const store = useUserStore()
 
+const titleIsDisplayed = computed(() => props.status.isActive)
+
 </script>
 
 <template>
@@ -36,11 +38,26 @@ const store = useUserStore()
             ]"
         >
 
-        <div class="step-wrapper">
+        <div class="step-wrapper" v-if="props.status.isActive">
 
             <div class="step-head">
 
-                <h2 class="step-head-title">
+                <h2 class="step-head-title"
+                    v-if="titleIsDisplayed"
+                    v-motion
+                    :initial="{ x: -35, opacity: 0 }"
+                    :delay="1000"
+                    :enter="{ 
+                        x: 0,
+                        opacity: 1,
+
+                        transition: {
+                            duration: 750,
+                            ease: 'backInOut'
+                        }
+                    }"
+
+                >
                     {{ props.wording.title }}
                 </h2>
 
@@ -54,7 +71,7 @@ const store = useUserStore()
             <div class="step-body">
                 
                 <!-- here comes : Formation.vue || Bio.vue || Experience.vue > -->
-                <slot v-if="props.status.isActive" />
+                <slot />
 
             </div>
 

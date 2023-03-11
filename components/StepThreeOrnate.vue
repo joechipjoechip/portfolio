@@ -34,6 +34,23 @@ onMounted(() => {
     isEnabled.value = true
 })
 
+onBeforeUnmount(() => {
+    scene.traverse(child => {
+       
+        child.material?.dispose()
+    
+        child.geometry?.dispose()
+
+    })
+
+    isEnabled.value = false
+
+    composer?.dispose()
+    renderer.dispose()
+
+    unRefAll()
+})
+
 watch(glbIsLoaded, newVal => {
     if( newVal ){
         addElementsToTheScene()
@@ -67,6 +84,14 @@ const elements = {
     meshs: []
 }
 const postProcsPass = []
+
+function unRefAll(){
+    renderer = null
+    scene = null
+    camera = null
+    composer = null
+    renderPass = null
+}
 
 function initScene(){
 
@@ -224,6 +249,7 @@ function addPostProcs(){
 }
 
 function mainTick(){
+    if( !isEnabled.value ){ return }
 
 	const elapsedTime = clock.elapsedTime
 
@@ -312,7 +338,7 @@ function doRotation( elapsedTime ){
 
     &.isEnabled {
         opacity: 1;
-        animation: 20s animateModelRender infinite;
+        animation: 30s animateModelRender infinite;
     }
 
 
@@ -328,11 +354,11 @@ function doRotation( elapsedTime ){
     }
     
     45% {
-        filter: brightness(5) sepia(0) blur(0) opacity(1);
+        filter: brightness(1) sepia(5) blur(0) opacity(1);
     }
 
     50% {
-        filter: brightness(2) sepia(2) blur(0) opacity(1);
+        filter: brightness(2) sepia(0) blur(0) opacity(1);
     }
     
     75% {

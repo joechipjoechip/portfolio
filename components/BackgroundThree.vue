@@ -27,6 +27,8 @@ const clonesCount = 8
 const orbitEnabled = ref(true)
 const sceneIsPlaying = ref(false)
 
+const isGreyed = computed(() => store.currentStepIndex !== 0)
+
 
 // - - - - - - - - - - - - - - - - - - - - - - -
 // IMAGES COLLECTION LOGIC - - - - - - - - - - -
@@ -247,7 +249,7 @@ onMounted(() => {
 	initEffectsAndPostProcs()
 
 	displayTexture(collection.value[currentImageIndex.value])
-	displayClones(collection.value[currentImageIndex.value])
+	// displayClones(collection.value[currentImageIndex.value])
 
 	mainTick()
 
@@ -362,7 +364,7 @@ function changeTexture(){
 	})
 
 	displayTexture(collection.value[currentImageIndex.value])
-	displayClones(collection.value[currentImageIndex.value])
+	// displayClones(collection.value[currentImageIndex.value])
 
 }
 
@@ -509,6 +511,9 @@ function cameraUpdate( elapsedTime ){
 		ref="canvas"
 		class="background-container"
 		width="800" height="500"
+		:class="{
+			isGreyed
+		}"
 	></canvas>
 
 </template>
@@ -526,6 +531,10 @@ function cameraUpdate( elapsedTime ){
 		width: 100vw;
 		height: 100vh;
 
+		filter: grayscale(0) opacity(1);
+
+		transition: filter var(--transitionDurationMedium);
+
 		&::before {
 			content: "";
 			position: absolute;
@@ -534,6 +543,11 @@ function cameraUpdate( elapsedTime ){
 			width: 100%;
 			height: 100%;
 			background: linear-gradient(130deg, rgba(255,78,78,0.08) 60%, rgba(78,106,255,0.8) 100%);
+		}
+
+		&.isGreyed {
+			
+			filter: grayscale(0.5) opacity(0.3);
 		}
 
 	}
