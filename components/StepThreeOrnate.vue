@@ -19,6 +19,10 @@ const props = defineProps({
     stepIsActive: {
         type: Boolean,
         required: true
+    },
+    isBaked: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -203,37 +207,65 @@ function addElementsToTheScene(){
 
     elements.meshs.forEach((element, index) => {
 
-        giveMeshGlossyMaterial(element, index)
+        giveMeshMaterial(element, index)
 
         scene.add(element)
 
     })
 
-    elements.lights.forEach(lightFromBlender => {
+    if( !props.isBaked ){
 
-        if( lightFromBlender.name.includes("2") ){
+        elements.lights.forEach(lightFromBlender => {
+    
+            if( lightFromBlender.name.includes("2") ){
+    
+                lightFromBlender.intensity /= 1000
+                // lightFromBlender.color = new THREE.Color(1,1,1)
+                scene.add(lightFromBlender)
+    
+            } else {
+    
+                lightFromBlender.intensity /= 100
+                // lightFromBlender.color = new THREE.Color(1,1,1)
+                scene.add(lightFromBlender)
+    
+            }
+    
+        })
 
-            lightFromBlender.intensity /= 1000
-            scene.add(lightFromBlender)
-
-        } else {
-
-            lightFromBlender.intensity /= 100
-            scene.add(lightFromBlender)
-
-        }
-
-    })
+    }
 
 }
 
-function giveMeshGlossyMaterial(mesh, index){
+function giveMeshMaterial(mesh, index){
 
-    const material = new THREE.MeshPhongMaterial( {
-        color: 0xF2F2F2,
-        specular: 0x0000FF,
-        shininess: 100,
-    })
+    let material
+
+    if( props.isBaked ){
+
+        const textureLoader = new THREE.TextureLoader();
+
+        const bakeTexture = textureLoader.load( `./3d/${props.modelName}Bake.jpg`)
+
+		bakeTexture.flipY = false;
+
+		bakeTexture.encoding = THREE.sRGBEncoding;
+
+        material = new THREE.MeshBasicMaterial({
+            map: bakeTexture
+        });
+
+
+    } else {
+
+        material = new THREE.MeshPhongMaterial( {
+            color: 0xF2F2F2,
+            specular: 0x0000FF,
+            shininess: 100,
+        })
+
+    }
+
 
     mesh.material = material
 }
@@ -350,10 +382,11 @@ function doRotation( elapsedTime ){
     overflow: hidden;
 
     position: absolute;
-    top: 0;
+    top: 50%;
     left: 0;
+    transform: translateY(-50%);
 
-    filter: brightness(1) sepia(0) blur(0) opacity(1);
+    filter: blur(0) opacity(0.8);
 
     opacity: 0;
 
@@ -371,19 +404,19 @@ function doRotation( elapsedTime ){
 
 @keyframes animateModelRender {
     0%, 100% {
-        filter: brightness(1) sepia(0) blur(35px) opacity(1);
+        filter: blur(35px) opacity(0.8);
     }
     
     40% {
-        filter: brightness(2) sepia(0) blur(0) opacity(1);
+        filter: blur(0) opacity(0.65);
     }
 
     50% {
-        filter: brightness(1) sepia(3) blur(0) opacity(1);
+        filter: blur(0) opacity(0.65);
     }
     
     75% {
-        filter: brightness(1) sepia(0) blur(0) opacity(0.4);
+        filter: blur(0) opacity(0.8);
 
     }
 }

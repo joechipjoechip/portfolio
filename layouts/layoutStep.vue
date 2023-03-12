@@ -18,6 +18,10 @@ const props = defineProps({
     modelTimeDecay: {
         type: Number,
         default: 10
+    },
+    modelIsBaked: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -53,7 +57,7 @@ const titleIsDisplayed = computed(() => props.status.isActive)
                     :stepIsActive="props.status.isActive"
                     :modelName="props.modelName"
                     :modelTimeDecay="props.modelTimeDecay"
-                    :baked="true"
+                    :isBaked="props.modelIsBaked"
                 />
 
                 <div class="step-head">

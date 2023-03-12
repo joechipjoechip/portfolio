@@ -27,7 +27,8 @@ const clonesCount = 8
 const orbitEnabled = ref(true)
 const sceneIsPlaying = ref(false)
 
-const isGreyed = computed(() => store.currentStepIndex !== 0)
+// const isGreyed = computed(() => store.currentStepIndex !== 0)
+const isGreyed = false
 
 
 // - - - - - - - - - - - - - - - - - - - - - - -

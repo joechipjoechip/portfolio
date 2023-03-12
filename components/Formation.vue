@@ -19,7 +19,8 @@ const props = defineProps({
 		:status="status" 
 		:wording="wording" 
 		modelName="abstractOne"
-		:modelTimeDecay="60"
+		:modelTimeDecay="-20"
+		:modelIsBaked="true"
 	>
 
 		<SlotList 

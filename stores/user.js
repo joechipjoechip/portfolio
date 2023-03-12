@@ -18,7 +18,7 @@ export const useUserStore = defineStore('storedUser',
 			bgHomeCount: 92,
 			animation: {
 				config: {
-					short: 180,
+					short: 220,
 					medium: 300,
 					long: 700
 				}
