@@ -68,8 +68,6 @@ function createCollection(){
 	
 	}
 
-	console.log("collection : ", collection.value[0].texture)
-
 }
 
 onBeforeMount(() => createCollection())
@@ -157,10 +155,6 @@ function buildTimelines(){
 		const tl = gsap.timeline({ paused: true })
 	
 		const animatedObj = { progress: uValue }
-
-		
-
-		console.log("random : ", randomFactor)
 	
 		tl.to(animatedObj, 
 			uDurationsArr[index] * randomFactor, 
@@ -436,8 +430,6 @@ function buildCustomEffects(){
 }
 
 function addCustomEffects(){
-
-	console.log("wsh le effect add : ", effectsCustomPass)
 
 	composer.addPass(renderPass)
 

@@ -41,7 +41,6 @@ onMounted(() => {
     initRenderer()
     loadGlb()
 
-    console.log("onMOUNTED THREEORNATE")
 })
 
 watch(() => props.stepIsActive, newVal => {
@@ -166,12 +165,12 @@ function loadGlb(){
 
         xhr => {
             // called while loading is progressing
-            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+            // console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
         },
 
         error => {
             // called when loading has errors
-            console.log( 'An error happened' , error);
+            console.log( 'An error happened on the 3d model load' , error);
         }
 
     );
@@ -313,8 +312,6 @@ function mainTick(){
 	if( deltaTime > frameRate ){
 
 		doRotation(elapsedTime)
-        
-        console.log("render tick")
 
 		if( postProcsPass.length ){
 			composer.render(scene, camera);
