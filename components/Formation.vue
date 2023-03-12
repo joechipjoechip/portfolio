@@ -19,6 +19,7 @@ const props = defineProps({
 		:status="status" 
 		:wording="wording" 
 		modelName="abstractOne"
+		:modelTimeDecay="60"
 	>
 
 		<SlotList 

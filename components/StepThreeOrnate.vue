@@ -12,6 +12,10 @@ const props = defineProps({
         type: String,
         required: true
     },
+    modelTimeDecay: {
+        type: Number,
+        required: true
+    },
     stepIsActive: {
         type: Boolean,
         required: true
@@ -23,7 +27,6 @@ const props = defineProps({
 // BASICS - - - - - - - - - - - - -
 // - - - - - - - - - - - - - - - - - - -
 const canvas = ref(null)
-const glbIsLoaded = ref(false)
 const canvasSize = reactive({})
 const isEnabled = ref(false)
 let timeoutID
@@ -37,8 +40,6 @@ onMounted(() => {
     console.log("onMOUNTED THREEORNATE")
 })
 
-
-
 watch(() => props.stepIsActive, newVal => {
 
     if( newVal ){
@@ -50,12 +51,7 @@ watch(() => props.stepIsActive, newVal => {
                 timeoutID = null
             }
 
-            timeoutID = setTimeout(() => {
-                sizeCanvasInfos()
-                mainTick()
-                isEnabled.value = true
-                
-            }, 700)
+            timeoutID = setTimeout(displayCanvas, 700)
             
         })
 
@@ -65,6 +61,15 @@ watch(() => props.stepIsActive, newVal => {
 
     }
 })
+
+function displayCanvas(){
+
+    clock = new THREE.Clock()
+    sizeCanvasInfos()
+    mainTick()
+    isEnabled.value = true
+
+}
 
 
 function sizeCanvasInfos(){
@@ -94,8 +99,8 @@ let renderer
 let composer
 let renderPass
 let deltaTime = 0
-const timeDecay = 60
-const clock = new THREE.Clock()
+let clock = new THREE.Clock()
+
 const frameRate = 1/60
 const cameraBasePositionZ = 2.2
 const elements = {
@@ -130,8 +135,6 @@ function initRenderer(){
     renderer.setClearColor( 0x000000, 0 )
 
     renderer.outputEncoding = THREE.sRGBEncoding
-
-    // assetsStore.setRenderer(store.currentStepIndex, renderer)
     
     // renderer.shadowMap.enabled = true
     // renderer.shadowMap.type = THREE.PCFShadowMap
@@ -227,8 +230,8 @@ function addElementsToTheScene(){
 function giveMeshGlossyMaterial(mesh, index){
 
     const material = new THREE.MeshPhongMaterial( {
-        color: 0xFFFFFF,
-        specular: index % 2 === 0 ? 0xFFFFFF : 0x0000FF,
+        color: 0xF2F2F2,
+        specular: 0x0000FF,
         shininess: 100,
     })
 
@@ -296,7 +299,7 @@ function mainTick(){
 
 function doRotation( elapsedTime ){
 
-    const moveValue = Math.sin((elapsedTime + timeDecay) / 25)
+    const moveValue = Math.sin((elapsedTime + props.modelTimeDecay) / 25)
 
     elements.meshs.forEach((mesh, index) => {
 
@@ -354,7 +357,7 @@ function doRotation( elapsedTime ){
 
     opacity: 0;
 
-    transition: opacity 10s;
+    transition: opacity 5s;
 
     will-change: opacity, filter;
 
@@ -372,15 +375,15 @@ function doRotation( elapsedTime ){
     }
     
     40% {
-        filter: brightness(1) sepia(0) blur(0) opacity(1);
+        filter: brightness(2) sepia(0) blur(0) opacity(1);
     }
 
     50% {
-        filter: brightness(2) sepia(3) blur(0) opacity(1);
+        filter: brightness(1) sepia(3) blur(0) opacity(1);
     }
     
     75% {
-        filter: brightness(1) sepia(0) blur(0) opacity(0);
+        filter: brightness(1) sepia(0) blur(0) opacity(0.4);
 
     }
 }

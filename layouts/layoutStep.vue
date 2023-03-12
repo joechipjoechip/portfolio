@@ -14,6 +14,10 @@ const props = defineProps({
     modelName: {
         type: String,
         required: false
+    },
+    modelTimeDecay: {
+        type: Number,
+        default: 10
     }
 })
 
@@ -48,6 +52,7 @@ const titleIsDisplayed = computed(() => props.status.isActive)
                     v-if="modelName"
                     :stepIsActive="props.status.isActive"
                     :modelName="props.modelName"
+                    :modelTimeDecay="props.modelTimeDecay"
                     :baked="true"
                 />
 
