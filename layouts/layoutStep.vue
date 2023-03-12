@@ -50,7 +50,14 @@ const titleIsDisplayed = computed(() => props.status.isActive)
             ]"
         >
 
-            <div class="step-wrapper" v-show="props.status.isActive">
+            <div v-if="store.currentStepIndex === 0">
+                <!-- ici step accueil -->
+            </div>
+
+            <div v-else 
+                class="step-wrapper"
+                v-show="props.status.isActive"
+            >
 
                 <StepThreeOrnate
                     v-if="modelName"
