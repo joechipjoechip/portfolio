@@ -239,7 +239,7 @@ let postProcsPass = []
 const frameRate = 1/60
 const staggerRatioClonesPositions = 0.015
 const clock = new THREE.Clock()
-const cameraBasePositionZ = 0.64 * (window.innerHeight / window.innerWidth)
+const cameraBasePositionZ = 0.385
 
 onMounted(() => {
 

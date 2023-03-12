@@ -339,22 +339,28 @@ function doRotation( elapsedTime ){
 
         if( isPair ){
 
-            mesh.rotation.y = moveValue
+            // mesh.rotation.y = moveValue
             mesh.rotation.x = moveValue * 2
             mesh.rotation.z = moveValue * 6
 
-            // elements.lights[index].position.z = 2 + moveValue / 2
+            if( elements.lights[index] ){
+
+                elements.lights[index].position.z = 2 + moveValue * 2
+
+            } 
             
         } else {
             
-            mesh.rotation.x = moveValue * -2
+            // mesh.rotation.x = moveValue * -2
             mesh.rotation.y = moveValue * -1
             mesh.rotation.z = moveValue * -8
             
-            // if( elements.lights[index].name !== "light3" ){
-            //     elements.lights[index].position.z = 2 + moveValue / - 2
+            
+            if( elements.lights[index] ){
 
-            // }
+                elements.lights[index].position.z = 2 + moveValue * - 2
+
+            } 
 
         }
 

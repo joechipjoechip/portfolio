@@ -20,7 +20,7 @@ const props = defineProps({
 		:wording="wording" 
 		modelName="abstractOne"
 		:modelTimeDecay="-20"
-		:modelIsBaked="true"
+		:modelIsBaked="false"
 	>
 
 		<SlotList 
