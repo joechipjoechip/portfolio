@@ -7,6 +7,9 @@ import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 
+
+import { useGetEventPosition } from "@/composables/getEventPosition";
+
 const props = defineProps({
     modelName: {
         type: String,
@@ -27,12 +30,13 @@ const props = defineProps({
 })
 
 
-
-// BASICS - - - - - - - - - - - - -
-// - - - - - - - - - - - - - - - - - - -
+// BASIC SHITS - - - - - - - -
+// - - - - - - - - - - - - - - - - - -
+const { $on } = useNuxtApp()
 const canvas = ref(null)
 const canvasSize = reactive({})
 const isEnabled = ref(false)
+const mouse = reactive({ x: 0, y: 0 })
 let timeoutID
 
 onMounted(() => {
@@ -90,6 +94,22 @@ function sizeCanvasInfos(){
 
 }
 // - - - - - - - - - - - - - - - - - -
+
+
+// MOVE LOGIC - - - - - - - - - - - 
+// - - - - - - - - - - - - - - - - - - -
+$on("main-touch-move", onMainTouchMove)
+
+function onMainTouchMove( event ){
+    const { x, y } = useGetEventPosition(event)
+
+	mouse.x = x / window.innerWidth
+	mouse.y = y / window.innerHeight
+}
+
+// - - - - - - - - - - - - - - - - - - -
+
+
 
 
 
@@ -216,7 +236,9 @@ function addElementsToTheScene(){
 
         elements.lights.forEach(lightFromBlender => {
 
-            lightFromBlender.color = new THREE.Color(1,1,1)
+            // !! WARNING : put all lights to pure white
+            // lightFromBlender.color = new THREE.Color(1,1,1)
+            // - - - - - - - - - - -
     
             if( lightFromBlender.name.includes("2") ){
     
@@ -233,6 +255,8 @@ function addElementsToTheScene(){
             }
     
         })
+
+        console.log("after add lights : scene : ", scene)
 
     }
 
@@ -334,13 +358,13 @@ function doRotation( elapsedTime ){
     const moveValue2 = Math.sin((elapsedTime + props.modelTimeDecay) / 25) * 6
 
     elements.meshs.forEach(mesh => {
-        mesh.rotation.x = moveValue1
-        mesh.rotation.z = moveValue2
+        mesh.rotation.x = moveValue1 + (mouse.x / 2  || 0.1)
+        mesh.rotation.z = moveValue2 + (mouse.y / 2  || 0.1)
     })
 
     elements.lights.forEach(light => {
         // light.rotation.x = moveValue1 * 10
-        light.rotation.y = moveValue2 * 50
+        light.rotation.z = moveValue2 * 500
     })
 
 }

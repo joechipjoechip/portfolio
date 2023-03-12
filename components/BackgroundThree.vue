@@ -24,11 +24,11 @@ import { random } from "@/assets/js/utils.js"
 const store = useUserStore()
 const currentImageIndex = ref(1)
 const clonesCount = 8
-const orbitEnabled = ref(true)
+const orbitEnabled = ref(false)
 const sceneIsPlaying = ref(false)
 
-// const isGreyed = computed(() => store.currentStepIndex !== 0)
-const isGreyed = false
+const isGreyed = computed(() => store.currentStepIndex !== 0)
+// const isGreyed = false
 
 
 // - - - - - - - - - - - - - - - - - - - - - - -
@@ -526,7 +526,7 @@ function cameraUpdate( elapsedTime ){
 
 		filter: grayscale(0) opacity(1);
 
-		transition: filter var(--transitionDurationMedium);
+		transition: filter var(--transitionDurationLong);
 
 		&::before {
 			content: "";
@@ -539,8 +539,22 @@ function cameraUpdate( elapsedTime ){
 		}
 
 		&.isGreyed {
+
+			animation: 15s animGreyed infinite;
+
+		}
+		
+		@keyframes animGreyed {
 			
-			filter: grayscale(0.5) opacity(0.3);
+			0%, 100% {
+				filter: grayscale(0) opacity(1);
+				
+			}
+			
+			30%, 85% {
+				filter: grayscale(0.65) opacity(1);
+				
+			}
 		}
 
 	}

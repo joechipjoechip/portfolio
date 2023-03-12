@@ -201,16 +201,37 @@ const scaleRatio = ref(0.9)
 	
 		&.isPrevious,
 		&.isNext {
-			opacity: 0.4;
+			opacity: 1;
 			z-index: 50;
-			backdrop-filter: blur(55px);
-			background-color: var(--bg-black-45);
+			backdrop-filter: blur(5px);
+			background-color: var(--bg-black-25);
+			border: solid 1px transparent;
 
-			
+			will-change: border;
+
+			animation: 4s animSiblings infinite;
 
 			&:hover {
 				opacity: 0.9;
 				cursor: grab;
+			}
+
+			@keyframes animSiblings {
+				0%, 100% {
+					border: solid 1px rgba(255,255,255, 0)
+				}
+				
+				25%, 75% {
+					border: solid 1px rgba(255,255,255, 0.1)
+					
+				}
+				
+			
+				
+				50% {
+					border: solid 1px rgba(255,255,255, 0.25)
+
+				}
 			}
 		}
 	
