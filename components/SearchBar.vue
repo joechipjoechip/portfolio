@@ -50,6 +50,8 @@ const props = defineProps({
 		align-items: center;
 		padding: 0.25rem;
 
+		cursor: pointer;
+
 		.icon {
 			position: relative;
 			z-index: 20;
@@ -85,6 +87,8 @@ const props = defineProps({
 			border: none;
 			border-radius: 999px;
 			background-color: transparent;
+
+			cursor: pointer;
 			
 		
 			color: var(--bg-white-80);

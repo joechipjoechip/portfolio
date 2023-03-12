@@ -11,6 +11,10 @@ const props = defineProps({
 		type: Object,
 		required: true
 	},
+    modelName: {
+        type: String,
+        required: false
+    }
 })
 
 const store = useUserStore()
@@ -38,48 +42,55 @@ const titleIsDisplayed = computed(() => props.status.isActive)
             ]"
         >
 
-        <div class="step-wrapper" v-if="props.status.isActive">
+            <div class="step-wrapper" v-show="props.status.isActive">
 
-            <div class="step-head">
-
-                <h2 class="step-head-title"
-                    v-if="titleIsDisplayed"
-                    v-motion
-                    :initial="{ x: -35, opacity: 0 }"
-                    :delay="1000"
-                    :enter="{ 
-                        x: 0,
-                        opacity: 1,
-
-                        transition: {
-                            duration: 750,
-                            ease: 'backInOut'
-                        }
-                    }"
-
-                >
-                    {{ props.wording.title }}
-                </h2>
-
-                <SearchBar class="step-head-search" 
-                    :color="props.wording.color" 
-                    :placeholder="props.wording.placeholder"
+                <StepThreeOrnate
+                    v-if="modelName"
+                    :stepIsActive="props.status.isActive"
+                    :modelName="props.modelName"
+                    :baked="true"
                 />
 
+                <div class="step-head">
+
+                    <h2 class="step-head-title"
+                        v-if="titleIsDisplayed"
+                        v-motion
+                        :initial="{ x: -35, opacity: 0 }"
+                        :delay="1000"
+                        :enter="{ 
+                            x: 0,
+                            opacity: 1,
+
+                            transition: {
+                                duration: 750,
+                                ease: 'backInOut'
+                            }
+                        }"
+
+                    >
+                        {{ props.wording.title }}
+                    </h2>
+
+                    <SearchBar class="step-head-search" 
+                        :color="props.wording.color" 
+                        :placeholder="props.wording.placeholder"
+                    />
+
+                </div>
+
+                <div class="step-body">
+                    
+                    <!-- here comes : Formation.vue || Bio.vue || Experience.vue > -->
+                    <slot />
+
+                </div>
+
+                <div class="step-footer">
+                    <!--  -->
+                </div>
+
             </div>
-
-            <div class="step-body">
-                
-                <!-- here comes : Formation.vue || Bio.vue || Experience.vue > -->
-                <slot />
-
-            </div>
-
-            <div class="step-footer">
-                <!--  -->
-            </div>
-
-        </div>
         
 
         </section>
@@ -130,6 +141,7 @@ const titleIsDisplayed = computed(() => props.status.isActive)
             }
         
             &-head {
+                z-index: 30;
                 margin-bottom: .75rem;
                 height: 10%;
                 display: flex;
@@ -159,7 +171,9 @@ const titleIsDisplayed = computed(() => props.status.isActive)
             }
         
             &-body {
+                z-index: 20;
                 @include scrollbar;
+                // position: relative;
                 height: 90%;
                 overflow-y: scroll;
                 padding-right: 2rem;

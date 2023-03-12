@@ -15,9 +15,11 @@ const props = defineProps({
 
 <template>
 
-    <NuxtLayout name="layout-step" :status="status" :wording="wording">
-
-		<StepThreeOrnate :modelName="'abstractOne'" />
+    <NuxtLayout name="layout-step" 
+		:status="status" 
+		:wording="wording" 
+		modelName="abstractOne"
+	>
 
 		<SlotList 
 			:slots="props.wording.slots"

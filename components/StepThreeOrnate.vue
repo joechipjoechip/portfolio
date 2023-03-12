@@ -7,13 +7,17 @@ import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 
-
 const props = defineProps({
     modelName: {
         type: String,
         required: true
+    },
+    stepIsActive: {
+        type: Boolean,
+        required: true
     }
 })
+
 
 
 // BASICS - - - - - - - - - - - - -
@@ -22,46 +26,61 @@ const canvas = ref(null)
 const glbIsLoaded = ref(false)
 const canvasSize = reactive({})
 const isEnabled = ref(false)
+let timeoutID
 
 onMounted(() => {
-    const { width, height } = canvas.value.getBoundingClientRect()
+
+    initScene()
+    initRenderer()
+    loadGlb()
+
+    console.log("onMOUNTED THREEORNATE")
+})
+
+
+
+watch(() => props.stepIsActive, newVal => {
+
+    if( newVal ){
+
+        nextTick(() => {
+
+            if( timeoutID ){
+                clearTimeout(timeoutID)
+                timeoutID = null
+            }
+
+            timeoutID = setTimeout(() => {
+                sizeCanvasInfos()
+                mainTick()
+                isEnabled.value = true
+                
+            }, 700)
+            
+        })
+
+    } else {
+
+        isEnabled.value = false
+
+    }
+})
+
+
+function sizeCanvasInfos(){
+
+    const { width, height } = canvas.value.parentNode?.getBoundingClientRect()
+
     canvasSize.width = width
     canvasSize.height = height
 
-    initScene()
-    loadGlb()
+    camera.aspect = canvasSize.width / canvasSize.height
 
-    isEnabled.value = true
-})
+    camera.updateProjectionMatrix()
 
-onBeforeUnmount(() => {
-    scene.traverse(child => {
-       
-        child.material?.dispose()
-    
-        child.geometry?.dispose()
+    renderer.setSize(canvasSize.width, canvasSize.height)
 
-    })
-
-    isEnabled.value = false
-
-    composer?.dispose()
-    renderer.dispose()
-
-    unRefAll()
-})
-
-watch(glbIsLoaded, newVal => {
-    if( newVal ){
-        addElementsToTheScene()
-
-        // initComposer()
-        // buildPostProcs()
-        // addPostProcs()
-
-        mainTick()
-    }
-})
+}
 // - - - - - - - - - - - - - - - - - -
 
 
@@ -78,22 +97,15 @@ let deltaTime = 0
 const timeDecay = 60
 const clock = new THREE.Clock()
 const frameRate = 1/60
-const cameraBasePositionZ = 1.9
+const cameraBasePositionZ = 2.2
 const elements = {
     lights: [],
     meshs: []
 }
 const postProcsPass = []
 
-function unRefAll(){
-    renderer = null
-    scene = null
-    camera = null
-    composer = null
-    renderPass = null
-}
-
 function initScene(){
+
 
     scene = new THREE.Scene();
 
@@ -102,6 +114,10 @@ function initScene(){
     camera.position.y = 0.05;
 
     scene.add(camera)
+
+}
+
+function initRenderer(){
 
     renderer = new THREE.WebGLRenderer({
         canvas: canvas.value,
@@ -115,14 +131,14 @@ function initScene(){
 
     renderer.outputEncoding = THREE.sRGBEncoding
 
+    // assetsStore.setRenderer(store.currentStepIndex, renderer)
+    
     // renderer.shadowMap.enabled = true
     // renderer.shadowMap.type = THREE.PCFShadowMap
 
 }
 
 function loadGlb(){
-
-    // Instantiate a loader
     const loader = new GLTFLoader();
 
     // Optional: Provide a DRACOLoader instance to decode compressed mesh data)
@@ -135,6 +151,9 @@ function loadGlb(){
 
         file => {
             // called when the resource is loaded
+
+            // assetsStore.setModel(store.currentStepIndex, file.scene)
+
             onGlbLoad(file.scene)
         },
 
@@ -154,7 +173,7 @@ function loadGlb(){
 
 function onGlbLoad( file ){
     storeElements(file)
-    glbIsLoaded.value = true
+    addElementsToTheScene()
 }
 
 function storeElements( file ) {
@@ -165,11 +184,11 @@ function storeElements( file ) {
 
         if( child.name.includes("light") ){
 
-            elements.lights.push(child)
+            elements.lights.push(child.clone())
 
         } else if( child.name.includes("sphere") || child.name.includes("cube") ){
 
-            elements.meshs.push(child)
+            elements.meshs.push(child.clone())
 
         }
 
@@ -191,12 +210,12 @@ function addElementsToTheScene(){
 
         if( lightFromBlender.name.includes("2") ){
 
-            lightFromBlender.intensity /= 100
+            lightFromBlender.intensity /= 1000
             scene.add(lightFromBlender)
 
         } else {
 
-            lightFromBlender.intensity /= 10
+            lightFromBlender.intensity /= 100
             scene.add(lightFromBlender)
 
         }
@@ -249,7 +268,7 @@ function addPostProcs(){
 }
 
 function mainTick(){
-    if( !isEnabled.value ){ return }
+    if( !props.stepIsActive ){ return }
 
 	const elapsedTime = clock.elapsedTime
 
@@ -259,6 +278,8 @@ function mainTick(){
 	if( deltaTime > frameRate ){
 
 		doRotation(elapsedTime)
+        
+        console.log("render tick")
 
 		if( postProcsPass.length ){
 			composer.render(scene, camera);
@@ -314,6 +335,8 @@ function doRotation( elapsedTime ){
         ref="canvas" 
         class="canvas"
         :class="{ isEnabled }"
+        :width="canvasSize.width"
+        :height="canvasSize.height"
     ></canvas>
 </template>
 
@@ -322,7 +345,6 @@ function doRotation( elapsedTime ){
     width: 100%;
     height: 100%;
     overflow: hidden;
-    // border: solid 1px red;
 
     position: absolute;
     top: 0;
@@ -352,13 +374,9 @@ function doRotation( elapsedTime ){
     40% {
         filter: brightness(1) sepia(0) blur(0) opacity(1);
     }
-    
-    45% {
-        filter: brightness(1) sepia(5) blur(0) opacity(1);
-    }
 
     50% {
-        filter: brightness(2) sepia(0) blur(0) opacity(1);
+        filter: brightness(2) sepia(3) blur(0) opacity(1);
     }
     
     75% {
