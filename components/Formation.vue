@@ -19,7 +19,7 @@ const props = defineProps({
 		:status="status" 
 		:wording="wording" 
 		modelName="abstractOne"
-		:modelTimeDecay="-20"
+		:modelTimeDecay="10"
 		:modelIsBaked="false"
 	>
 

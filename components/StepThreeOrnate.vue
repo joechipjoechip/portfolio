@@ -215,6 +215,8 @@ function addElementsToTheScene(){
     if( !props.isBaked ){
 
         elements.lights.forEach(lightFromBlender => {
+
+            lightFromBlender.color = new THREE.Color(1,1,1)
     
             if( lightFromBlender.name.includes("2") ){
     
@@ -328,40 +330,17 @@ function mainTick(){
 
 function doRotation( elapsedTime ){
 
-    const moveValue = Math.sin((elapsedTime + props.modelTimeDecay) / 25)
+    const moveValue1 = Math.sin((elapsedTime + props.modelTimeDecay) / 5) * 2
+    const moveValue2 = Math.sin((elapsedTime + props.modelTimeDecay) / 25) * 6
 
-    elements.meshs.forEach((mesh, index) => {
+    elements.meshs.forEach(mesh => {
+        mesh.rotation.x = moveValue1
+        mesh.rotation.z = moveValue2
+    })
 
-        const isPair = index % 2 === 0
-
-        if( isPair ){
-
-            // mesh.rotation.y = moveValue
-            mesh.rotation.x = moveValue * 2
-            mesh.rotation.z = moveValue * 6
-
-            if( elements.lights[index] ){
-
-                elements.lights[index].position.z = 2 + moveValue * 2
-
-            } 
-            
-        } else {
-            
-            // mesh.rotation.x = moveValue * -2
-            mesh.rotation.y = moveValue * -1
-            mesh.rotation.z = moveValue * -8
-            
-            
-            if( elements.lights[index] ){
-
-                elements.lights[index].position.z = 2 + moveValue * - 2
-
-            } 
-
-        }
-
-
+    elements.lights.forEach(light => {
+        // light.rotation.x = moveValue1 * 10
+        light.rotation.y = moveValue2 * 50
     })
 
 }
