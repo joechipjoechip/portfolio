@@ -192,7 +192,7 @@ function storeElements( file ) {
 
             elements.lights.push(child.clone())
 
-        } else if( child.name.includes("sphere") || child.name.includes("cube") ){
+        } else if( child.type === "Mesh" ){
 
             elements.meshs.push(child.clone())
 
