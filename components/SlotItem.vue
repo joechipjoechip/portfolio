@@ -304,14 +304,31 @@ function playSound(){
 							opacity: 1,
 
 							transition: {
-								duration: props.animationConfig.long * 1.7,
+								duration: props.animationConfig.long * 1.2,
 								ease: 'backInOut'
 							}
 						}"
 					></span>
 				</h4>
 		
-				<div class="description">
+				<div class="description"
+					v-motion
+					:initial="{ 
+						y: 300,
+						opacity: 0
+					}"
+					:delay="idealDelay * 0.5"
+
+					:enter="{ 
+						y: 0,
+						opacity: 1,
+
+						transition: {
+							duration: props.animationConfig.medium,
+							ease: 'backInOut'
+						}
+					}"
+				>
 		
 					<p v-for="sentence in props.data.description" :key="sentence.id" 
 						v-html="sentence"

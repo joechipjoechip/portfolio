@@ -73,7 +73,7 @@ function onTouchEnd(){
 	
 	isCurrentlyManipulatedIndex.value = false
 
-	decayX.value = 105
+	decayX.value = 103
 
 	decayY.value = 0
 	
@@ -166,11 +166,6 @@ const scaleRatio = ref(0.9)
 		width: 80%;
 		max-width: 1050px;
 		margin: 0 auto;
-		border-radius: 60px;
-		// min-height: 100vh;
-		// border: solid 2px red;
-
-		// color: white;
 	}
 }
 
@@ -201,19 +196,47 @@ const scaleRatio = ref(0.9)
 	
 		&.isPrevious,
 		&.isNext {
+			z-index: 15;
 			opacity: 1;
 			z-index: 50;
 			backdrop-filter: blur(5px);
-			background-color: var(--bg-black-25);
+			background-color: var(--bg-white-05);
 			border: solid 1px transparent;
 
-			will-change: border;
-
-			animation: 4s animSiblings infinite;
+			animation: 10s animSiblings infinite;
 
 			&:hover {
-				opacity: 0.9;
+				// opacity: 0.85;
 				cursor: grab;
+
+				&::after {
+					background-color: var(--bg-black-65);
+
+				}
+
+			}
+
+			&::after {
+				content: "";
+				z-index: 20;
+				display: block;
+				position: absolute;
+				width: 95%;
+				height: 95%;
+
+				top: 50%;
+				left: 50%;
+				transform: translate3d(-50%, -50%, 0);
+
+				border-radius:var(--borderRadiusBig);
+
+				background-color: var(--bg-white-05);
+
+
+				will-change: background-color;
+
+				transition: background-color var(--transitionDurationLong);
+
 			}
 
 			@keyframes animSiblings {
@@ -221,15 +244,13 @@ const scaleRatio = ref(0.9)
 					border: solid 1px rgba(255,255,255, 0)
 				}
 				
-				25%, 75% {
-					border: solid 1px rgba(255,255,255, 0.1)
+				40%, 80% {
+					border: solid 1px rgba(255,255,255, 0.05)
 					
 				}
 				
-			
-				
 				50% {
-					border: solid 1px rgba(255,255,255, 0.25)
+					border: solid 1px rgba(255,255,255, 0.3)
 
 				}
 			}

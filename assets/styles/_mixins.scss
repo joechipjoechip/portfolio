@@ -28,8 +28,9 @@
 
 @mixin scrollbar {
 
+		box-sizing: border-box;
 		&::-webkit-scrollbar {
-			width: 6px;
+			width: var(--scrollbar-width);
 	  	}
 	   
 		&::-webkit-scrollbar-track {

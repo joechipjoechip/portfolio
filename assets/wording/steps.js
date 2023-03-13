@@ -61,7 +61,7 @@ export const stepsWording = {
 			
 			{
 				title: "INFA Crear",
-				body: "web<br>integration",
+				body: "Designer<br>Multimedia",
 				location: "Marseille",
 				date: {
 					year: "2014",

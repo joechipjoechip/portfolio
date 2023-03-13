@@ -50,11 +50,7 @@ const titleIsDisplayed = computed(() => props.status.isActive)
             ]"
         >
 
-            <div v-if="store.currentStepIndex === 0">
-                <!-- ici step accueil -->
-            </div>
-
-            <div v-else 
+            <div
                 class="step-wrapper"
                 v-show="props.status.isActive"
             >
@@ -72,14 +68,14 @@ const titleIsDisplayed = computed(() => props.status.isActive)
                     <h2 class="step-head-title"
                         v-if="titleIsDisplayed"
                         v-motion
-                        :initial="{ x: -35, opacity: 0 }"
-                        :delay="1000"
+                        :initial="{ y: 335, opacity: 0 }"
+                        :delay="1100"
                         :enter="{ 
-                            x: 0,
+                            y: 0,
                             opacity: 1,
 
                             transition: {
-                                duration: 750,
+                                duration: 650,
                                 ease: 'backInOut'
                             }
                         }"
@@ -89,8 +85,25 @@ const titleIsDisplayed = computed(() => props.status.isActive)
                     </h2>
 
                     <SearchBar class="step-head-search" 
+                        v-if="titleIsDisplayed"
                         :color="props.wording.color" 
                         :placeholder="props.wording.placeholder"
+
+                        v-motion
+                        :initial="{ 
+                            y: 480,
+                            opacity: 0
+                        }"
+                        :enter="{ 
+                            y: 0,
+                            opacity: 1,
+
+                            transition: {
+                                duration: 650,
+                                delay: 1400,
+                                ease: 'backInOut'
+                            }
+                        }"
                     />
 
                 </div>
@@ -119,7 +132,7 @@ const titleIsDisplayed = computed(() => props.status.isActive)
 
     &-wrapper {
 
-        border-radius: var(--borderRadiusMedium);
+        border-radius: var(--borderRadiusBig);
         overflow: hidden;
     
         :deep(.step-slot-wrapper){
@@ -170,18 +183,24 @@ const titleIsDisplayed = computed(() => props.status.isActive)
                 }
                 
                 &-title {
-                    width: 40%;
+                    // width: 40%;
                     font-weight: 100;
                     font-style: italic;
                     text-align: center;
                     text-transform: uppercase;
-                    font-size: 4rem;
+                    font-size: 2.7rem;
                     color: var(--bg-white-55);
+
+                    background-color: var(--bg-black-45);
+                    padding: 0.5rem 3rem;
+                    border-radius: 999px;
+                    backdrop-filter: blur(8px);
                 }
 
                 &-search {
                     position: absolute;
                     right: 0;
+                    margin-right: calc(2rem + var(--scrollbar-width));
                 }
         
             }

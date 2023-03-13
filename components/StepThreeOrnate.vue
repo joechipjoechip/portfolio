@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 
@@ -45,6 +46,10 @@ onMounted(() => {
     initRenderer()
     loadGlb()
 
+    initComposer()
+    buildPostProcs()
+    addPostProcs()
+
 })
 
 watch(() => props.stepIsActive, newVal => {
@@ -81,7 +86,9 @@ function displayCanvas(){
 
 function sizeCanvasInfos(){
 
-    const { width, height } = canvas.value.parentNode?.getBoundingClientRect()
+    console.log("canvas sizing : ", canvas.value)
+
+    const { width, height } = canvas.value?.getBoundingClientRect()
 
     canvasSize.width = width
     canvasSize.height = height
@@ -317,7 +324,22 @@ function initComposer(){
 function buildPostProcs(){
 
     // GLITCH :
-    postProcsPass.push(new GlitchPass())
+    // postProcsPass.push(new GlitchPass())
+
+
+    // BLOOM :
+	// const strength = .95
+	// const threshold = 0.045
+	// const radius = 0.01
+
+	// const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+
+	// postProcsPass.push(
+	// 	Object.assign(bloomPass, { threshold, strength, radius })
+	// );
+
+
+    
 
 }
 
@@ -358,8 +380,8 @@ function doRotation( elapsedTime ){
     const moveValue2 = Math.sin((elapsedTime + props.modelTimeDecay) / 25) * 6
 
     elements.meshs.forEach(mesh => {
-        mesh.rotation.x = moveValue1 + (mouse.x / 2  || 0.1)
-        mesh.rotation.z = moveValue2 + (mouse.y / 2  || 0.1)
+        mesh.rotation.x = moveValue1 + (mouse.y / -2  || 0.1)
+        mesh.rotation.z = moveValue2 + (mouse.x / 2  || 0.1)
     })
 
     elements.lights.forEach(light => {
@@ -386,6 +408,7 @@ function doRotation( elapsedTime ){
     width: 100%;
     height: 100%;
     overflow: hidden;
+    border-radius: var(--borderRadiusMedium);
 
     position: absolute;
     top: 50%;
